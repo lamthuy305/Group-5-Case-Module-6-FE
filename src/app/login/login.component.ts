@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     username: new FormControl(''),
     password: new FormControl('')
   });
+  isInvalid: boolean= false;
 
   constructor(private loginService: AuthService) {
   }
@@ -25,8 +26,12 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.user = this.loginForm.value;
-    this.loginService.login(this.user).subscribe(()=>{
-      
+    this.loginService.login(this.user).subscribe((currentUser) => {
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      this.isInvalid=false;
+    }, error => {
+      this.isInvalid=true;
     })
   }
+
 }
