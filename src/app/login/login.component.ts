@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {AuthService} from "../service/auth.service";
+import {AuthService} from "../service/auth/auth.service";
 import {User} from "../model/user";
 
 @Component({
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.user = this.loginForm.value;
     this.loginService.login(this.user).subscribe(()=>{
-      
+
     })
   }
 }
