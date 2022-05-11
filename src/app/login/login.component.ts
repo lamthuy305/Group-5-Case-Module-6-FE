@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {AuthService} from "../service/auth.service";
 import {User} from "../model/user";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   });
   isInvalid: boolean= false;
 
-  constructor(private loginService: AuthService) {
+  constructor(private loginService: AuthService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -29,6 +31,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.user).subscribe((currentUser) => {
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
       this.isInvalid=false;
+      this.router.navigateByUrl('');
     }, error => {
       this.isInvalid=true;
     })
