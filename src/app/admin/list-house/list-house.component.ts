@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {House} from "../../model/house";
+import {StatusHouse} from "../../model/status-house";
+import {Type} from "../../model/type";
+import {HouseService} from "../../service/house/house.service";
+import {TypeService} from "../../service/type/type.service";
+import {StatusHouseService} from "../../service/StatusHouse/status-house.service";
+
 
 @Component({
   selector: 'app-list-house',
@@ -6,10 +13,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-house.component.css']
 })
 export class ListHouseComponent implements OnInit {
-
-  constructor() { }
+  houses: House[] = [];
+  type: Type[] = [];
+  statusHouse: StatusHouse[] = [];
+  constructor(private houseService: HouseService,
+              private typeService: TypeService,
+              private statusHouseService: StatusHouseService) { }
 
   ngOnInit() {
+  }
+
+
+  getAllHouses() {
+    this.houseService.getAll().subscribe((listHouse) => {
+      this.houses = listHouse;
+    }, error => {
+      console.log(error);
+    });
   }
 
 }
