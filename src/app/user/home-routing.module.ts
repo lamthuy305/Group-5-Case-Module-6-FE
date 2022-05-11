@@ -5,7 +5,7 @@ import {HomeUserComponent} from './home-user/home-user.component';
 
 const routes: Routes = [
   {
-    path: 'user',
+    path: '',
     component: HomeUserComponent
   }
 ];
