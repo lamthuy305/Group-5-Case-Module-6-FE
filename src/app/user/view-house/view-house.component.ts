@@ -11,6 +11,7 @@ import {House} from '../../model/house';
 })
 export class ViewHouseComponent implements OnInit {
   house: House = {};
+  order: any = {};
 
   constructor(private shareJSService: ShareJSService,
               private houseService: HouseService,
@@ -32,4 +33,6 @@ export class ViewHouseComponent implements OnInit {
       this.house = houseBE;
     });
   }
+
+  getUserId
 }

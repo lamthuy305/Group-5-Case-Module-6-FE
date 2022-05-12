@@ -1,11 +1,14 @@
-
 <!-- Property Details Section Begin -->
 <section class="property-details-section spad">
 
   <div class="container">
     <div class="card-header" style="background: white">
       <div class="card-tools">
-        <a routerLink="/order/{{house.id}}" class="btn btn-info">Đặt ngay</a>
+        <!--        <a routerLink="/order/{{house.id}}" class="btn btn-info">Đặt ngay</a>-->
+        <button class="btn btn-info" data-target="#create-order" data-toggle="modal"
+                type="button">
+          Đặt ngay
+        </button>
       </div>
     </div>
     <div class="row">
@@ -39,9 +42,9 @@
                 <li>
                   <a data-toggle="tab" href="#tab-2" role="tab">Mô tả</a>
                 </li>
-<!--                <li>-->
-<!--                  <a data-toggle="tab" href="#tab-3" role="tab">Thuê nhà</a>-->
-<!--                </li>-->
+                <!--                <li>-->
+                <!--                  <a data-toggle="tab" href="#tab-3" role="tab">Thuê nhà</a>-->
+                <!--                </li>-->
               </ul>
             </div>
             <div class="tab-item-content">
@@ -95,51 +98,7 @@
                     <p>{{house.description}}</p>
                   </div>
                 </div>
-<!--                <div class="tab-pane fade" id="tab-3" role="tabpanel">-->
-<!--                  <body>-->
-<!--                  <div id="booking" class="section">-->
-<!--                    <div class="section-center">-->
-<!--                      <div class="container">-->
-<!--                        <div class="row">-->
-<!--                          <div class="booking-form">-->
-<!--                            <form>-->
-<!--                              <div class="row no-margin">-->
-<!--                                <div class="col-md-4">-->
-<!--                                  <div class="form-header">-->
-<!--                                    <h2>Book Now</h2>-->
-<!--                                  </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-8">-->
-<!--                                  <div class="row no-margin">-->
-<!--                                    <div class="col-md-5">-->
-<!--                                      <div class="form-group">-->
-<!--                                        <span class="form-label">Check In</span>-->
-<!--                                        <input class="form-control" type="date">-->
-<!--                                      </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-md-5">-->
-<!--                                      <div class="form-group">-->
-<!--                                        <span class="form-label">Check out</span>-->
-<!--                                        <input class="form-control" type="date">-->
-<!--                                      </div>-->
-<!--                                    </div>-->
-<!--                                  </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-4">-->
-<!--                                  <div class="form-btn">-->
-<!--                                    <button class="submit-btn">Check availability</button>-->
-<!--                                  </div>-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </form>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  </body>-->
 
-<!--                </div>-->
 
               </div>
             </div>
@@ -212,37 +171,71 @@
 
 
 <!-- Partner Carousel Section Begin -->
-<div class="partner-section">
-  <div class="container">
-    <div class="partner-carousel owl-carousel">
-      <a href="#" class="partner-logo">
-        <div class="partner-logo-tablecell">
-          <img src="img/partner/partner-1.png" alt="">
-        </div>
-      </a>
-      <a href="#" class="partner-logo">
-        <div class="partner-logo-tablecell">
-          <img src="img/partner/partner-2.png" alt="">
-        </div>
-      </a>
-      <a href="#" class="partner-logo">
-        <div class="partner-logo-tablecell">
-          <img src="img/partner/partner-3.png" alt="">
-        </div>
-      </a>
-      <a href="#" class="partner-logo">
-        <div class="partner-logo-tablecell">
-          <img src="img/partner/partner-4.png" alt="">
-        </div>
-      </a>
-      <a href="#" class="partner-logo">
-        <div class="partner-logo-tablecell">
-          <img src="img/partner/partner-5.png" alt="">
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
+<!--<div class="partner-section">-->
+<!--  <div class="container">-->
+<!--    <div class="partner-carousel owl-carousel">-->
+<!--      <a href="#" class="partner-logo">-->
+<!--        <div class="partner-logo-tablecell">-->
+<!--          <img src="img/partner/partner-1.png" alt="">-->
+<!--        </div>-->
+<!--      </a>-->
+<!--      <a href="#" class="partner-logo">-->
+<!--        <div class="partner-logo-tablecell">-->
+<!--          <img src="img/partner/partner-2.png" alt="">-->
+<!--        </div>-->
+<!--      </a>-->
+<!--      <a href="#" class="partner-logo">-->
+<!--        <div class="partner-logo-tablecell">-->
+<!--          <img src="img/partner/partner-3.png" alt="">-->
+<!--        </div>-->
+<!--      </a>-->
+<!--      <a href="#" class="partner-logo">-->
+<!--        <div class="partner-logo-tablecell">-->
+<!--          <img src="img/partner/partner-4.png" alt="">-->
+<!--        </div>-->
+<!--      </a>-->
+<!--      <a href="#" class="partner-logo">-->
+<!--        <div class="partner-logo-tablecell">-->
+<!--          <img src="img/partner/partner-5.png" alt="">-->
+<!--        </div>-->
+<!--      </a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 <!-- Partner Carousel Section End -->
 
 
+<div class="modal fade" id="create-order">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><b>Đặt homstay</b></h4>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+          <span class="form-label"><b>Check In</b></span>
+          <input class="form-control" type="date">
+        </div>
+        <div class="form-group">
+          <span class="form-label"><b>Check out</b></span>
+          <input class="form-control" type="date">
+        </div>
+
+
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>
+
+        <button class="btn btn-primary" type="button" aria-label="Close"
+                class="close" data-dismiss="modal">Đặt ngay
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

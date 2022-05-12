@@ -27,31 +27,34 @@
                   <input type="text" class="form-control"
                          placeholder="Tài khoản" formControlName="username">
                 </div>
-                <div style="color: red" [hidden]="UsernameControl.valid || !UsernameControl.touched">
-                  <p *ngIf=" UsernameControl.errors?.required" style="color: red">Không được để trống</p>
+                <p *ngIf="message!=null" style="color:red">{{message}}</p>
+                <div *ngIf="formRegister.get('username').invalid&&formRegister.get('username').touched"><p
+                  style="color: red">Không được để trống</p>
+
                 </div>
                 <div class="form-group">
                   <input type="tel" id="inputEmail" class="form-control"
                          placeholder="Số điện thoại" formControlName="numberPhone">
                 </div>
-                <div [hidden]="numberPhoneControl.valid || !numberPhoneControl.touched">
-                  <p style="color: red" *ngIf=" numberPhoneControl.errors?.required">Không được để trống</p>
+                <div *ngIf="formRegister.get('numberPhone').invalid&&formRegister.get('numberPhone').touched"><p
+                  style="color: red">Không được để trống</p>
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control"
                          placeholder="Mật khẩu" formControlName="password">
                 </div>
-                <div style="color: red" [hidden]="passwordControl.valid || !passwordControl.touched">
-                  <p style="color: red" *ngIf=" passwordControl.errors?.required">Không được để trống</p>
-                  <p *ngIf=" passwordControl.errors?.pattern" style="color: red">Mật khẩu phải từ 6-8 ký tự</p>
+                <div *ngIf="formRegister.get('password').invalid&&formRegister.get('password').touched"><p
+                  style="color: red">Mật khẩu phải từ 6-8 ký tự</p>
                 </div>
+
                 <div class="form-group">
                   <input type="password" class="form-control"
                          placeholder="Nhập lại mật khẩu" formControlName="confirmPassword">
                 </div>
-                <div style="color: red" [hidden]="confirmPasswordControl.valid || !confirmPasswordControl.touched">
-                  <p style="color: red" *ngIf=" confirmPasswordControl.errors?.required">Không được để trống</p>
-                  <p *ngIf="confirmPasswordControl.value!==passwordControl.value" style="color: red">Mật khẩu không trùng khớp</p>
+                <div
+                  *ngIf="formRegister.get('password').value!==formRegister.get('confirmPassword').value&&formRegister.get('confirmPassword').touched">
+                  <p
+                    style="color: red">Mật khẩu không trùng khớp</p>
                 </div>
                 <button type="submit"
                         class="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2">
@@ -61,9 +64,6 @@
               <div class="text-center pt-3">
                 Bạn đã có tài khoản? <a class="font-weight-bold" style="color: #005cbf" routerLink="/login">Đăng nhập
                 ngay!</a>
-              </div>
-              <div class="text-center pt-3"><a class="font-weight-bold" href="register.html" style="color: red">Quên mật
-                khẩu?</a>
               </div>
             </div>
           </div>
