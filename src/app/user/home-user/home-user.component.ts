@@ -23,6 +23,7 @@ export class HomeUserComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.shareJSService.shareJS();
     this.getAllHouse();
   }
 

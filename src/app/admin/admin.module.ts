@@ -2,13 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { ListHouseComponent } from './list-house/list-house.component';
+import {ListHouseComponent} from './list-house/list-house.component';
+import { CreateHouseComponent } from './create-house/create-house.component';
+import { EditHouseComponent } from './edit-house/edit-house.component';
+import { OrderComponent } from './Order/order.component';
+import { ViewUserComponent } from './view-user/view-user.component';
 
 
 @NgModule({
-  declarations: [ListHouseComponent],
+  declarations: [ListHouseComponent, CreateHouseComponent, EditHouseComponent, OrderComponent, ViewUserComponent],
   exports: [
-    ListHouseComponent
+    ListHouseComponent,
+    CreateHouseComponent,
+    EditHouseComponent,
+    OrderComponent
   ],
   imports: [
     CommonModule,

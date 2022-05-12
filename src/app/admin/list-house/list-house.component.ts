@@ -1,6 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-
-
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-list-house',
@@ -9,9 +7,9 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ListHouseComponent implements OnInit {
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
   }
+
 }
