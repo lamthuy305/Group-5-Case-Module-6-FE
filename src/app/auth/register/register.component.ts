@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
 
     };
     for (let user of this.users) {
-      if (user.username === this.user.username) {
+      if (user.username === this.user.username.toLowerCase()) {
         this.message = 'Tài khoản đã tồn tại!';
         break;
       }
