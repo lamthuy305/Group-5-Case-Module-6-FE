@@ -5,6 +5,8 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeUserComponent } from './home-user/home-user.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ViewHouseComponent } from './view-house/view-house.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -12,7 +14,9 @@ import { ViewHouseComponent } from './view-house/view-house.component';
   imports: [
     CommonModule,
     HomeRoutingModule,
-
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
   ]
 })
 export class HomeModule { }

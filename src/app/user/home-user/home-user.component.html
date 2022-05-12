@@ -79,60 +79,6 @@
 </div>
 <!-- Search Form Section End -->
 
-<!--<div class="card-body">-->
-
-<!--  <table id="books-list" class="table table-bordered table-hover">-->
-<!--    <thead class="table-dark">-->
-<!--    <tr>-->
-<!--      <th>#</th>-->
-<!--      <th>name</th>-->
-<!--      <th>area</th>-->
-<!--      <th>location</th>-->
-<!--      <th>bedroom</th>-->
-<!--      <th>bathroom</th>-->
-<!--      <th>price</th>-->
-<!--      <th>img</th>-->
-<!--      <th>count_rent</th>-->
-<!--      <th>statusHouse</th>-->
-<!--      <th>type</th>-->
-<!--      <th>user</th>-->
-<!--      <th></th>-->
-<!--      <th></th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr *ngFor="let house of houses; index as i">-->
-<!--      <td>{{i + 1}}</td>-->
-<!--      <td>{{house.name}}</td>-->
-<!--      <td>{{house.area}}</td>-->
-<!--      <td>{{house.location}}</td>-->
-<!--      <td>{{house.bedroom}}</td>-->
-<!--      <td>{{house.bathroom}}</td>-->
-<!--      <td>{{house.price}}</td>-->
-<!--      <td><img src="http://localhost:8080/image/{{house.img}}" alt=""></td>-->
-<!--      <td>{{house.count_rent}}</td>-->
-<!--      <td>{{house.statusHouse.name}}</td>-->
-<!--      <td>{{house.type.name}}</td>-->
-<!--      <td>{{house.user.id}}</td>-->
-
-<!--      <td class="text-center">-->
-<!--        <a class="btn btn-info"-->
-<!--           routerLink="/books/edit/{{house.id}}">-->
-<!--          <i class="fa fa-edit"></i>-->
-<!--        </a>-->
-<!--      </td>-->
-<!--      <td class="text-center">-->
-<!--        <a class="btn btn-danger" (click)="delete(house.id)">-->
-<!--          <i class="fa fa-trash"></i>-->
-<!--        </a>-->
-<!--      </td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--  </table>-->
-<!--</div>-->
-
-
-
 
 <!-- Feature Section Begin -->
 <section class="feature-section spad">
@@ -154,11 +100,7 @@
 
           <div class="col-lg-4">
             <div class="feature-item">
-              <div class="fi-pic set-bg" data-setbg="../../../assets/img/hero/hero-1.jpg">
-                <div class="pic-tag">
-<!--                  <div class="f-text">feauture {{i}}</div>-->
-                  <div class="s-text"><a routerLink="/view/{{house.id}}"><i class="fa fa-search"></i></a></div>
-                </div>
+              <div class="fi-pic set-bg" data-setbg="../../../assets/img/hero/hero-1.jpg" (click)="viewHouseById(house.id)">
                 <div class="feature-author">
                   <div class="fa-pic">
                     <img src="http://localhost:8080/image/{{house.img}}" alt="">
@@ -190,60 +132,16 @@
                     <i class="fa fa-bath"></i>
                     <p>{{house.bathroom}}</p>
                   </li>
+
+                  <li>
+                    <i class="fa fa-shopping-cart"></i>
+                    <p>{{house.count_rent}}</p>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-
-
-        <!--        <div class="col-lg-4">-->
-        <!--          <div class="feature-item">-->
-        <!--            <div class="fi-pic set-bg" data-setbg="a">-->
-        <!--              <div class="pic-tag">-->
-        <!--                <div class="f-text">feauture</div>-->
-        <!--                <div class="s-text">For Sale</div>-->
-        <!--              </div>-->
-        <!--              <div class="feature-author">-->
-        <!--                <div class="fa-pic">-->
-        <!--                  <img src="img/feature/f-author-1.jpg" alt="">-->
-        <!--                </div>-->
-        <!--                <div class="fa-text">-->
-        <!--                  <span>Rena Simmons</span>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--            <div class="fi-text">-->
-        <!--              <div class="inside-text">-->
-        <!--                <h4>French Riviera Villa 1</h4>-->
-        <!--                <ul>-->
-        <!--                  <li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>-->
-        <!--                  <li><i class="fa fa-tag"></i> Villa</li>-->
-        <!--                </ul>-->
-        <!--                <h5 class="price">$5900<span>/month</span></h5>-->
-        <!--              </div>-->
-        <!--              <ul class="room-features">-->
-        <!--                <li>-->
-        <!--                  <i class="fa fa-arrows"></i>-->
-        <!--                  <p>780 sqft</p>-->
-        <!--                </li>-->
-        <!--                <li>-->
-        <!--                  <i class="fa fa-bed"></i>-->
-        <!--                  <p>4</p>-->
-        <!--                </li>-->
-        <!--                <li>-->
-        <!--                  <i class="fa fa-bath"></i>-->
-        <!--                  <p>3</p>-->
-        <!--                </li>-->
-        <!--                <li>-->
-        <!--                  <i class="fa fa-car"></i>-->
-        <!--                  <p>2</p>-->
-        <!--                </li>-->
-        <!--              </ul>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--        </div>-->
-
 
       </div>
     </div>
@@ -371,89 +269,7 @@
 </div>
 <!-- Top Properties Section End -->
 
-<!-- Agent Section Begin -->
-<!--<section class="agent-section spad">-->
-<!--  <div class="container">-->
-<!--    <div class="row">-->
-<!--      <div class="col-lg-12">-->
-<!--        <div class="section-title">-->
-<!--          <span>We Are To Help You</span>-->
-<!--          <h2>Our Agents</h2>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="row">-->
-<!--      <div class="agent-carousel owl-carousel">-->
-<!--        <div class="col-lg-3">-->
-<!--          <div class="single-agent">-->
-<!--            <div class="sa-pic">-->
-<!--              <img src="../../../assets/img/agent/agent-1.jpg" alt="">-->
-<!--              <div class="hover-social">-->
-<!--                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>-->
-<!--                <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>-->
-<!--                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <h5>Matthew Robbins <span>Founder & Ceo</span></h5>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-lg-3">-->
-<!--          <div class="single-agent">-->
-<!--            <div class="sa-pic">-->
-<!--              <img src="../../../assets/img/agent/agent-2.jpg" alt="">-->
-<!--              <div class="hover-social">-->
-<!--                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>-->
-<!--                <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>-->
-<!--                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <h5>Tillie Burns <span>Marketing Manager</span></h5>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-lg-3">-->
-<!--          <div class="single-agent">-->
-<!--            <div class="sa-pic">-->
-<!--              <img src="../../../assets/img/agent/agent-3.jpg" alt="">-->
-<!--              <div class="hover-social">-->
-<!--                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>-->
-<!--                <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>-->
-<!--                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <h5>Derrick Lawson <span>Company Agents</span></h5>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-lg-3">-->
-<!--          <div class="single-agent">-->
-<!--            <div class="sa-pic">-->
-<!--              <img src="../../../assets/img/agent/agent-4.jpg" alt="">-->
-<!--              <div class="hover-social">-->
-<!--                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>-->
-<!--                <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>-->
-<!--                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <h5>Clifford Colon <span>Saler Manager</span></h5>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-lg-3">-->
-<!--          <div class="single-agent">-->
-<!--            <div class="sa-pic">-->
-<!--              <img src="../../../assets/img/agent/agent-5.jpg" alt="">-->
-<!--              <div class="hover-social">-->
-<!--                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>-->
-<!--                <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>-->
-<!--                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <h5>Clifford Colon <span>Saler Manager</span></h5>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</section>-->
-<!-- Agent Section End -->
+
 
 <!-- Latest Blog Section Begin -->
 <section class="blog-section latest-blog spad">
