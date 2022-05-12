@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {House} from "../../model/house";
 import {StatusHouse} from "../../model/status-house";
 import {Type} from "../../model/type";
@@ -14,13 +14,18 @@ import {StatusHouseService} from "../../service/StatusHouse/status-house.service
 })
 export class ListHouseComponent implements OnInit {
   houses: House[] = [];
-  type: Type[] = [];
-  statusHouse: StatusHouse[] = [];
+  types: Type[] = [];
+  statusHouses: StatusHouse[] = [];
+
   constructor(private houseService: HouseService,
               private typeService: TypeService,
-              private statusHouseService: StatusHouseService) { }
+              private statusHouseService: StatusHouseService) {
+  }
 
   ngOnInit() {
+    this.getAllStatusHouse();
+    this.getAllTypes();
+    this.getAllHouses();
   }
 
 
@@ -32,4 +37,17 @@ export class ListHouseComponent implements OnInit {
     });
   }
 
+  getAllTypes() {
+    this.typeService.getAll().subscribe((listType) => {
+      this.types = listType;
+    })
+  }
+
+  getAllStatusHouse() {
+    this.statusHouseService.getAll().subscribe((listStatusOfHouse) => {
+      this.statusHouses = listStatusOfHouse;
+    }, error => {
+      console.log(error)
+    });
+  }
 }

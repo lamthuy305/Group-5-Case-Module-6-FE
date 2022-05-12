@@ -6,17 +6,18 @@ export interface House {
   bedroom?: number;
   bathroom?: number;
   price?: number;
+  description?:string;
   img?: File;
   count_rent?: number;
-  statusHouse: {
+  statusHouse?: {
     id?: number;
     name?: string;
   };
-  type: {
+  type?: {
     id?: number;
     name?: string;
   };
-  user: {
-    id: number
+  user?: {
+    id?: number
   };
 }

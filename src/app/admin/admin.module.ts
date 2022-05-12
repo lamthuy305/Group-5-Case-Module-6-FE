@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { ListHouseComponent } from './list-house/list-house.component';
-import { CreateHouseComponent } from './create-house/create-house.component';
+import { ListHouseComponent } from '../house/list-house/list-house.component';
+import { CreateHouseComponent } from '../house/create-house/create-house.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 

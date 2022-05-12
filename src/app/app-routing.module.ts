@@ -3,8 +3,8 @@ import {Routes, RouterModule} from '@angular/router';
 import {AdminLayoutComponent} from './layout/admin/admin-layout/admin-layout.component';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './layout/user/home/home.component';
-import {ListHouseComponent} from "./admin/list-house/list-house.component";
-import {CreateHouseComponent} from "./admin/create-house/create-house.component";
+import {ListHouseComponent} from "./house/list-house/list-house.component";
+import {CreateHouseComponent} from "./house/create-house/create-house.component";
 
 
 const routes: Routes = [
@@ -23,13 +23,14 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path:'houses',
-    component: ListHouseComponent,
+    path: 'list',
+    component: ListHouseComponent
   },
   {
-    path:'houses/create',
-    component: CreateHouseComponent,
+    path: 'create',
+    component: CreateHouseComponent
   }
+
 ];
 
 @NgModule({
