@@ -7,11 +7,11 @@ import {ViewHouseComponent} from './view-house/view-house.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeUserComponent
   },
   {
-    path: 'house',
+    path: 'view/:id',
     component: ViewHouseComponent
   },
   {

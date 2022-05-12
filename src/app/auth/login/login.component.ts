@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.user).subscribe((currentUser) => {
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
       this.isInvalid=false;
-      this.router.navigateByUrl('');
+      this.router.navigateByUrl('/home');
     }, error => {
       this.isInvalid=true;
     })
