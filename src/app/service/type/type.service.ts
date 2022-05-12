@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Type} from '../../model/type';
-import {environment} from '../../../environments/environment';
-const API_URL = `${environment.apiUrl}`;
+import {environment} from "../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Type} from "../../model/type";
+import {Injectable} from '@angular/core';
+const API_URL = `${environment.apiUrl}`
+
 
 @Injectable({
   providedIn: 'root'

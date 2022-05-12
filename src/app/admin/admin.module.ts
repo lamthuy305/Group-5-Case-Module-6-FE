@@ -7,7 +7,6 @@ import { CreateHouseComponent } from './create-house/create-house.component';
 import { EditHouseComponent } from './edit-house/edit-house.component';
 import { OrderComponent } from './Order/order.component';
 import { ViewUserComponent } from './view-user/view-user.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -18,12 +17,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     EditHouseComponent,
     OrderComponent
   ],
-    imports: [
-        CommonModule,
-        AdminRoutingModule,
-        ReactiveFormsModule,
-      FormsModule,
-
-    ]
+  imports: [
+    CommonModule,
+    AdminRoutingModule
+  ]
 })
 export class AdminModule { }
