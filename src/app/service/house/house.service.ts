@@ -21,12 +21,12 @@ export class HouseService {
     return this.http.get<House>(`${API_URL}/houses/${id}`);
   }
 
-  createHouse(book) {
-    return this.http.post(`${API_URL}/houses`, book);
+  createHouse(house) {
+    return this.http.post(`${API_URL}/houses`, house);
   }
 
-  editHouse(id, book) {
-    return this.http.put<House>(`${API_URL}/houses/${id}`, book);
+  editHouse(id, house) {
+    return this.http.put<House>(`${API_URL}/houses/${id}`, house);
   }
 
   deleteHouse(id): Observable<House> {
