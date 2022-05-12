@@ -41,13 +41,13 @@
                 <button type="submit"
                         class="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Đăng nhập</button>
                 <p *ngIf="isInvalid" class="font-weight-bold" style="text-align: center;color: red">Tài khoản hoặc mật khẩu không đúng!</p>
-                <div class="text-center pt-3">
-                  Bạn chưa có tài khoản? <a class="font-weight-bold" style="color: #005cbf">Đăng ký ngay!</a>
-                </div>
-                <div class="text-center pt-3"><a class="font-weight-bold" href="register.html" style="color: red">Quên mật khẩu?</a>
-                </div>
               </form>
-              <hr class="my-4">
+              <div class="text-center pt-3">
+              Bạn chưa có tài khoản? <a class="font-weight-bold" style="color: #005cbf" routerLink="/register">Đăng ký ngay!</a>
+            </div>
+              <div class="text-center pt-3"><a class="font-weight-bold" href="register.html" style="color: red">Quên mật khẩu?</a>
+              </div>
+<!--              <hr class="my-4">-->
 <!--              <p class="text-center">ĐĂNG NHẬP BẰNG TÀI KHOẢN MXH</p>-->
 <!--              <div class="row">-->
 <!--                <div class="col pr-2">-->
