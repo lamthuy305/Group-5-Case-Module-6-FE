@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   });
   isInvalid: boolean= false;
 
-  constructor(private loginService: AuthService,
+  constructor(private authService: AuthService,
               private router: Router) {
   }
 
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.user = this.loginForm.value;
-    this.loginService.login(this.user).subscribe((currentUser) => {
+    this.authService.login(this.user).subscribe((currentUser) => {
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
       this.isInvalid=false;
       this.router.navigateByUrl('');
