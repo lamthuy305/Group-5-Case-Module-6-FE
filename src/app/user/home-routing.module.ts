@@ -8,11 +8,11 @@ import {ProfileEditComponent} from "./profile-edit/profile-edit.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeUserComponent
   },
   {
-    path: 'house',
+    path: 'view/:id',
     component: ViewHouseComponent
   },
   {
