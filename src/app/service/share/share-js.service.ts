@@ -12,25 +12,29 @@ export class ShareJSService {
   }
 
   shareJS() {
-
+    $(document).ready(function() {
+      $(window).on('load', function() {
+        $('.loader').fadeOut();
+        $('#preloder').delay(200).fadeOut('slow');
+      });
 
       /*------------------
           Background Set
       --------------------*/
-      $('.set-bg').each(function () {
+      $('.set-bg').each(function() {
         var bg = $(this).data('setbg');
         $(this).css('background-image', 'url(' + bg + ')');
       });
 
-      $(".canvas-open").on('click', function () {
-        $(".offcanvas-menu-wrapper").addClass("show-offcanvas-menu-wrapper");
-        $(".offcanvas-menu-overlay").addClass("active");
+      $('.canvas-open').on('click', function() {
+        $('.offcanvas-menu-wrapper').addClass('show-offcanvas-menu-wrapper');
+        $('.offcanvas-menu-overlay').addClass('active');
       });
 
 
-      $(".canvas-close, .offcanvas-menu-overlay").on('click', function () {
-        $(".offcanvas-menu-wrapper").removeClass("show-offcanvas-menu-wrapper");
-        $(".offcanvas-menu-overlay").removeClass("active");
+      $('.canvas-close, .offcanvas-menu-overlay').on('click', function() {
+        $('.offcanvas-menu-wrapper').removeClass('show-offcanvas-menu-wrapper');
+        $('.offcanvas-menu-overlay').removeClass('active');
       });
 
       /*------------------
@@ -54,13 +58,13 @@ export class ShareJSService {
       /*------------------
           Carousel Slider
       --------------------*/
-      var hero_s = $(".hero-items");
-      var thumbnailSlider = $(".thumbs");
+      var hero_s = $('.hero-items');
+      var thumbnailSlider = $('.thumbs');
       var duration = 500;
       var syncedSecondary = true;
 
-      setTimeout(function () {
-        $(".cloned .item-slider-model a").attr("data-fancybox", "group-2");
+      setTimeout(function() {
+        $('.cloned .item-slider-model a').attr('data-fancybox', 'group-2');
       }, 500);
 
       // carousel function for main slider
@@ -74,14 +78,14 @@ export class ShareJSService {
         animateOut: 'fadeOut',
         smartSpeed: 1200,
         autoHeight: false,
-      }).on("changed.owl.carousel", syncPosition);
+      }).on('changed.owl.carousel', syncPosition);
 
       // carousel function for thumbnail slider
-      thumbnailSlider.on("initialized.owl.carousel", function () {
+      thumbnailSlider.on('initialized.owl.carousel', function() {
         thumbnailSlider
-          .find(".owl-item")
+          .find('.owl-item')
           .eq(0)
-          .addClass("current");
+          .addClass('current');
       }).owlCarousel({
         loop: false,
         items: 3,
@@ -107,13 +111,13 @@ export class ShareJSService {
           }
         }
       })
-        .on("changed.owl.carousel", syncPosition2);
+        .on('changed.owl.carousel', syncPosition2);
 
       // on click thumbnaisl
-      thumbnailSlider.on("click", ".owl-item", function (e) {
+      thumbnailSlider.on('click', '.owl-item', function(e) {
         e.preventDefault();
         var number = $(this).index();
-        hero_s.data("owl.carousel").to(number, 300, true);
+        hero_s.data('owl.carousel').to(number, 300, true);
       });
 
       function syncPosition(el) {
@@ -128,39 +132,39 @@ export class ShareJSService {
         }
 
         thumbnailSlider
-          .find(".owl-item")
-          .removeClass("current")
+          .find('.owl-item')
+          .removeClass('current')
           .eq(current)
-          .addClass("current");
-        var onscreen = thumbnailSlider.find(".owl-item.active").length - 1;
+          .addClass('current');
+        var onscreen = thumbnailSlider.find('.owl-item.active').length - 1;
         var start = thumbnailSlider
-          .find(".owl-item.active")
+          .find('.owl-item.active')
           .first()
           .index();
         var end = thumbnailSlider
-          .find(".owl-item.active")
+          .find('.owl-item.active')
           .last()
           .index();
 
         if (current > end) {
-          thumbnailSlider.data("owl.carousel").to(current, 100, true);
+          thumbnailSlider.data('owl.carousel').to(current, 100, true);
         }
         if (current < start) {
-          thumbnailSlider.data("owl.carousel").to(current - onscreen, 100, true);
+          thumbnailSlider.data('owl.carousel').to(current - onscreen, 100, true);
         }
       }
 
       function syncPosition2(el) {
         if (syncedSecondary) {
           var number = el.item.index;
-          slider.data("owl.carousel").to(number, 100, true);
+          slider.data('owl.carousel').to(number, 100, true);
         }
       }
 
       /*-------------------
       Feature Slider
       --------------------- */
-      $(".feature-carousel").owlCarousel({
+      $('.feature-carousel').owlCarousel({
         items: 3,
         dots: true,
         autoplay: true,
@@ -183,7 +187,7 @@ export class ShareJSService {
       /*-------------------
       Properties Slider
       --------------------- */
-      $(".top-properties-carousel").owlCarousel({
+      $('.top-properties-carousel').owlCarousel({
         items: 1,
         dots: false,
         autoplay: true,
@@ -191,13 +195,13 @@ export class ShareJSService {
         loop: true,
         smartSpeed: 1200,
         nav: true,
-        navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"]
+        navText: ['<i class=\'fa fa-angle-left\'></i>', '<i class=\'fa fa-angle-right\'></i>']
       });
 
       /*-------------------
       Agent Slider
       --------------------- */
-      $(".agent-carousel").owlCarousel({
+      $('.agent-carousel').owlCarousel({
         items: 4,
         dots: false,
         // autoplay: true,
@@ -205,7 +209,7 @@ export class ShareJSService {
         loop: true,
         smartSpeed: 1200,
         nav: true,
-        navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+        navText: ['<i class=\'fa fa-angle-left\'></i>', '<i class=\'fa fa-angle-right\'></i>'],
         responsive: {
           320: {
             items: 1,
@@ -225,7 +229,7 @@ export class ShareJSService {
       /*-------------------
       Partner Slider
       --------------------- */
-      $(".partner-carousel").owlCarousel({
+      $('.partner-carousel').owlCarousel({
         items: 5,
         dots: false,
         autoplay: false,
@@ -256,7 +260,7 @@ export class ShareJSService {
       /*-------------------
       Propery Short Slider
       --------------------- */
-      $(".ps-slider").owlCarousel({
+      $('.ps-slider').owlCarousel({
         items: 5,
         dots: false,
         autoplay: false,
@@ -268,7 +272,7 @@ export class ShareJSService {
       /*------------------------
       Testimonial Slider
       ----------------------- */
-      $(".testimonial-slider").owlCarousel({
+      $('.testimonial-slider').owlCarousel({
         items: 1,
         dots: true,
         autoplay: true,
@@ -293,60 +297,60 @@ export class ShareJSService {
       Range Slider
       --------------------- */
       //price 1
-      $("#price-range").slider({
+      $('#price-range').slider({
         range: true,
         min: 0,
         max: 1600000,
         values: [0, 1000000],
-        slide: function (event, ui) {
-          $("#priceRange").val("[" + ui.values[0] + "-" + ui.values[1] + "]" + "$");
+        slide: function(event, ui) {
+          $('#priceRange').val('[' + ui.values[0] + '-' + ui.values[1] + ']' + '$');
         }
       });
-      $("#priceRange").val("[" + $("#price-range").slider("values", 0) + "-" + $("#price-range").slider("values", 1) + "]" + "$");
+      $('#priceRange').val('[' + $('#price-range').slider('values', 0) + '-' + $('#price-range').slider('values', 1) + ']' + '$');
 
       //price 2
-      $("#price-range-P").slider({
+      $('#price-range-P').slider({
         range: true,
         min: 0,
         max: 1600000,
         step: 50,
         values: [50, 1000000],
-        slide: function (event, ui) {
-          $("#priceRangeP").val("[ " + "$" + ui.values[0] + " - " + "$" + ui.values[1] + " ]");
+        slide: function(event, ui) {
+          $('#priceRangeP').val('[ ' + '$' + ui.values[0] + ' - ' + '$' + ui.values[1] + ' ]');
         }
       });
-      $("#priceRangeP").val("[ " + "$" + $("#price-range-P").slider("values", 0) + " - " + "$" + $("#price-range-P").slider("values", 1) + " ]");
+      $('#priceRangeP').val('[ ' + '$' + $('#price-range-P').slider('values', 0) + ' - ' + '$' + $('#price-range-P').slider('values', 1) + ' ]');
 
       //room size 1
-      $("#roomsize-range").slider({
+      $('#roomsize-range').slider({
         range: true,
         min: 0,
         max: 4500,
         step: 500,
         values: [500, 3000],
-        slide: function (event, ui) {
-          $("#roomsizeRange").val("[" + ui.values[0] + "-" + ui.values[1] + "]" + "sqft");
+        slide: function(event, ui) {
+          $('#roomsizeRange').val('[' + ui.values[0] + '-' + ui.values[1] + ']' + 'sqft');
         }
       });
-      $("#roomsizeRange").val("[" + $("#roomsize-range").slider("values", 0) + "-" + $("#roomsize-range").slider("values", 1) + "]" + "sqft");
+      $('#roomsizeRange').val('[' + $('#roomsize-range').slider('values', 0) + '-' + $('#roomsize-range').slider('values', 1) + ']' + 'sqft');
 
       //room size 2
-      $("#roomsize-range-P").slider({
+      $('#roomsize-range-P').slider({
         range: true,
         min: 0,
         max: 1400,
         step: 200,
         values: [200, 999],
-        slide: function (event, ui) {
-          $("#roomsizeRangeP").val("[ " + ui.values[0] + " Fqft" + " - " + ui.values[1] + " Fqft" + " ]");
+        slide: function(event, ui) {
+          $('#roomsizeRangeP').val('[ ' + ui.values[0] + ' Fqft' + ' - ' + ui.values[1] + ' Fqft' + ' ]');
         }
       });
-      $("#roomsizeRangeP").val("[ " + $("#roomsize-range-P").slider("values", 0) + " Fqft" + " - " + $("#roomsize-range-P").slider("values", 1) + " Fqft" + " ]");
+      $('#roomsizeRangeP').val('[ ' + $('#roomsize-range-P').slider('values', 0) + ' Fqft' + ' - ' + $('#roomsize-range-P').slider('values', 1) + ' Fqft' + ' ]');
 
       /*------------------
       Single Product
     --------------------*/
-      $('.product-thumbs-track .pt').on('click', function () {
+      $('.product-thumbs-track .pt').on('click', function() {
         $('.product-thumbs-track .pt').removeClass('active');
         $(this).addClass('active');
         var imgurl = $(this).data('imgbigurl');
@@ -357,5 +361,6 @@ export class ShareJSService {
           });
         }
       });
+    });
   }
 }
