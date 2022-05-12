@@ -7,7 +7,7 @@ import {ViewHouseComponent} from './view-house/view-house.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeUserComponent
   },
   {
