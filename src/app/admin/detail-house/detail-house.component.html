@@ -1,53 +1,53 @@
 <h3>Thêm homestay mới</h3>
-<form [formGroup]="houseForm" (ngSubmit)="submit()">
+<form [formGroup]="houseForm">
   <div class="form-control">
     <label for="name">Tên:</label>
     <input type="text" id="name" formControlName="name" placeholder="tên" value="{{house.name}}">
   </div>
   <div class="form-control">
     <label for="img">Ảnh:</label>
-    <input type="file" id="img" formControlName="img" [value]="house.img">
+    <input type="file" id="img" formControlName="img" >
   </div>
   <div  class="form-control">
     <label for="area">Diện tích:</label>
-    <input type="text" id="area" formControlName="area" [value]="house.area">
+    <input type="text" id="area" formControlName="area">
   </div>
   <div  class="form-control">
     <label for="location">Địa Chỉ:</label>
-    <input type="text" id="location" placeholder="địa chỉ" [value]="house.location">
+    <input type="text" id="location" placeholder="địa chỉ">
   </div>
   <div  class="form-control">
     <label for="type">Loại phòng:</label>
     <select formControlName="type">
       <option disabled [ngValue]="undefined">Chọn loại phòng</option>
-      <option id="type" [value]="house.type.id" *ngFor="let type of types">{{house.type.id}}</option>
+      <option id="type" [value]="type.id" *ngFor="let type of types">{{house.type.name}}</option>
     </select>
   </div>
   <div  class="form-control">
     <label for="bedroom">Số phòng ngủ:</label>
-    <input type="number" id="bedroom" formControlName="bedroom" placeholder="số phòng ngủ" [value]="house.bedroom">
+    <input type="number" id="bedroom" formControlName="bedroom" placeholder="số phòng ngủ">
   </div>
   <div  class="form-control">
     <label for="bathroom">Số phòng tắm:</label>
-    <input type="number" id="bathroom" formControlName="bathroom" placeholder="số phòng tắm" [value]="house.bathroom">
+    <input type="number" id="bathroom" formControlName="bathroom" placeholder="số phòng tắm">
   </div>
   <div  class="form-control">
     <label for="price">Giá phòng / đêm:</label>
-    <input type="number" id="price" formControlName="price" value="{{house.price}}">
+    <input type="number" id="price" formControlName="price">
   </div>
   <div class="form-control">
     <label for="description">Mô tả:</label>
-    <input id="description" formControlName="description" value="{{house.description}}">
+    <input id="description" formControlName="description">
   </div>
   <div class="form-control">
     <label for="count_rent">Lượt thuê:</label>
-    <input type="number" id="count_rent" formControlName="count_rent" value="{{house.count_rent}}">
+    <input type="number" id="count_rent" formControlName="count_rent">
   </div>
   <div class="form-control">
     <label for="statusHouse">Trạng thái:</label>
     <select formControlName="statusHouse">
       <option disabled [ngValue]="undefined">Chọn trạng thái</option>
-      <option id="statusHouse" [value]="house.statusHouse.id" *ngFor="let statusHouse of statusHouses">{{house.statusHouse}}</option>
+      <option id="statusHouse" [value]="statusHouse.id" *ngFor="let statusHouse of statusHouses">{{house.statusHouse.name}}</option>
     </select>
   </div>
   <button>Submit</button>

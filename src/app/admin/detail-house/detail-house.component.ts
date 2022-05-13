@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {House} from "../../model/house";
-import {Type} from "../../model/type";
-import {StatusHouse} from "../../model/status-house";
-import {FormControl, FormGroup} from "@angular/forms";
-import {HouseService} from "../../service/house/house.service";
-import {TypeService} from "../../service/type/type.service";
-import {StatusHouseService} from "../../service/StatusHouse/status-house.service";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {House} from '../../model/house';
+import {Type} from '../../model/type';
+import {StatusHouse} from '../../model/status-house';
+import {FormControl, FormGroup} from '@angular/forms';
+import {HouseService} from '../../service/house/house.service';
+import {TypeService} from '../../service/type/type.service';
+import {StatusHouseService} from '../../service/statusHouse/status-house.service';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 
 @Component({
-  selector: 'app-delete-house',
-  templateUrl: './delete-house.component.html',
-  styleUrls: ['./delete-house.component.css']
+  selector: 'app-detail-house',
+  templateUrl: './detail-house.component.html',
+  styleUrls: ['./detail-house.component.css']
 })
-export class DeleteHouseComponent implements OnInit {
+export class DetailHouseComponent implements OnInit {
+
   house: House = {};
-  types: Type[] =[];
+  types: Type[] = [];
   statusHouses: StatusHouse[] = [];
 
   houseForm: FormGroup =  new FormGroup({
@@ -33,13 +34,10 @@ export class DeleteHouseComponent implements OnInit {
     type: new FormControl(''),
     user: new FormControl(''),
   })
-
-
   constructor(private houseService: HouseService,
               private typeService: TypeService,
               private statusHouseService: StatusHouseService,
-              private activatedRoute: ActivatedRoute,
-              private router:Router) {
+              private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       const id = +paramMap.get('id');
       this.getHouseById(id);
@@ -48,9 +46,8 @@ export class DeleteHouseComponent implements OnInit {
 
   ngOnInit() {
     this.getAllStatus();
-    this.getAllTypes()
+    this.getAllTypes();
   }
-
   getAllTypes()
   {
     this.typeService.getAll().subscribe((listType) => {
@@ -65,31 +62,31 @@ export class DeleteHouseComponent implements OnInit {
     });
   }
 
-  get idControl(){
+  get idControl() {
     return this.houseForm.get('id');
   }
 
-  get nameControl(){
+  get nameControl() {
     return this.houseForm.get('name');
   }
 
-  get areaControl(){
+  get areaControl() {
     return this.houseForm.get('area');
   }
 
-  get locationControl(){
+  get locationControl() {
     return this.houseForm.get('location');
   }
 
-  get bedroomControl(){
+  get bedroomControl() {
     return this.houseForm.get('bedroom');
   }
 
-  get bathroomControl(){
+  get bathroomControl() {
     return this.houseForm.get('bathroom');
   }
 
-  get priceControl(){
+  get priceControl() {
     return this.houseForm.get('price');
   }
 
@@ -98,14 +95,14 @@ export class DeleteHouseComponent implements OnInit {
   }
 
   get imgControl(){
-    return this.houseForm.get('img')
+    return this.houseForm.get('img');
   }
 
-  get count_rentControl(){
+  get count_rentControl() {
     return this.houseForm.get('count_rent');
   }
 
-  get typeControl(){
+  get typeControl() {
     return this.houseForm.get('type');
   }
 
@@ -113,11 +110,11 @@ export class DeleteHouseComponent implements OnInit {
     return this.houseForm.get('statusHouse');
   }
 
-  get userControl(){
+  get userControl() {
     return this.houseForm.get('user');
   }
 
-  getHouseById(id){
+  getHouseById(id) {
     this.houseService.getHouseById(id).subscribe((houseFromBE) =>{
       this.house =  houseFromBE;
       this.idControl.setValue(this.house.id);
@@ -133,16 +130,6 @@ export class DeleteHouseComponent implements OnInit {
       this.typeControl.setValue(this.house.type);
       this.statusHouseControl.setValue(this.house.statusHouse);
       this.userControl.setValue(this.house.user.id)
-    })
-  }
-
-  submit() {
-    this.houseService.deleteHouse(this.house.id).subscribe(() => {
-      alert('Xóa thành công');
-      this.router.navigateByUrl('/products');
-    },error => {
-      alert('Xóa thất bại)')
     });
   }
-
 }
