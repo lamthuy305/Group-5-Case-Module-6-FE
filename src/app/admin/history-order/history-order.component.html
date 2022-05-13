@@ -14,7 +14,7 @@
         <div class="card">
           <div class="card-body">
 
-            <table class="table table-bordered table-hover">
+            <table id="history-order" class="table table-bordered table-hover">
               <thead class="table-dark">
               <tr>
                 <th>#</th>
@@ -25,7 +25,7 @@
                 <th>Ngày check in</th>
                 <th>Ngày check out</th>
                 <th></th>
-                <th></th>
+
               </tr>
               </thead>
 
@@ -41,14 +41,9 @@
                 <td>{{order.checkOut}}</td>
 
                 <td class="text-center">
-<!--                  <a class="btn btn-info" (click)="changeStatusOrderDone(order.id)">-->
-<!--                    <i class="fa fa-check"></i>-->
-<!--                  </a>-->
-                </td>
-                <td class="text-center">
-<!--                  <a class="btn btn-danger" (click)="changeStatusOrderCanceled(order.id)">-->
-<!--                    <i class="fa fa-trash"></i>-->
-<!--                  </a>-->
+                  <a class="btn btn-danger" (click)="deleteOrder(order.id)">
+                    <i class="fa fa-trash"></i>
+                  </a>
                 </td>
               </tr>
               </tbody>
