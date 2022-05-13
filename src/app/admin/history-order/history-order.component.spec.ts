@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProfileEditComponent } from './profile-edit.component';
+import { HistoryOrderComponent } from './history-order.component';
 
-describe('ProfileEditComponent', () => {
-  let component: ProfileEditComponent;
-  let fixture: ComponentFixture<ProfileEditComponent>;
+describe('HistoryOrderComponent', () => {
+  let component: HistoryOrderComponent;
+  let fixture: ComponentFixture<HistoryOrderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfileEditComponent ]
+      declarations: [ HistoryOrderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfileEditComponent);
+    fixture = TestBed.createComponent(HistoryOrderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

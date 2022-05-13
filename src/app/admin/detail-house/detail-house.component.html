@@ -1,54 +1,129 @@
-<h3>Thêm homestay mới</h3>
-<form [formGroup]="houseForm">
-  <div class="form-control">
-    <label for="name">Tên:</label>
-    <input type="text" id="name" formControlName="name" placeholder="tên" value="{{house.name}}">
+<section class="pd-hero-section set-bg" src="img/properties/product-content-bg.jpg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="pd-hero-text">
+          <p class="room-location"><i class="icon_pin"></i>{{house.location}}</p>
+          <h2>{{house.name}}</h2>
+          <div class="room-price">
+            <span>Giá phòng:</span>
+            <p>{{house.price}}</p>
+          </div>
+          <ul class="room-features">
+            <li>
+              <i class="fa fa-arrows"></i>
+              <p>{{house.area}} m2</p>
+            </li>
+            <li>
+              <i class="fa fa-bed"></i>
+              <p>{{house.bedroom}} Bed Room</p>
+            </li>
+            <li>
+              <i class="fa fa-bath"></i>
+              <p>{{house.bathroom}} Baths Bed</p>
+            </li>
+            <li>
+              <i class="fa fa-check"></i>
+              <p>{{house.statusHouse.name}}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-control">
-    <label for="img">Ảnh:</label>
-    <input type="file" id="img" formControlName="img" >
+</section>
+<section class="house-details-section spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9">
+        <div class="pd-details-text">
+          <div class="pd-details-social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-send"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-print"></i></a>
+            <a href="#"><i class="fa fa-cloud-download"></i></a>
+          </div>
+          <div class="house-more-pic">
+            <div class="product-pic-zoom">
+              <img class="product-big-img" src="http://localhost:8080/image/{{house.img}}" alt="">
+            </div>
+            <div class="product-thumbs">
+              <div class="product-thumbs-track ps-slider owl-carousel">
+                <div class="pt" data-imgbigurl="img/properties/house-details-b2.jpg"><img
+                  src="img/properties/thumb-1.jpg" alt=""></div>
+                <div class="pt active" data-imgbigurl="img/properties/house-details-b1.jpg"><img
+                  src="img/properties/thumb-2.jpg" alt=""></div>
+                <div class="pt" data-imgbigurl="img/properties/house-details-b3.jpg"><img
+                  src="img/properties/thumb-3.jpg" alt=""></div>
+                <div class="pt" data-imgbigurl="img/properties/house-details-b4.jpg"><img
+                  src="img/properties/thumb-4.jpg" alt=""></div>
+                <div class="pt" data-imgbigurl="img/properties/house-details-b5.jpg"><img
+                  src="img/properties/thumb-5.jpg" alt=""></div>
+              </div>
+            </div>
+          </div>
+          <div class="pd-desc">
+            <h4>Description</h4>
+            <p>{{house.description}}</p>
+          </div>
+          <div class="pd-details-tab">
+            <div class="tab-item">
+              <ul class="nav" role="tablist">
+                <li>
+                  <a class="active" data-toggle="tab" href="#tab-1" role="tab">Overview</a>
+                </li>
+                <li>
+                  <a data-toggle="tab" href="#tab-2" role="tab">Description</a>
+                </li>
+              </ul>
+            </div>
+            <div class="tab-item-content">
+              <div class="tab-content">
+                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                  <div class="house-more-table">
+                    <table class="left-table">
+                      <tbody>
+                      <tr>
+                        <td class="pt-name">Giá phòng</td>
+                        <td class="p-value">{{house.price}}</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Loại phòng</td>
+                        <td class="p-value">{{house.type.name}}</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Phòng ngủ</td>
+                        <td class="p-value">{{house.bedroom}}</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Phòng tắm</td>
+                        <td class="p-value">{{house.bathroom}}</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Lượt thuê</td>
+                        <td class="p-value">{{house.count_rent}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="house-map">
+            <h4>Map</h4>
+            <div class="map-inside">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2942.5524090066037!2d-71.10245469994108!3d42.47980730490846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e3748250c43a43%3A0xe1b9879a5e9b6657!2sWinter%20Street%20Public%20Parking%20Lot!5e0!3m2!1sen!2sbd!4v1577299251173!5m2!1sen!2sbd"
+                height="320" style="border:0;" allowfullscreen=""></iframe>
+              <div class="icon">
+                <i class="fa fa-home"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div  class="form-control">
-    <label for="area">Diện tích:</label>
-    <input type="text" id="area" formControlName="area">
-  </div>
-  <div  class="form-control">
-    <label for="location">Địa Chỉ:</label>
-    <input type="text" id="location" placeholder="địa chỉ">
-  </div>
-  <div  class="form-control">
-    <label for="type">Loại phòng:</label>
-    <select formControlName="type">
-      <option disabled [ngValue]="undefined">Chọn loại phòng</option>
-      <option id="type" [value]="type.id" *ngFor="let type of types">{{house.type.name}}</option>
-    </select>
-  </div>
-  <div  class="form-control">
-    <label for="bedroom">Số phòng ngủ:</label>
-    <input type="number" id="bedroom" formControlName="bedroom" placeholder="số phòng ngủ">
-  </div>
-  <div  class="form-control">
-    <label for="bathroom">Số phòng tắm:</label>
-    <input type="number" id="bathroom" formControlName="bathroom" placeholder="số phòng tắm">
-  </div>
-  <div  class="form-control">
-    <label for="price">Giá phòng / đêm:</label>
-    <input type="number" id="price" formControlName="price">
-  </div>
-  <div class="form-control">
-    <label for="description">Mô tả:</label>
-    <input id="description" formControlName="description">
-  </div>
-  <div class="form-control">
-    <label for="count_rent">Lượt thuê:</label>
-    <input type="number" id="count_rent" formControlName="count_rent">
-  </div>
-  <div class="form-control">
-    <label for="statusHouse">Trạng thái:</label>
-    <select formControlName="statusHouse">
-      <option disabled [ngValue]="undefined">Chọn trạng thái</option>
-      <option id="statusHouse" [value]="statusHouse.id" *ngFor="let statusHouse of statusHouses">{{house.statusHouse.name}}</option>
-    </select>
-  </div>
-  <button>Submit</button>
-</form>
+</section>
