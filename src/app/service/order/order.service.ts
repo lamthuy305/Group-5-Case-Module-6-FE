@@ -17,16 +17,21 @@ export class OrderService {
     return this.http.get<any[]>(`${API_URL}/orders/processing/${currentUser_id}`);
   }
 
-  changeStatusOrderDone(id){
-      return this.http.get<any>(`${API_URL}/orders/changeStatusDone/${id}`);
+  changeStatusOrderDone(id) {
+    return this.http.get<any>(`${API_URL}/orders/changeStatusDone/${id}`);
   }
 
-  changeStatusOrderCanceled(id){
+  changeStatusOrderCanceled(id) {
     return this.http.get<any>(`${API_URL}/orders/changeStatusCanceled/${id}`);
   }
 
-  getAllOrderStatusDone(id){
+  getAllOrderStatusDone(id) {
     return this.http.get<any>(`${API_URL}/orders/statusDone/${id}`);
+  }
+
+  get5OrderByOrderIdRent(id) {
+    return this.http.get<any>(`${API_URL}/orders/historyOrderTop5/${id}`);
+
   }
 
   getOrderById(id): Observable<any> {

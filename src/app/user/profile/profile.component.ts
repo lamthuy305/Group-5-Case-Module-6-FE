@@ -4,7 +4,7 @@ import {ProfileService} from '../../service/profile/profile.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../model/user';
 import {ShareJSService} from '../../service/share/share-js.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NotificationService} from '../../service/notification/notification.service';
 
 @Component({
@@ -16,11 +16,12 @@ export class ProfileComponent implements OnInit {
   showInputavatar: boolean = false;
   // birthdayFE: any = {};
   profile: Profile = {};
-
   currentUser: any = {};
+  returnURL: string;
 
   constructor(private profileService: ProfileService,
               private shareJSService: ShareJSService,
+              private route: ActivatedRoute,
               private router: Router,
               private notificationService: NotificationService) {
   }
@@ -83,6 +84,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentUser();
+    this.returnURL = this.route.snapshot.queryParams.returnUrl || '/profile';
   }
 
 
@@ -90,7 +92,7 @@ export class ProfileComponent implements OnInit {
     let formData = new FormData();
     formData.append('name', this.profileForm.value.name);
     formData.append('birthday', this.profileForm.value.birthday);
-    if (this.showInputavatar){
+    if (this.showInputavatar) {
       const files = (document.getElementById('avatar') as HTMLInputElement).files;
       if (files.length > 0) {
         formData.append('avatar', files[0]);
@@ -100,8 +102,12 @@ export class ProfileComponent implements OnInit {
     formData.append('email', this.profileForm.value.email);
     formData.append('phone', this.profileForm.value.phone);
     this.profileService.editProfile(this.profile.id, formData).subscribe(() => {
-      this.router.navigateByUrl('/home');
       this.notificationService.showMessage('success', 'Edit!', 'Chỉnh sửa thành công');
+      this.router.navigateByUrl(this.returnURL);
+
     }, error => this.notificationService.showMessage('error', 'Edit!', 'Chỉnh sửa lỗi'));
+
   }
+
+
 }

@@ -8,6 +8,8 @@ import {OrderService} from '../../service/order/order.service';
 import {NotificationService} from '../../service/notification/notification.service';
 import {ImageService} from '../../service/image/image.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-view-house',
   templateUrl: './view-house.component.html',
@@ -73,8 +75,9 @@ export class ViewHouseComponent implements OnInit {
       id: this.currentUser.id
     };
     this.orderService.createOrder(this.orderForm.value).subscribe(() => {
-      this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
+      $('#create-order').modal('hide');
       this.router.navigateByUrl('/orderDetail');
+      this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
     }, error => this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi'));
   }
 }
