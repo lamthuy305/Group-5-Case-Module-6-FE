@@ -36,7 +36,7 @@ export class OrderDetailComponent implements OnInit {
     } else {
       this.orderService.changeStatusOrderCanceled(id).subscribe(() => {
         this.notificationService.showMessage('success', 'Canceled!', 'Hủy đặt phòng thành công');
-        this.router.navigateByUrl('/orderDetail');
+        this.get5OrderByOrderIdRent();
       });
     }
   }

@@ -3,6 +3,8 @@ import {OrderService} from '../../service/order/order.service';
 import {Router} from '@angular/router';
 import {NotificationService} from '../../service/notification/notification.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -14,7 +16,7 @@ export class OrderComponent implements OnInit {
 
   constructor(private orderService: OrderService,
               private router: Router,
-              private notificationService:NotificationService) {
+              private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -30,14 +32,23 @@ export class OrderComponent implements OnInit {
   getAllOrderProcessingByUserId() {
     this.orderService.getAllOrderProcessingByUserId(this.currentUser.id).subscribe((ordersBE) => {
       this.orders = ordersBE;
-      console.log(this.orders);
+      $(function() {
+        $('#table-order').DataTable({
+          'paging': true,
+          'lengthChange': false,
+          'searching': false,
+          'ordering': true,
+          'info': true,
+          'autoWidth': false,
+        });
+      });
     });
   }
 
   changeStatusOrderDone(id) {
     this.orderService.changeStatusOrderDone(id).subscribe(() => {
         this.notificationService.showMessage('success', 'Thành công!', 'Đồng ý đơn hàng');
-        this.router.navigateByUrl('/admin/orders')
+        this.router.navigateByUrl('/admin/orders');
       }, error => this.notificationService.showMessage('error', 'Done!', 'Xảy ra lỗi')
     );
   }
@@ -45,7 +56,7 @@ export class OrderComponent implements OnInit {
   changeStatusOrderCanceled(id) {
     this.orderService.changeStatusOrderCanceled(id).subscribe(() => {
         this.notificationService.showMessage('success', 'Thành công!', 'Đã từ chối đơn hàng');
-        this.router.navigateByUrl('/admin/orders')
+        this.router.navigateByUrl('/admin/orders');
       }, error => this.notificationService.showMessage('error', 'Canceled!', 'Xảy ra lỗi')
     );
   }

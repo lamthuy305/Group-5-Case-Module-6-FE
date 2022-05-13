@@ -22,8 +22,9 @@
             <br>
             <div class="product-thumbs">
               <div class="product-thumbs-track ps-slider owl-carousel">
-                <div *ngFor="let image of images" class="pt active" ><img height="250px"
-                  src="http://localhost:8080/image/{{image.name}}" alt="" ></div>
+                <div *ngFor="let image of images" class="pt active"><img height="250px"
+                                                                         src="http://localhost:8080/image/{{image.name}}"
+                                                                         alt=""></div>
               </div>
             </div>
           </div>
@@ -172,7 +173,6 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>
-
           <button class="btn btn-info" type="submit">Đặt ngay
           </button>
         </div>

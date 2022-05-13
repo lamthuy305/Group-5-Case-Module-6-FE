@@ -17,11 +17,11 @@ export class ProfileComponent implements OnInit {
   // birthdayFE: any = {};
   profile: Profile = {};
   currentUser: any = {};
-  returnURL: string;
+
+  // returnURL: string;
 
   constructor(private profileService: ProfileService,
               private shareJSService: ShareJSService,
-              private route: ActivatedRoute,
               private router: Router,
               private notificationService: NotificationService) {
   }
@@ -84,7 +84,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentUser();
-    this.returnURL = this.route.snapshot.queryParams.returnUrl || '/profile';
   }
 
 
@@ -103,7 +102,7 @@ export class ProfileComponent implements OnInit {
     formData.append('phone', this.profileForm.value.phone);
     this.profileService.editProfile(this.profile.id, formData).subscribe(() => {
       this.notificationService.showMessage('success', 'Edit!', 'Chỉnh sửa thành công');
-      this.router.navigateByUrl(this.returnURL);
+      this.getProfile(this.currentUser.id);
 
     }, error => this.notificationService.showMessage('error', 'Edit!', 'Chỉnh sửa lỗi'));
 
