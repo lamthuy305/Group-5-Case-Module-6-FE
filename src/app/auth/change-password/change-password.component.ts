@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {AuthService} from "../../service/auth.service";
 import {User} from "../../model/user";
 import {Router} from "@angular/router";
+import {AuthService} from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-change-password',
