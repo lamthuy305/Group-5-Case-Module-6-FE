@@ -13,7 +13,8 @@ import {HomeComponent} from './layout/user/home/home.component';
 import {NavbarHomeComponent} from './layout/user/navbar-home/navbar-home.component';
 import {SidebarHomeComponent} from './layout/user/sidebar-home/sidebar-home.component';
 import {AuthModule} from './auth/auth.module';
-import {ProfileComponent} from "./user/profile/profile.component";
+import {AdminModule} from './admin/admin.module';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {ProfileComponent} from "./user/profile/profile.component";
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AuthModule
+    AuthModule,
+    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]

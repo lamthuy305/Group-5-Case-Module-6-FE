@@ -3,17 +3,18 @@ import {House} from '../../model/house';
 import {Type} from '../../model/type';
 import {StatusHouse} from '../../model/status-house';
 import {FormControl, FormGroup} from '@angular/forms';
-import {TypeService} from '../../service/type/type.service';
 import {HouseService} from '../../service/house/house.service';
+import {TypeService} from '../../service/type/type.service';
 import {StatusHouseService} from '../../service/statusHouse/status-house.service';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 
 @Component({
-  selector: 'app-edit-house',
-  templateUrl: './edit-house.component.html',
-  styleUrls: ['./edit-house.component.css']
+  selector: 'app-detail-house',
+  templateUrl: './detail-house.component.html',
+  styleUrls: ['./detail-house.component.css']
 })
-export class EditHouseComponent implements OnInit {
+export class DetailHouseComponent implements OnInit {
+
   house: House = {};
   types: Type[] = [];
   statusHouses: StatusHouse[] = [];
@@ -33,12 +34,10 @@ export class EditHouseComponent implements OnInit {
     type: new FormControl(''),
     user: new FormControl(''),
   })
-
   constructor(private houseService: HouseService,
               private typeService: TypeService,
               private statusHouseService: StatusHouseService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       const id = +paramMap.get('id');
       this.getHouseById(id);
@@ -47,9 +46,8 @@ export class EditHouseComponent implements OnInit {
 
   ngOnInit() {
     this.getAllStatus();
-    this.getAllTypes()
+    this.getAllTypes();
   }
-
   getAllTypes()
   {
     this.typeService.getAll().subscribe((listType) => {
@@ -132,27 +130,6 @@ export class EditHouseComponent implements OnInit {
       this.typeControl.setValue(this.house.type);
       this.statusHouseControl.setValue(this.house.statusHouse);
       this.userControl.setValue(this.house.user.id)
-    });
-  }
-
-  submit() {
-    let house = this.houseForm.value;
-    const formData: any = new FormData();
-    formData.append('name', this.house.name);
-    formData.append('area', this.house.area);
-    formData.append('location', this.house.location);
-    formData.append('bedroom', this.house.bedroom);
-    formData.append('bathroom', this.house.bathroom);
-    formData.append('price', this.house.price);
-    formData.append('description', this.house.description);
-    formData.append('img', ( <HTMLInputElement> document.getElementById('img')).files[0]);
-    formData.append('count_rent', this.house.count_rent);
-    formData.append('statusHouse', this.house.statusHouse);
-    formData.append('type', this.house.type);
-    formData.append('user', this.house.user.id);
-    this.houseService.editHouse(this.house.id, formData).subscribe(() => {
-      alert('Sửa thành công!');
-      this.router.navigateByUrl('/houses');
     });
   }
 }

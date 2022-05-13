@@ -6,7 +6,7 @@ export interface House {
   bedroom?: number;
   bathroom?: number;
   price?: number;
-  description?: string;
+  description?:string;
   img?: File;
   count_rent?: number;
   statusHouse?: {

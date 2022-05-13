@@ -1,9 +1,8 @@
-
 <section class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>List Books</h1>
+        <h1>List Homestay</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -21,7 +20,7 @@
         <div class="card">
           <div class="card-header">
             <div class="card-tools">
-              <a routerLink="/books/create" class="btn btn-primary">Thêm mới</a>
+              <a routerLink="/admin/house/create" class="btn btn-primary">Thêm mới</a>
             </div>
           </div>
           <div class="card-body">
@@ -30,31 +29,47 @@
               <thead class="table-dark">
               <tr>
                 <th>#</th>
-                <th>Tên sách</th>
-                <th>Tác giả</th>
-                <th>Mô tả sách</th>
+                <th>Tên</th>
+                <th>Ảnh</th>
+                <th>Diện tích</th>
+                <th>Địa chỉ</th>
+                <th>Loại phòng</th>
+                <th>Số phòng ngủ</th>
+                <th>Số phòng tắm</th>
+                <th>Giá phòng/ đêm</th>
+                <th>Mô tả</th>
+                <th>Lượt thuê</th>
+                <th>Trạng thái</th>
                 <th></th>
                 <th></th>
               </tr>
               </thead>
-<!--              <tbody>-->
-<!--              <tr *ngFor="let book of books; index as i">-->
-<!--                <td>{{i + 1}}</td>-->
-<!--                <td><a routerLink="/books/{{book.id}}">{{book.title}}</a></td>-->
-<!--                <td>{{book.author}}</td>-->
-<!--                <td>{{book.description}}</td>-->
-<!--                <td class="text-center">-->
-<!--                  <a class="btn btn-info" routerLink="/books/edit/{{book.id}}">-->
-<!--                    <i class="fa fa-edit"></i>-->
-<!--                  </a>-->
-<!--                </td>-->
-<!--                <td class="text-center">-->
-<!--                  <a class="btn btn-danger" (click)="delete(book.id)">-->
-<!--                    <i class="fa fa-trash"></i>-->
-<!--                  </a>-->
-<!--                </td>-->
-<!--              </tr>-->
-<!--              </tbody>-->
+              <tbody>
+              <tr *ngFor="let house of houses; index as i">
+                <td>{{i + 1}}</td>
+                <td><a routerLink="/houses/{{house.id}}">{{house.name}}</a></td>
+                <td><img src="http://localhost:8080/image/{{house.img}}"></td>
+                <td>{{house.area}}</td>
+                <td>{{house.location}}</td>
+                <td>{{house.type.name}}</td>
+                <td>{{house.bedroom}}</td>
+                <td>{{house.bathroom}}</td>
+                <td>{{house.price}}</td>
+                <td>{{house.description}}</td>
+                <td>{{house.count_rent}}</td>
+                <td>{{house.statusHouse.name}}</td>
+                <td class="text-center">
+                  <a class="btn btn-info" routerLink="/house/edit/{{house.id}}">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                </td>
+                <td class="text-center">
+                  <a class="btn btn-danger" (click)="delete(house.id)">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              </tbody>
             </table>
           </div>
           <!-- /.card-body -->
