@@ -61,6 +61,58 @@ export class CreateHouseComponent implements OnInit {
     });
   }
 
+  get idControl() {
+    return this.houseForm.get('id');
+  }
+
+  get nameControl() {
+    return this.houseForm.get('name');
+  }
+
+  get areaControl() {
+    return this.houseForm.get('area');
+  }
+
+  get locationControl() {
+    return this.houseForm.get('location');
+  }
+
+  get bedroomControl() {
+    return this.houseForm.get('bedroom');
+  }
+
+  get bathroomControl() {
+    return this.houseForm.get('bathroom');
+  }
+
+  get priceControl() {
+    return this.houseForm.get('price');
+  }
+
+  get descriptionControl(){
+    return this.houseForm.get('description');
+  }
+
+  get imgControl(){
+    return this.houseForm.get('img');
+  }
+
+  get count_rentControl() {
+    return this.houseForm.get('count_rent');
+  }
+
+  get typeControl() {
+    return this.houseForm.get('type');
+  }
+
+  get statusHouseControl(){
+    return this.houseForm.get('statusHouse');
+  }
+
+  get userControl() {
+    return this.houseForm.get('user');
+  }
+
   createHouse(){
     const house = new FormData();
     house.append('name', this.houseForm.value.name);

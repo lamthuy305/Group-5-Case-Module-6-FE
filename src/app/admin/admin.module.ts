@@ -23,11 +23,12 @@ import {HistoryOrderComponent} from './history-order/history-order.component';
     DetailHouseComponent,
     HistoryOrderComponent
   ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        ReactiveFormsModule,
+
+    ]
 })
 export class AdminModule {
 }

@@ -5,6 +5,7 @@ import {CreateHouseComponent} from './create-house/create-house.component';
 import {OrderComponent} from './Order/order.component';
 import {EditHouseComponent} from './edit-house/edit-house.component';
 import {ViewUserComponent} from './view-user/view-user.component';
+import {DetailHouseComponent} from './detail-house/detail-house.component';
 import {HistoryOrderComponent} from './history-order/history-order.component';
 
 
@@ -30,11 +31,13 @@ const routes: Routes = [
     component: ViewUserComponent
   },
   {
-    path: 'orders/history',
+    path:'house/detail/:id',
+    component: DetailHouseComponent
+  },
+  {    path: 'orders/history',
     component: HistoryOrderComponent
   }
-
-];
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

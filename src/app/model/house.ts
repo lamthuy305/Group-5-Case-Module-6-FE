@@ -20,5 +20,5 @@ export interface House {
   user?: {
     id?: number;
     username?: string;
-  };
+  }
 }
