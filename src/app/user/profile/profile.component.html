@@ -9,84 +9,117 @@
         <li class="breadcrumb-item active" aria-current="page">User Profile</li>
       </ol>
     </nav>
-    <!-- /Breadcrumb -->
 
-    <div class="row gutters-sm" >
+    <form [formGroup]="profileForm" (ngSubmit)="submitEditProfile()">
+    <div class="row gutters-sm">
       <div class="col-md-4 mb-3">
         <div class="card">
           <div class="card-body">
-            <div class="d-flex flex-column align-items-center text-center">
-              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+            <div class="d-flex flex-column align-items-center text-center" style="height: 300px">
+              <img src="../../../assets/img/img_1.png" alt="Admin" class="rounded-circle" width="150">
+              <div class="mt-3">
+                <h4>John Doe</h4>
+                <br>
+                <!--                <a class="active" data-toggle="tab" href="#tab-1" role="tab">Đổi ảnh đại diện</a>-->
+
+                <button class="btn btn-info" (click)="isShowInputavatar()">Đổi ảnh đại diện</button>
+                <input class="form-control" id="avatar" placeholder="Nhập tên" type="file"
+                       formControlName="avatar" *ngIf="showInputavatar">
+
+              </div>
             </div>
           </div>
         </div>
+
       </div>
       <div class="col-md-8">
         <div class="card mb-3">
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Họ Và Tên</h6>
+                <h6 class="mb-0">Họ và tên</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
-                {{profile.name}}
-              </div>
+
+              <input class="form-control" id="name" placeholder="Nhập tên" type="text"
+                     formControlName="name">
+
+              <!--              <div class="col-sm-9 text-secondary">-->
+              <!--                {{profile.email}}-->
+              <!--              </div>-->
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Sinh Nhật</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
-                {{profile.birthday}}
-              </div>
+
+              <input class="form-control" id="birthday" placeholder="Nhập ngày sinh" type="date"
+                     formControlName="birthday">
+
+              <!--              <div class="col-sm-9 text-secondary">-->
+              <!--                {{profile.birthday}}-->
+              <!--              </div>-->
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Email</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
-                {{profile.email}}
-              </div>
+
+              <input class="form-control" id="email" placeholder="Nhập email" type="email"
+                     formControlName="email">
+
+              <!--              <div class="col-sm-9 text-secondary">-->
+              <!--                {{profile.email}}-->
+              <!--              </div>-->
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Địa chỉ</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
-                {{profile.address}}
-              </div>
+              <input class="form-control" id="address" placeholder="Nhập địa chỉ" type="text"
+                     formControlName="address">
+
+              <!--              <div class="col-sm-9 text-secondary">-->
+              <!--                {{profile.address}}-->
+              <!--              </div>-->
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Số điện thoại</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
-                {{profile.phone}}
-              </div>
+
+              <input class="form-control" id="phone" placeholder="Nhập số điện thoai" type="number"
+                     formControlName="phone">
+
+              <!--              <div class="col-sm-9 text-secondary">-->
+              <!--                {{profile.phone}}-->
+              <!--              </div>-->
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Tên tài khoản</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
-                {{profile.user.username}}
-              </div>
+              <input class="form-control" id="user" type="text"
+                     formControlName="user" disabled>
+              <!--              <div class="col-sm-9 text-secondary">-->
+              <!--                {{profile.user.username}}-->
+              <!--              </div>-->
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-12">
-                <a class="btn btn-info " routerLink="/profile/edit">Edit</a>
+                <a class="btn btn-info " routerLink="/profile/edit">Chỉnh sửa</a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    </form>
   </div>
 </div>
 

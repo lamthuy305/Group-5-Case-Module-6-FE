@@ -11,17 +11,17 @@ const API_URL = `${environment.apiUrl}`;
 export class ProfileService {
 
   constructor(private http: HttpClient) { }
-
-  getAll(): Observable<Profile[]> {
-    return this.http.get<Profile[]>(`${API_URL}` + '/profile');
-  }
+  //
+  // getAll(): Observable<Profile[]> {
+  //   return this.http.get<Profile[]>(`${API_URL}` + '/profile');
+  // }
 
   editProfile(id: number, profile:Profile): Observable<Profile> {
-    return this.http.put(`${API_URL}/profile/${id}`, profile)
+    return this.http.put(`${API_URL}/profiles/${id}`, profile)
 
   }
 
   getProfileById(id):Observable<Profile> {
-    return this.http.get<Profile>(`${API_URL}/profiles/${id}`);
+      return this.http.get<Profile>(`${API_URL}/profiles/${id}`);
   }
 }

@@ -40,6 +40,7 @@ export class ViewHouseComponent implements OnInit {
 
   ngOnInit() {
     this.shareJSService.shareJS();
+
     this.getCurrentUser();
   }
 
