@@ -11,7 +11,7 @@
     </nav>
     <!-- /Breadcrumb -->
 
-    <div class="row gutters-sm" *ngFor=" let profiles of profiles">
+    <div class="row gutters-sm" >
       <div class="col-md-4 mb-3">
         <div class="card">
           <div class="card-body">
@@ -29,7 +29,7 @@
                 <h6 class="mb-0">Họ Và Tên</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                {{profiles.name}}
+                {{profile.name}}
               </div>
             </div>
             <hr>
@@ -38,7 +38,7 @@
                 <h6 class="mb-0">Sinh Nhật</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                {{profiles.birthday}}
+                {{profile.birthday}}
               </div>
             </div>
             <hr>
@@ -47,7 +47,7 @@
                 <h6 class="mb-0">Email</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                {{profiles.email}}
+                {{profile.email}}
               </div>
             </div>
             <hr>
@@ -56,7 +56,7 @@
                 <h6 class="mb-0">Địa chỉ</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                {{profiles.address}}
+                {{profile.address}}
               </div>
             </div>
             <hr>
@@ -65,7 +65,7 @@
                 <h6 class="mb-0">Số điện thoại</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                {{profiles.phone}}
+                {{profile.phone}}
               </div>
             </div>
             <hr>
@@ -74,7 +74,7 @@
                 <h6 class="mb-0">Tên tài khoản</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                {{profiles.user.username}}
+                {{profile.user.username}}
               </div>
             </div>
             <hr>
@@ -85,10 +85,9 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
-
   </div>
 </div>
+
+
