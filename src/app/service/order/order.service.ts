@@ -24,6 +24,11 @@ export class OrderService {
   changeStatusOrderCanceled(id){
     return this.http.get<any>(`${API_URL}/orders/changeStatusCanceled/${id}`);
   }
+
+  getAllOrderStatusDone(id){
+    return this.http.get<any>(`${API_URL}/orders/statusDone/${id}`);
+  }
+
   getOrderById(id): Observable<any> {
     return this.http.get<any>(`${API_URL}/orders/${id}`);
   }
