@@ -31,6 +31,7 @@ export class AuthService {
     return this.http.get<User[]>(`${API_URL}/users`)
   }
 
+
   changePassword(changePasswordForm): Observable<User> {
     return this.http.put<User>(`${API_URL}/changePassword`,changePasswordForm)
   }

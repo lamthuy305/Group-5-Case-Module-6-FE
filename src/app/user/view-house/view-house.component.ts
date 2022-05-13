@@ -14,8 +14,8 @@ import {NotificationService} from '../../service/notification/notification.servi
 })
 export class ViewHouseComponent implements OnInit {
   houseFE: House = {};
-  // orderFE: any = {};
   currentUser: any = {};
+
 
   constructor(private shareJSService: ShareJSService,
               private houseService: HouseService,
