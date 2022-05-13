@@ -31,7 +31,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProfile(this.currentUser.id);
     this.getcurrentUser();
   }
 
