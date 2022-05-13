@@ -20,12 +20,14 @@
         <div class="card">
           <div class="card-header">
             <div class="card-tools">
-              <a routerLink="/admin/house/create" class="btn btn-primary">Thêm mới</a>
+              <button class="btn btn-info" data-target="#create-house" data-toggle="modal"
+                      type="button">
+                Thêm mới
+              </button>
             </div>
           </div>
           <div class="card-body">
-
-            <table id="books-list" class="table table-bordered table-hover">
+            <table id="house-list" class="table table-bordered table-hover">
               <thead class="table-dark">
               <tr>
                 <th>#</th>
@@ -82,4 +84,117 @@
   </div>
   <!-- /.container-fluid -->
 </section>
+<!--<div class="house-list">-->
+<!--  <div class="single-house-item">-->
+<!--    <div class="row">-->
+<!--      <div class="col-md-4" >-->
+<!--        <div class="house-pic" *ngFor="let house of houses">-->
+<!--          <img src="http://localhost:8080/image/{{house.img}}" alt="">-->
+<!--          <hr>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col-md-8" >-->
+<!--        <div class="house-text" *ngFor="let house of houses">-->
+<!--          <h5 class="r-title" routerLink="admin/house/{{house.id}}">{{house.name}}</h5>-->
+<!--          <div class="room-price">-->
+<!--            <span>Start From:</span>-->
+<!--            <h5>{{house.price}} VND</h5>-->
+<!--          </div>-->
+<!--          <div class="properties-location"><i class="icon_pin"></i>{{house.location}}</div>-->
+<!--          <p>{{this.house.description}}</p>-->
+<!--          <ul class="room-features">-->
+<!--            <li>-->
+<!--              <i class="fa fa-arrows"></i>-->
+<!--              <p>{{house.area}} sqft</p>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <i class="fa fa-bed"></i>-->
+<!--              <p>{{house.bedroom}} Bed Room</p>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <i class="fa fa-bath"></i>-->
+<!--              <p>{{house.bathroom}} Bath Room</p>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <i class="fa fa-check"></i>-->
+<!--              <p>{{house.statusHouse.name}}</p>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--          <hr>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="modal fade" id="create-house">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><b>Thêm nhà mới</b></h4>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div>
+        <form [formGroup]="houseForm" (ngSubmit)="createHouse()" class="mb-3">
+          <div>
+            <label for="name"  class="form-label">Tên:</label>
+            <input type="text" class="form-control" id="name" formControlName="name" placeholder="tên" value="{{house.name}}">
+          </div>
+          <div>
+            <label for="img"  class="form-label">Ảnh:</label>
+            <input class="form-control" type="file" id="img" formControlName="img" >
+          </div>
+          <div>
+            <label for="area" class="form-label">Diện tích:</label>
+            <input class="form-control" type="text" id="area" formControlName="area">
+          </div>
+          <div>
+            <label for="location" class="form-label">Địa Chỉ:</label>
+            <input  class="form-control" type="text" id="location" placeholder="địa chỉ">
+          </div>
+          <div>
+            <label for="type" class="form-label">Loại phòng:</label>
+            <select formControlName="type">
+              <option disabled [ngValue]="undefined">Chọn loại phòng</option>
+              <option id="type" [value]="type.id" *ngFor="let type of types">{{type.name}}</option>
+            </select>
+          </div>
+          <div>
+            <label for="bedroom" class="form-label">Số phòng ngủ:</label>
+            <input class="form-control" type="number" id="bedroom" formControlName="bedroom" placeholder="số phòng ngủ">
+          </div>
+          <div>
+            <label for="bathroom" class="form-label">Số phòng tắm:</label>
+            <input class="form-control" type="number" id="bathroom" formControlName="bathroom" placeholder="số phòng tắm">
+          </div>
+          <div>
+            <label for="price">Giá phòng / đêm:</label>
+            <input class="form-control" type="number" id="price" formControlName="price">
+          </div>
+          <div>
+            <label for="description" class="form-label">Mô tả:</label>
+            <input class="form-control" type="text" id="description" formControlName="description">
+          </div>
+          <div>
+            <label for="count_rent"  class="form-label">Lượt thuê:</label>
+            <input class="form-control" type="number" id="count_rent" formControlName="count_rent">
+          </div>
+          <div>
+            <label for="statusHouse" class="form-label">Trạng thái:</label>
+            <select formControlName="statusHouse">
+              <option disabled [ngValue]="undefined">Chọn trạng thái</option>
+              <option id="statusHouse" [value]="statusHouse.id" *ngFor="let statusHouse of statusHouses">{{statusHouse.name}}</option>
+            </select>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
 

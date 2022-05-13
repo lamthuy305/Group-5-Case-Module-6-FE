@@ -30,7 +30,6 @@ import {AdminModule} from './admin/admin.module';
     ReactiveFormsModule,
     HttpClientModule,
     AuthModule,
-    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]

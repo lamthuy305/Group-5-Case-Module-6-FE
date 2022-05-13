@@ -22,7 +22,8 @@ import { DetailHouseComponent } from './detail-house/detail-house.component';
     imports: [
         CommonModule,
         AdminRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+
     ]
 })
 export class AdminModule { }

@@ -5,6 +5,7 @@ import {CreateHouseComponent} from './create-house/create-house.component';
 import {OrderComponent} from './Order/order.component';
 import {EditHouseComponent} from './edit-house/edit-house.component';
 import {ViewUserComponent} from './view-user/view-user.component';
+import {DetailHouseComponent} from './detail-house/detail-house.component';
 
 
 const routes: Routes = [
@@ -28,7 +29,10 @@ const routes: Routes = [
     path: 'user',
     component: ViewUserComponent
   },
-
+  {
+    path:'house/detail/:id',
+    component: DetailHouseComponent
+  }
 ];
 
 @NgModule({
