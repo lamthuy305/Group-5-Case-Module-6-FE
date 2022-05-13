@@ -6,10 +6,11 @@ import {ViewHouseComponent} from './view-house/view-house.component';
 import {HomeRoutingModule} from './home-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 
 @NgModule({
-  declarations: [HomeUserComponent, ProfileComponent, ViewHouseComponent],
+  declarations: [HomeUserComponent, ProfileComponent, ViewHouseComponent, OrderDetailComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

@@ -17,20 +17,13 @@
           <div class="property-more-pic">
             <div class="product-pic-zoom">
               <img src="http://localhost:8080/image/{{houseFE.img}}" alt="" width="1200px" height="700px">
+
             </div>
             <br>
             <div class="product-thumbs">
               <div class="product-thumbs-track ps-slider owl-carousel">
-                <div class="pt" data-imgbigurl="img/properties/property-details-b2.jpg"><img
-                  src="../../../assets/img/properties/thumb-1.jpg" alt=""></div>
-                <div class="pt active" data-imgbigurl="img/properties/property-details-b1.jpg"><img
-                  src="../../../assets/img/properties/thumb-2.jpg" alt=""></div>
-                <div class="pt" data-imgbigurl="img/properties/property-details-b3.jpg"><img
-                  src="../../../assets/img/properties/thumb-3.jpg" alt=""></div>
-                <div class="pt" data-imgbigurl="img/properties/property-details-b4.jpg"><img
-                  src="../../../assets/img/properties/thumb-4.jpg" alt=""></div>
-                <div class="pt" data-imgbigurl="img/properties/property-details-b5.jpg"><img
-                  src="../../../assets/img/properties/thumb-5.jpg" alt=""></div>
+                <div *ngFor="let image of images" class="pt active" ><img height="250px"
+                  src="http://localhost:8080/image/{{image.name}}" alt="" ></div>
               </div>
             </div>
           </div>

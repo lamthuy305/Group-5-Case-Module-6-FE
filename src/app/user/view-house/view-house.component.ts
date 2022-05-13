@@ -6,6 +6,7 @@ import {House} from '../../model/house';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {OrderService} from '../../service/order/order.service';
 import {NotificationService} from '../../service/notification/notification.service';
+import {ImageService} from '../../service/image/image.service';
 
 @Component({
   selector: 'app-view-house',
@@ -15,17 +16,20 @@ import {NotificationService} from '../../service/notification/notification.servi
 export class ViewHouseComponent implements OnInit {
   houseFE: House = {};
   currentUser: any = {};
+  images: any = [];
 
 
   constructor(private shareJSService: ShareJSService,
               private houseService: HouseService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private orderService:OrderService,
-              private notificationService:NotificationService) {
+              private orderService: OrderService,
+              private imageService: ImageService,
+              private notificationService: NotificationService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       const id = +paramMap.get('id');
       this.getHouseById(id);
+      this.getAllImageByHouseId(id);
     });
 
   }
@@ -39,8 +43,6 @@ export class ViewHouseComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.shareJSService.shareJS();
-
     this.getCurrentUser();
   }
 
@@ -55,6 +57,14 @@ export class ViewHouseComponent implements OnInit {
     this.currentUser = JSON.parse(this.currentUser);
   }
 
+  getAllImageByHouseId(id) {
+    this.images = this.imageService.getAllImageByHouseId(id).subscribe(imagesBE => {
+      this.images = imagesBE;
+      this.shareJSService.shareJS();
+
+    });
+  }
+
   submitCreateOrder() {
     this.orderForm.value.house = {
       id: this.houseFE.id
@@ -64,7 +74,7 @@ export class ViewHouseComponent implements OnInit {
     };
     this.orderService.createOrder(this.orderForm.value).subscribe(() => {
       this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
-
+      this.router.navigateByUrl('/orderDetail');
     }, error => this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi'));
   }
 }
