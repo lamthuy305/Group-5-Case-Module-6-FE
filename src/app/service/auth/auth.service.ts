@@ -19,11 +19,20 @@ export class AuthService {
     return this.http.post<User>(`${API_URL}/login`, user);
   }
 
+  logout(){
+      localStorage.removeItem('currentUser');
+  }
+
   register(signUpForm): Observable<User> {
     return this.http.post<User>(`${API_URL}/register`,signUpForm);
   }
 
   getAllUser(): Observable<User[]> {
     return this.http.get<User[]>(`${API_URL}/users`)
+  }
+
+
+  changePassword(changePasswordForm): Observable<User> {
+    return this.http.put<User>(`${API_URL}/changePassword`,changePasswordForm)
   }
 }

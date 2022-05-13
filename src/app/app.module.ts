@@ -1,3 +1,4 @@
+
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
@@ -13,6 +14,7 @@ import {NavbarHomeComponent} from './layout/user/navbar-home/navbar-home.compone
 import {SidebarHomeComponent} from './layout/user/sidebar-home/sidebar-home.component';
 import {AuthModule} from './auth/auth.module';
 import {AdminModule} from './admin/admin.module';
+
 
 @NgModule({
   declarations: [

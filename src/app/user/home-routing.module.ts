@@ -7,7 +7,7 @@ import {ViewHouseComponent} from './view-house/view-house.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeUserComponent
   },
   {
@@ -18,11 +18,6 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent
   },
-  // {
-  //   path: 'order/:id',
-  //   component: OrderHouseComponent
-  // },
-
 ];
 
 @NgModule({

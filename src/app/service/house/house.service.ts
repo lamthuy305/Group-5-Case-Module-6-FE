@@ -18,15 +18,19 @@ export class HouseService {
     return this.http.get<House[]>(`${API_URL}/houses`);
   }
 
+  getTop5(): Observable<House[]> {
+    return this.http.get<House[]>(`${API_URL}/houses/top5`);
+  }
+
   getHouseById(id): Observable<House> {
     return this.http.get<House>(`${API_URL}/houses/${id}`);
   }
 
-  createHouse(house) {
+  createHouse(house): Observable<House> {
     return this.http.post(`${API_URL}/houses`, house);
   }
 
-  editHouse(id, house) {
+  editHouse(id, house): Observable<House> {
     return this.http.put<House>(`${API_URL}/houses/${id}`, house);
   }
 

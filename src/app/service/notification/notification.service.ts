@@ -11,6 +11,7 @@ export class NotificationService {
   constructor() {
   }
 
+
   showMessage(icon, title, text) {
     $(function() {
       Swal.fire({

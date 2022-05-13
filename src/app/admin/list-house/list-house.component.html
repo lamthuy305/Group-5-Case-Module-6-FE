@@ -61,7 +61,7 @@
                 <td>{{house.count_rent}}</td>
                 <td>{{house.statusHouse.name}}</td>
                 <td class="text-center">
-                  <a class="btn btn-info" routerLink="/house/edit/{{house.id}}">
+                  <a class="btn btn-info" routerLink="/admin/houses/edit/{{house.id}}">
                     <i class="fa fa-edit"></i>
                   </a>
                 </td>
@@ -136,11 +136,11 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div>
+      <div class="modal-body">
         <form [formGroup]="houseForm" (ngSubmit)="createHouse()" class="mb-3">
           <div>
             <label for="name"  class="form-label">Tên:</label>
-            <input type="text" class="form-control" id="name" formControlName="name" placeholder="tên" value="{{house.name}}">
+            <input type="text" class="form-control" id="name" formControlName="name">
           </div>
           <div>
             <label for="img"  class="form-label">Ảnh:</label>
@@ -185,10 +185,10 @@
             <label for="statusHouse" class="form-label">Trạng thái:</label>
             <select formControlName="statusHouse">
               <option disabled [ngValue]="undefined">Chọn trạng thái</option>
-              <option id="statusHouse" [value]="statusHouse.id" *ngFor="let statusHouse of statusHouses">{{statusHouse.name}}</option>
+              <option id="statusHouse" [value]="statusHouse.id  " *ngFor="let statusHouse of statusHouses">{{statusHouse.name}}</option>
             </select>
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>

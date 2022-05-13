@@ -13,8 +13,20 @@ export class OrderService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<any[]> {
-    return this.http.get<any[]>(`${API_URL}/orders`);
+  getAllOrderProcessingByUserId(currentUser_id): Observable<any[]> {
+    return this.http.get<any[]>(`${API_URL}/orders/processing/${currentUser_id}`);
+  }
+
+  changeStatusOrderDone(id){
+      return this.http.get<any>(`${API_URL}/orders/changeStatusDone/${id}`);
+  }
+
+  changeStatusOrderCanceled(id){
+    return this.http.get<any>(`${API_URL}/orders/changeStatusCanceled/${id}`);
+  }
+
+  getAllOrderStatusDone(id){
+    return this.http.get<any>(`${API_URL}/orders/statusDone/${id}`);
   }
 
   getOrderById(id): Observable<any> {
