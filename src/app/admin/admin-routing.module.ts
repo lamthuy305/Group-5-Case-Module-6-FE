@@ -5,29 +5,34 @@ import {CreateHouseComponent} from './create-house/create-house.component';
 import {OrderComponent} from './Order/order.component';
 import {EditHouseComponent} from './edit-house/edit-house.component';
 import {ViewUserComponent} from './view-user/view-user.component';
+import {HistoryOrderComponent} from './history-order/history-order.component';
 
 
 const routes: Routes = [
   {
-    path: 'house',
+    path: 'houses',
     component: ListHouseComponent
   },
   {
-    path: 'house/create',
+    path: 'houses/create',
     component: CreateHouseComponent
   },
   {
-    path: 'house/edit/:id',
+    path: 'houses/edit/:id',
     component: EditHouseComponent
   },
   {
-    path: 'order',
+    path: 'orders',
     component: OrderComponent
   },
   {
-    path: 'user',
+    path: 'users',
     component: ViewUserComponent
   },
+  {
+    path: 'orders/history',
+    component: HistoryOrderComponent
+  }
 
 ];
 
