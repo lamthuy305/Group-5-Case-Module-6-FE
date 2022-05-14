@@ -34,7 +34,7 @@
                 <th>Tên</th>
                 <th>Ảnh</th>
                 <th>Diện tích</th>
-                <th>Địa chỉ</th>
+                <th>Thành phố</th>
                 <th>Loại phòng</th>
                 <th>Số phòng ngủ</th>
                 <th>Số phòng tắm</th>
@@ -51,7 +51,7 @@
                 <td><a routerLink="/houses/{{house.id}}">{{house.name}}</a></td>
                 <td><img src="http://localhost:8080/image/{{house.img}}" width="250" height="200"></td>
                 <td>{{house.area}}</td>
-                <td>{{house.location}}</td>
+                <td>{{house.city.name}}</td>
                 <td>{{house.type.name}}</td>
                 <td>{{house.bedroom}}</td>
                 <td>{{house.bathroom}}</td>
@@ -101,19 +101,28 @@
 
           <div>
             <label for="img" class="form-label">Ảnh:</label>
-            <div  *ngIf="!showUploadListImage">
+            <div *ngIf="!showUploadListImage">
               <img src="http://localhost:8080/image/{{houseEdit.img}}" width="465px" height="300px">
             </div>
             <input class="form-control" type="file" id="img" formControlName="img">
           </div>
           <div *ngIf="showUploadListImage">
-            <label for="images" class="form-label" >Ảnh homstay:</label>
-            <input class="form-control" type="file" multiple id="images" formControlName="images" (change)="changeFile($event)">
+            <label for="images" class="form-label">Ảnh homstay:</label>
+            <input class="form-control" type="file" multiple id="images" formControlName="images"
+                   (change)="changeFile($event)">
           </div>
           <div>
             <label for="area" class="form-label">Diện tích:</label>
             <input class="form-control" type="text" id="area" formControlName="area"
                    placeholder="Nhập diện tích Homestay">
+          </div>
+
+          <div>
+            <label for="city" class="form-label">Thành phố:</label>
+            <select formControlName="city" class="form-control" id="city">
+              <option [ngValue]=null *ngIf="showUploadListImage">Chọn thành phố</option>
+              <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+            </select>
           </div>
           <div>
             <label for="location" class="form-label">Địa Chỉ:</label>
@@ -122,7 +131,7 @@
           <div>
             <label for="type" class="form-label">Loại phòng:</label>
             <select formControlName="type" class="form-control" id="type">
-              <option [ngValue]="null">Chọn loại phòng</option>
+              <option [ngValue]=null *ngIf="showUploadListImage">Chọn loại phòng</option>
               <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
             </select>
           </div>
@@ -148,7 +157,7 @@
           <div>
             <label for="statusHouse" class="form-label">Trạng thái:</label>
             <select formControlName="statusHouse" class="form-control" id="statusHouse">
-              <option [ngValue]="null">Chọn trạng thái</option>
+              <option [ngValue]=null *ngIf="showUploadListImage">Chọn trạng thái</option>
               <option *ngFor="let statusHouse of statusHouses" [value]="statusHouse.id">{{statusHouse.name}}</option>
             </select>
           </div>

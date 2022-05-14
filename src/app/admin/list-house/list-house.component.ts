@@ -8,6 +8,7 @@ import {StatusHouseService} from '../../service/statusHouse/status-house.service
 import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {NotificationService} from '../../service/notification/notification.service';
+import {CityService} from '../../service/city/city.service';
 
 declare var $: any;
 
@@ -19,6 +20,7 @@ declare var $: any;
 export class ListHouseComponent implements OnInit {
   houses: House[] = [];
   types: Type[] = [];
+  cities: any[] = [];
   statusHouses: StatusHouse[] = [];
   house: House = {};
   currentUser: any = {};
@@ -32,6 +34,7 @@ export class ListHouseComponent implements OnInit {
     id: new FormControl(),
     name: new FormControl(''),
     area: new FormControl(''),
+    city: new FormControl(null),
     location: new FormControl(''),
     bedroom: new FormControl(''),
     bathroom: new FormControl(''),
@@ -39,8 +42,8 @@ export class ListHouseComponent implements OnInit {
     description: new FormControl(''),
     img: new FormControl(),
     images: new FormControl(),
-    statusHouse: new FormControl(),
-    type: new FormControl(),
+    statusHouse: new FormControl(null),
+    type: new FormControl(null),
   });
 
 
@@ -48,7 +51,8 @@ export class ListHouseComponent implements OnInit {
               private typeService: TypeService,
               private statusHouseService: StatusHouseService,
               private router: Router,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private cityService: CityService) {
   }
 
   ngOnInit() {
@@ -61,6 +65,7 @@ export class ListHouseComponent implements OnInit {
     this.getAllHouses();
     this.getAllStatusHouse();
     this.getAllTypes();
+    this.getAllCity();
   }
 
   changeFile($event) {
@@ -87,6 +92,12 @@ export class ListHouseComponent implements OnInit {
   getAllTypes() {
     this.typeService.getAll().subscribe((listType) => {
       this.types = listType;
+    });
+  }
+
+  getAllCity() {
+    this.cityService.getAll().subscribe((citiesBE) => {
+      this.cities = citiesBE;
     });
   }
 
@@ -146,6 +157,7 @@ export class ListHouseComponent implements OnInit {
       this.houseEdit_Id = id;
       this.nameControl.setValue(this.houseEdit.name);
       this.areaControl.setValue(this.houseEdit.area);
+      this.cityControl.setValue(this.houseEdit.city);
       this.locationControl.setValue(this.houseEdit.location);
       this.bedroomControl.setValue(this.houseEdit.bedroom);
       this.bathroomControl.setValue(this.houseEdit.bathroom);
@@ -167,6 +179,10 @@ export class ListHouseComponent implements OnInit {
 
   get areaControl() {
     return this.houseForm.get('area');
+  }
+
+  get cityControl() {
+    return this.houseForm.get('city');
   }
 
   get locationControl() {

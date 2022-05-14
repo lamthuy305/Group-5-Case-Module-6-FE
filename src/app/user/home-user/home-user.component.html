@@ -25,7 +25,7 @@
 </section>
 <!-- Hero Section End -->
 
-<!-- Search Form Section Begin -->
+<!-- Search -->
 <div class="search-form">
   <div class="container">
     <div class="row">
@@ -33,29 +33,40 @@
         <div class="search-form-text">
           <div class="search-text">
             <i class="fa fa-search"></i>
-            Find Your Home
+            Tìm kiếm theo nhu cầu
           </div>
-
         </div>
-        <form action="#" class="filter-form">
+        <form class="filter-form" [formGroup]="searchForm" (ngSubmit)="searchSubmit()">
           <div class="first-row">
             <select>
-              <option value="">Villa & Pool</option>
+              <option [ngValue]="null" formControlName="city">Thành phố</option>
+              <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
             </select>
+
             <select>
-              <option value="">Title</option>
+              <option [ngValue]="null" formControlName="bedroom">Số phòng ngủ</option>
+              <option [value]="1"> 1 phòng</option>
+              <option [value]="2"> 2 phòng</option>
+              <option [value]="3"> 3 phòng</option>
+              <option [value]="4"> 4 phòng</option>
+              <option [value]="5"> > 4 phòng</option>
             </select>
+
             <select>
-              <option value="">Ani City</option>
+              <option [ngValue]="null" formControlName="bathroom">Số phòng tắm</option>
+              <option [value]="1"> 1 phòng</option>
+              <option [value]="2"> 2 phòng</option>
+              <option [value]="3"> 3 phòng</option>
+              <option [value]="4"> 4 phòng</option>
+              <option [value]="5"> > 4 phòng</option>
             </select>
+
             <select>
-              <option value="">Any Bithrooms</option>
+              <option [ngValue]="null" formControlName="type">Loại phòng</option>
+              <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
             </select>
           </div>
           <div class="second-row">
-            <select>
-              <option value="">Any Bedrooms</option>
-            </select>
             <div class="price-range-wrap">
               <div class="price-text">
                 <label for="priceRange">Price:</label>
@@ -63,6 +74,7 @@
               </div>
               <div id="price-range" class="slider"></div>
             </div>
+
             <div class="room-size-range">
               <div class="price-text">
                 <label for="roomsizeRange">Size:</label>
@@ -70,6 +82,7 @@
               </div>
               <div id="roomsize-range" class="slider"></div>
             </div>
+
             <button type="button" class="search-btn">Search</button>
           </div>
         </form>
@@ -77,8 +90,7 @@
     </div>
   </div>
 </div>
-<!-- Search Form Section End -->
-
+<!-- Search -->
 
 <!-- Ramdom -->
 <section class="blog-section latest-blog spad">
@@ -95,12 +107,12 @@
       <div class="col-lg-4" *ngFor="let houseRandom of housesRandom" style="margin-top: 50px">
         <div class="single-blog-item" style="background: ghostwhite">
           <div class="sb-pic">
-            <img src="http://localhost:8080/image/{{houseRandom.img}}" height="350">
+              <img src="http://localhost:8080/image/{{houseRandom.img}}" height="350" (click)="viewHouseById(houseRandom.id)">
           </div>
           <div class="sb-text" style="text-align: center">
             <h4>{{houseRandom.name}}</h4>
             <ul>
-              <li><i class="fa fa-map-marker"></i> {{houseRandom.location}}</li>
+              <li><i class="fa fa-map-marker"></i> {{houseRandom.city.name}}</li>
               <li><i class="fa fa-tag"></i> {{houseRandom.type.name}}</li>
             </ul>
             <h5 class="price">Giá: {{houseRandom.price}} VNĐ<span>/ngày</span></h5>
@@ -180,7 +192,7 @@
                 <div class="inside-text">
                   <h4>{{house.name}}</h4>
                   <ul>
-                    <li><i class="fa fa-map-marker"></i>{{house.location}}</li>
+                    <li><i class="fa fa-map-marker"></i>{{house.city.name}}</li>
                     <li><i class="fa fa-tag"></i>{{house.type.name}}</li>
                   </ul>
                   <h5 class="price">Giá: {{house.price}} VNĐ<span>/ngày</span></h5>
