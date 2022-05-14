@@ -15,6 +15,7 @@ declare var Swal: any;
 })
 export class HomeUserComponent implements OnInit {
   houses: House[] = [];
+  housesRandom: House[] = [];
 
   constructor(private shareJSService: ShareJSService,
               private router: Router,
@@ -24,6 +25,7 @@ export class HomeUserComponent implements OnInit {
 
   ngOnInit() {
     this.getAllHouse();
+    this.getRandom9House();
   }
 
   getAllHouse() {
@@ -33,8 +35,13 @@ export class HomeUserComponent implements OnInit {
     });
   }
 
-
   viewHouseById(id) {
     this.router.navigateByUrl('/view/' + id);
+  }
+
+  getRandom9House() {
+    this.houseService.getRandom9House().subscribe((housesRandomBE) => {
+      this.housesRandom = housesRandomBE;
+    });
   }
 }

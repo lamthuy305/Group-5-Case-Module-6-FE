@@ -22,6 +22,10 @@ export class HouseService {
     return this.http.get<House[]>(`${API_URL}/houses/top5`);
   }
 
+  getRandom9House(): Observable<House[]> {
+    return this.http.get<House[]>(`${API_URL}/houses/random`);
+  }
+
   getHouseById(id): Observable<House> {
     return this.http.get<House>(`${API_URL}/houses/${id}`);
   }

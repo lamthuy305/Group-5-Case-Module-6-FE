@@ -80,14 +80,80 @@
 <!-- Search Form Section End -->
 
 
+<!-- Ramdom -->
+<section class="blog-section latest-blog spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title">
+          <!--          <span>Blog & Events</span>-->
+          <h2>Giới thiệu những Homstay ngẫu nhiên</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4" *ngFor="let houseRandom of housesRandom" style="margin-top: 50px">
+        <div class="single-blog-item" style="background: ghostwhite">
+          <div class="sb-pic">
+            <img src="http://localhost:8080/image/{{houseRandom.img}}" height="350">
+          </div>
+          <div class="sb-text" style="text-align: center">
+            <h4>{{houseRandom.name}}</h4>
+            <ul>
+              <li><i class="fa fa-map-marker"></i> {{houseRandom.location}}</li>
+              <li><i class="fa fa-tag"></i> {{houseRandom.type.name}}</li>
+            </ul>
+            <h5 class="price">Giá: {{houseRandom.price}} VNĐ<span>/ngày</span></h5>
+            <ul class="room-features">
+              <li>
+                <i class="fa fa-arrows"> {{houseRandom.area}}</i>
+              </li>
+              <li>
+                <i class="fa fa-bed"> {{houseRandom.bedroom}}</i>
+                <p></p>
+              </li>
+              <li>
+                <i class="fa fa-bath"> {{houseRandom.bathroom}}</i>
+                <p></p>
+              </li>
+
+              <li>
+                <i class="fa fa-shopping-cart"> {{houseRandom.count_rent}}</i>
+                <p></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Ramdom -->
+
+<!-- Video Section Begin -->
+<div class="video-section set-bg" data-setbg="../../../assets/img/video-bg.jpg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="video-text">
+          <a href="https://www.youtube.com/watch?v=z9hSV53v4b8" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+          <h4>Khám phá các Homstay</h4>
+          <h2>Click để xem chi tiết</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Video Section End -->
+
 <!-- Feature Section Begin -->
 <section class="feature-section spad">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
         <div class="section-title">
-<!--          <span>Listing From Our Agents</span>-->
-          <h2>Tốp 5 HomeStay được thuê nhiều nhất</h2>
+          <!--          <span>Listing From Our Agents</span>-->
+          <h2>5 HomeStay được thuê nhiều nhất</h2>
         </div>
       </div>
     </div>
@@ -95,12 +161,12 @@
       <div class="feature-carousel owl-carousel">
 
 
-
         <div *ngFor="let house of houses">
 
           <div class="col-lg-4">
             <div class="feature-item">
-              <div class="fi-pic set-bg" data-setbg="../../../assets/img/hero/hero-1.jpg" (click)="viewHouseById(house.id)">
+              <div class="fi-pic set-bg" data-setbg="../../../assets/img/hero/hero-1.jpg"
+                   (click)="viewHouseById(house.id)">
                 <div class="feature-author">
                   <div class="fa-pic">
                     <img src="http://localhost:8080/image/{{house.img}}" alt="">
@@ -148,221 +214,6 @@
   </div>
 </section>
 <!-- Feature Section End -->
-
-<!-- Video Section Begin -->
-<div class="video-section set-bg" data-setbg="../../../assets/img/video-bg.jpg">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="video-text">
-          <a href="https://www.youtube.com/watch?v=z9hSV53v4b8" class="play-btn video-popup"><i class="fa fa-play"></i></a>
-          <h4>Khám phá các Homstay</h4>
-          <h2>Click để xem chi tiết</h2>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Video Section End -->
-
-<!-- Top Properties Section Begin -->
-<div class="top-properties-section spad">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="properties-title">
-          <div class="section-title">
-<!--            <span>Top Property For You</span>-->
-            <h2>Những HomeStay phù hợp</h2>
-          </div>
-          <a href="#" class="top-property-all">View All Property</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="top-properties-carousel owl-carousel">
-      <div class="single-top-properties">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="stp-pic">
-              <img src="../../../assets/img/properties/properties-1.jpg" alt="">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="stp-text">
-              <div class="s-text">For Sale</div>
-              <h2>vila 1</h2>
-              <div class="room-price">
-                <span>Start From:</span>
-                <h4>$3.000.000</h4>
-              </div>
-              <div class="properties-location"><i class="icon_pin"></i> 9721 Glen Creek Ave. Ballston Spa, NY</div>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.</p>
-              <ul class="room-features">
-                <li>
-                  <i class="fa fa-arrows"></i>
-                  <p>5201 sqft</p>
-                </li>
-                <li>
-                  <i class="fa fa-bed"></i>
-                  <p>8 Bed Room</p>
-                </li>
-                <li>
-                  <i class="fa fa-bath"></i>
-                  <p>7 Baths Bed</p>
-                </li>
-                <li>
-                  <i class="fa fa-car"></i>
-                  <p>1 Garage</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-      <div class="single-top-properties">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="stp-pic">
-              <img src="../../../assets/img/properties/properties-2.jpg" alt="">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="stp-text">
-              <div class="s-text">For Sale</div>
-              <h2>Villa 2</h2>
-              <div class="room-price">
-                <span>Start From:</span>
-                <h4>$3.000.000</h4>
-              </div>
-              <div class="properties-location"><i class="icon_pin"></i> 9721 Glen Creek Ave. Ballston Spa, NY</div>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.</p>
-              <ul class="room-features">
-                <li>
-                  <i class="fa fa-arrows"></i>
-                  <p>5201 sqft</p>
-                </li>
-                <li>
-                  <i class="fa fa-bed"></i>
-                  <p>8 Bed Room</p>
-                </li>
-                <li>
-                  <i class="fa fa-bath"></i>
-                  <p>7 Baths Bed</p>
-                </li>
-                <li>
-                  <i class="fa fa-car"></i>
-                  <p>1 Garage</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Top Properties Section End -->
-
-
-
-<!-- Latest Blog Section Begin -->
-<section class="blog-section latest-blog spad">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="section-title">
-<!--          <span>Blog & Events</span>-->
-          <h2>Giới thiệu những Homstay mới</h2>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4">
-        <div class="single-blog-item">
-          <div class="sb-pic">
-            <img src="../../../assets/img/blog/latest-1.jpg" alt="">
-          </div>
-          <div class="sb-text">
-            <ul>
-              <li><i class="fa fa-user"></i> Adam Smith</li>
-              <li><i class="fa fa-clock-o"></i> 18th Jan, 2019</li>
-            </ul>
-            <h4><a href="#">Enhance Your Brand Potential With Giant.</a></h4>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="single-blog-item">
-          <div class="sb-pic">
-            <img src="../../../assets/img/blog/latest-2.jpg" alt="">
-          </div>
-          <div class="sb-text">
-            <ul>
-              <li><i class="fa fa-user"></i> Adam Smith</li>
-              <li><i class="fa fa-clock-o"></i> 18th Jan, 2019</li>
-            </ul>
-            <h4><a href="#">Illustration In Marketing Materials</a></h4>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="single-blog-item">
-          <div class="sb-pic">
-            <img src="../../../assets/img/blog/latest-3.jpg" alt="">
-          </div>
-          <div class="sb-text">
-            <ul>
-              <li><i class="fa fa-user"></i> Adam Smith</li>
-              <li><i class="fa fa-clock-o"></i> 18th Jan, 2019</li>
-            </ul>
-            <h4><a href="#">Branding Do You Know Who You Are</a></h4>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- Latest Blog Section End -->
-
-<!-- Partner Carousel Section Begin -->
-<div class="partner-section">
-  <div class="container">
-    <div class="partner-carousel owl-carousel">
-      <a href="#" class="partner-logo">
-        <div class="partner-logo-tablecell">
-          <img src="../../../assets/img/partner/partner-1.png" alt="">
-        </div>
-      </a>
-      <a href="#" class="partner-logo">
-        <div class="partner-logo-tablecell">
-          <img src="../../../assets/img/partner/partner-2.png" alt="">
-        </div>
-      </a>
-      <a href="#" class="partner-logo">
-        <div class="partner-logo-tablecell">
-          <img src="../../../assets/img/partner/partner-3.png" alt="">
-        </div>
-      </a>
-      <a href="#" class="partner-logo">
-        <div class="partner-logo-tablecell">
-          <img src="../../../assets/img/partner/partner-4.png" alt="">
-        </div>
-      </a>
-      <a href="#" class="partner-logo">
-        <div class="partner-logo-tablecell">
-          <img src="../../../assets/img/partner/partner-5.png" alt="">
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
-<!-- Partner Carousel Section End -->
 
 <!-- Footer Section Begin -->
 <footer class="footer-section set-bg" data-setbg="../../../assets/img/footer-bg.jpg">

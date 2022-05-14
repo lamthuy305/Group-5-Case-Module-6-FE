@@ -48,7 +48,7 @@ export class OrderComponent implements OnInit {
   changeStatusOrderDone(id) {
     this.orderService.changeStatusOrderDone(id).subscribe(() => {
         this.notificationService.showMessage('success', 'Thành công!', 'Đồng ý đơn hàng');
-        this.router.navigateByUrl('/admin/orders');
+        this.getAllOrderProcessingByUserId();
       }, error => this.notificationService.showMessage('error', 'Done!', 'Xảy ra lỗi')
     );
   }
@@ -56,7 +56,8 @@ export class OrderComponent implements OnInit {
   changeStatusOrderCanceled(id) {
     this.orderService.changeStatusOrderCanceled(id).subscribe(() => {
         this.notificationService.showMessage('success', 'Thành công!', 'Đã từ chối đơn hàng');
-        this.router.navigateByUrl('/admin/orders');
+      this.getAllOrderProcessingByUserId();
+
       }, error => this.notificationService.showMessage('error', 'Canceled!', 'Xảy ra lỗi')
     );
   }

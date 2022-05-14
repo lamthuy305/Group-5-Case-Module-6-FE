@@ -23,10 +23,13 @@ export class ListHouseComponent implements OnInit {
   house: House = {};
   currentUser: any = {};
   selectedFile: File[] = [];
+  houseEdit: House = {};
+  houseEdit_Id: number = 0;
+  showUploadListImage: boolean = true;
 
 
   houseForm: FormGroup = new FormGroup({
-    id: new FormControl(''),
+    id: new FormControl(),
     name: new FormControl(''),
     area: new FormControl(''),
     location: new FormControl(''),
@@ -34,11 +37,12 @@ export class ListHouseComponent implements OnInit {
     bathroom: new FormControl(''),
     price: new FormControl(''),
     description: new FormControl(''),
-    img: new FormControl(''),
-    // images: new FormControl(''),
-    statusHouse: new FormControl(''),
-    type: new FormControl(''),
+    img: new FormControl(),
+    images: new FormControl(),
+    statusHouse: new FormControl(),
+    type: new FormControl(),
   });
+
 
   constructor(private houseService: HouseService,
               private typeService: TypeService,
@@ -49,26 +53,34 @@ export class ListHouseComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentUser();
-    this.getAllStatusHouse();
-    this.getAllTypes();
-    this.getAllHouses();
   }
 
   getCurrentUser() {
     this.currentUser = localStorage.getItem('currentUser');
     this.currentUser = JSON.parse(this.currentUser);
+    this.getAllHouses();
+    this.getAllStatusHouse();
+    this.getAllTypes();
   }
 
   changeFile($event) {
     this.selectedFile = $event.target.files;
-    console.log(this.selectedFile);
   }
 
   getAllHouses() {
     this.houseService.getAll().subscribe((listHouse) => {
       this.houses = listHouse;
+      $(function() {
+        $('#table-house').DataTable({
+          'paging': true,
+          'lengthChange': false,
+          'searching': false,
+          'ordering': true,
+          'info': true,
+          'autoWidth': false,
+        });
+      });
     }, error => {
-      console.log(error);
     });
   }
 
@@ -82,7 +94,6 @@ export class ListHouseComponent implements OnInit {
     this.statusHouseService.getAll().subscribe((listStatusOfHouse) => {
       this.statusHouses = listStatusOfHouse;
     }, error => {
-      console.log(error);
     });
   }
 
@@ -95,6 +106,9 @@ export class ListHouseComponent implements OnInit {
 
   createHouse() {
     const house = new FormData();
+    if (this.houseEdit_Id > 0) {
+      house.append('id', this.houseEdit_Id.toFixed());
+    }
     house.append('name', this.houseForm.value.name);
     house.append('area', this.houseForm.value.area);
     house.append('location', this.houseForm.value.location);
@@ -102,19 +116,93 @@ export class ListHouseComponent implements OnInit {
     house.append('bathroom', this.houseForm.value.bathroom);
     house.append('price', this.houseForm.value.price);
     house.append('description', this.houseForm.value.description);
-    house.append('img', (<HTMLInputElement> document.getElementById('img')).files[0]);
-    for (let i = 0; i < this.selectedFile.length; i++) {
-      house.append('images', this.selectedFile[i]);
+    const files = (document.getElementById('img') as HTMLInputElement).files;
+    if (files.length > 0) {
+      house.append('img', files[0]);
+    }
+    if (this.selectedFile.length > 0) {
+      for (let i = 0; i < this.selectedFile.length; i++) {
+        house.append('images', this.selectedFile[i]);
+      }
     }
     house.append('statusHouse', this.houseForm.value.statusHouse);
     house.append('type', this.houseForm.value.type);
     house.append('user', this.currentUser.id);
     if (this.houseForm.valid) {
       this.houseService.createHouse(house).subscribe(() => {
-        $('#create-house').modal('hide');
-        this.notificationService.showMessage('success', 'Create!!', 'Tạo mới thành công');
-        this.getAllHouses();
-      },);
+          this.houseForm.reset();
+          $('#create-house').modal('hide');
+          this.notificationService.showMessage('success', 'Create!!', 'Tạo mới thành công');
+          this.getAllHouses();
+        }, error => this.notificationService.showMessage('error', 'Xảy ra lỗi!', 'Vui lòng kiểm tra lại thông tin vừa nhập')
+      );
     }
+  }
+
+  getHouseById(id) {
+    this.showUploadListImage = false;
+    this.houseService.getHouseById(id).subscribe((houseBE) => {
+      this.houseEdit = houseBE;
+      this.houseEdit_Id = id;
+      this.nameControl.setValue(this.houseEdit.name);
+      this.areaControl.setValue(this.houseEdit.area);
+      this.locationControl.setValue(this.houseEdit.location);
+      this.bedroomControl.setValue(this.houseEdit.bedroom);
+      this.bathroomControl.setValue(this.houseEdit.bathroom);
+      this.priceControl.setValue(this.houseEdit.price);
+      this.descriptionControl.setValue(this.houseEdit.description);
+      this.statusHouseControl.setValue(this.houseEdit.statusHouse);
+      this.typeControl.setValue(this.houseEdit.type);
+    }, error => {
+    });
+  }
+
+  get idControl() {
+    return this.houseForm.get('id');
+  }
+
+  get nameControl() {
+    return this.houseForm.get('name');
+  }
+
+  get areaControl() {
+    return this.houseForm.get('area');
+  }
+
+  get locationControl() {
+    return this.houseForm.get('location');
+  }
+
+  get bedroomControl() {
+    return this.houseForm.get('bedroom');
+  }
+
+  get bathroomControl() {
+    return this.houseForm.get('bathroom');
+  }
+
+  get priceControl() {
+    return this.houseForm.get('price');
+  }
+
+  get descriptionControl() {
+    return this.houseForm.get('description');
+  }
+
+  get imgControl() {
+    return this.houseForm.get('img');
+  }
+
+  get statusHouseControl() {
+    return this.houseForm.get('statusHouse');
+  }
+
+  get typeControl() {
+    return this.houseForm.get('type');
+  }
+
+  resetFormData() {
+    this.houseForm.reset();
+    this.showUploadListImage = true;
   }
 }
