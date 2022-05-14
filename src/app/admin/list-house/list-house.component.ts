@@ -122,6 +122,7 @@ export class ListHouseComponent implements OnInit {
     }
     house.append('name', this.houseForm.value.name);
     house.append('area', this.houseForm.value.area);
+    house.append('city', this.houseForm.value.city);
     house.append('location', this.houseForm.value.location);
     house.append('bedroom', this.houseForm.value.bedroom);
     house.append('bathroom', this.houseForm.value.bathroom);

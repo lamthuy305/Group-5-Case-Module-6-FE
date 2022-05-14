@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {House} from "../../model/house";
-import {environment} from "../../../environments/environment";
-import {Observable} from "rxjs";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {House} from '../../model/house';
+import {environment} from '../../../environments/environment';
+import {Observable} from 'rxjs';
 
 const API_URL = `${environment.apiUrl}`;
 
@@ -11,7 +11,8 @@ const API_URL = `${environment.apiUrl}`;
 })
 export class HouseService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
 
   getAll(): Observable<House[]> {
@@ -33,6 +34,11 @@ export class HouseService {
   createHouse(house): Observable<House> {
     return this.http.post(`${API_URL}/houses`, house);
   }
+
+  searchHouse(city, bedroom, bathroom, price, type) {
+    return this.http.get(`${API_URL}/houses/search?city=${city}&bedroom=${bedroom}&bathroom=${bathroom}&price=${price}&type=${type}`);
+  }
+
 
   editHouse(id, house): Observable<House> {
     return this.http.put<House>(`${API_URL}/houses/${id}`, house);

@@ -25,6 +25,7 @@
 </section>
 <!-- Hero Section End -->
 
+
 <!-- Search -->
 <div class="search-form">
   <div class="container">
@@ -38,52 +39,42 @@
         </div>
         <form class="filter-form" [formGroup]="searchForm" (ngSubmit)="searchSubmit()">
           <div class="first-row">
-            <select>
-              <option [ngValue]="null" formControlName="city">Thành phố</option>
-              <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
-            </select>
-
-            <select>
-              <option [ngValue]="null" formControlName="bedroom">Số phòng ngủ</option>
-              <option [value]="1"> 1 phòng</option>
-              <option [value]="2"> 2 phòng</option>
-              <option [value]="3"> 3 phòng</option>
-              <option [value]="4"> 4 phòng</option>
-              <option [value]="5"> > 4 phòng</option>
-            </select>
-
-            <select>
-              <option [ngValue]="null" formControlName="bathroom">Số phòng tắm</option>
-              <option [value]="1"> 1 phòng</option>
-              <option [value]="2"> 2 phòng</option>
-              <option [value]="3"> 3 phòng</option>
-              <option [value]="4"> 4 phòng</option>
-              <option [value]="5"> > 4 phòng</option>
-            </select>
-
-            <select>
-              <option [ngValue]="null" formControlName="type">Loại phòng</option>
-              <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
-            </select>
+            <div>
+              <select formControlName="city" id="city">
+                <option [ngValue]="null">Thành phố</option>
+                <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+              </select>
+            </div>
+            <div>
+              <select formControlName="bedroom" id="bedroom">
+                <option [ngValue]="null">Số phòng ngủ</option>
+                <option *ngFor="let rankBedroom of rankBedrooms" [value]="rankBedroom.id">{{rankBedroom.name}}</option>
+              </select>
+            </div>
+            <div>
+              <select formControlName="bathroom" id="bathroom">
+                <option [ngValue]="null">Số phòng tắm</option>
+                <option *ngFor="let rankBathroom of rankBathrooms"
+                        [value]="rankBathroom.id">{{rankBathroom.name}}</option>
+              </select>
+            </div>
+            <div>
+              <select formControlName="type" id="type">
+                <option [ngValue]="null">Loại phòng</option>
+                <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
+              </select>
+            </div>
           </div>
           <div class="second-row">
-            <div class="price-range-wrap">
-              <div class="price-text">
-                <label for="priceRange">Price:</label>
-                <input type="text" id="priceRange" readonly>
-              </div>
-              <div id="price-range" class="slider"></div>
+            <div>
+              <select formControlName="price" id="price">
+                <option [ngValue]="null">Mức giá</option>
+                <option *ngFor="let rankPrice of rankPrices" [value]="rankPrice.id">{{rankPrice.name}}</option>
+              </select>
             </div>
-
-            <div class="room-size-range">
-              <div class="price-text">
-                <label for="roomsizeRange">Size:</label>
-                <input type="text" id="roomsizeRange" readonly>
-              </div>
-              <div id="roomsize-range" class="slider"></div>
+            <div>
+              <button type="submit" class="search-btn">Search</button>
             </div>
-
-            <button type="button" class="search-btn">Search</button>
           </div>
         </form>
       </div>
@@ -91,6 +82,57 @@
   </div>
 </div>
 <!-- Search -->
+
+<!-- Search Done -->
+<section class="blog-section latest-blog spad" *ngIf="showFormSearchDone" style="background: powderblue">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title">
+          <h2>Kết quả tìm kiếm phù hợp nhất</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4" *ngFor="let houseSearch of housesSearch" style="margin-top: 50px">
+        <div class="single-blog-item" style="background: ghostwhite">
+          <div class="sb-pic">
+            <img src="http://localhost:8080/image/{{houseSearch.img}}" height="300"
+                 (click)="viewHouseById(houseSearch.id)">
+          </div>
+          <div class="sb-text" style="text-align: center">
+            <h4>{{houseSearch.name}}</h4>
+            <ul>
+              <li><i class="fa fa-map-marker"></i> {{houseSearch.city.name}}</li>
+              <li><i class="fa fa-tag"></i> {{houseSearch.type.name}}</li>
+            </ul>
+            <h5 class="price">Giá: {{houseSearch.price}} VNĐ<span>/ngày</span></h5>
+            <ul class="room-features">
+              <li>
+                <i class="fa fa-arrows"> {{houseSearch.area}}</i>
+              </li>
+              <li>
+                <i class="fa fa-bed"> {{houseSearch.bedroom}}</i>
+                <p></p>
+              </li>
+              <li>
+                <i class="fa fa-bath"> {{houseSearch.bathroom}}</i>
+                <p></p>
+              </li>
+
+              <li>
+                <i class="fa fa-shopping-cart"> {{houseSearch.count_rent}}</i>
+                <p></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Search Done -->
+
 
 <!-- Ramdom -->
 <section class="blog-section latest-blog spad">
@@ -107,7 +149,8 @@
       <div class="col-lg-4" *ngFor="let houseRandom of housesRandom" style="margin-top: 50px">
         <div class="single-blog-item" style="background: ghostwhite">
           <div class="sb-pic">
-              <img src="http://localhost:8080/image/{{houseRandom.img}}" height="350" (click)="viewHouseById(houseRandom.id)">
+            <img src="http://localhost:8080/image/{{houseRandom.img}}" height="300"
+                 (click)="viewHouseById(houseRandom.id)">
           </div>
           <div class="sb-text" style="text-align: center">
             <h4>{{houseRandom.name}}</h4>
