@@ -1,1 +1,72 @@
-<p>view-user works!</p>
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>List Homestay</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+          <li class="breadcrumb-item active">Danh sách</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-tools">
+              <a routerLink="/admin/house/create" class="btn btn-primary">Thêm mới</a>
+            </div>
+          </div>
+          <div class="card-body">
+
+            <table id="books-list" class="table table-bordered table-hover">
+              <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Tài khoản</th>
+                <th>Số điện thoại</th>
+                <th>Trạng thái</th>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of users; index as i">
+                <td>{{i + 1}}</td>
+<!--                <td><a routerLink="/houses/{{house.id}}">{{house.name}}</a></td>-->
+<!--                <td><img src="http://localhost:8080/image/{{house.img}}"></td>-->
+                <td>{{user.username}}</td>
+                <td>{{user.numberPhone}}</td>
+                <td>{{user.isActive}}</td>
+<!--                <td class="text-center">-->
+<!--                  <a class="btn btn-info" routerLink="/house/edit/{{house.id}}">-->
+<!--                    <i class="fa fa-edit"></i>-->
+<!--                  </a>-->
+<!--                </td>-->
+<!--                <td class="text-center">-->
+<!--                  <a class="btn btn-danger" (click)="delete(house.id)">-->
+<!--                    <i class="fa fa-trash"></i>-->
+<!--                  </a>-->
+<!--                </td>-->
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+

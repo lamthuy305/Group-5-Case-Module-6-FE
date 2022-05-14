@@ -10,14 +10,11 @@ import {AuthService} from '../../service/auth/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  user: User = {};
-
   loginForm: FormGroup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl('')
   });
-  isInvalid: boolean= false;
+  isInvalid: boolean = false;
 
   constructor(private authService: AuthService,
               private router: Router) {
@@ -27,13 +24,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.user = this.loginForm.value;
-    this.authService.login(this.user).subscribe((currentUser) => {
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));
-      this.isInvalid=false;
+    this.authService.login(this.loginForm.get('username').value, this.loginForm.get('password').value).subscribe(() => {
+      this.isInvalid = false;
       this.router.navigateByUrl('/home');
     }, error => {
-      this.isInvalid=true;
+      this.isInvalid = true;
     })
   }
 

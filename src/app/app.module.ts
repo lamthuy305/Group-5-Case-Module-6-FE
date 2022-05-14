@@ -5,7 +5,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NavbarComponent} from './layout/admin/navbar/navbar.component';
 import {SidebarComponent} from './layout/admin/sidebar/sidebar.component';
 import {AdminLayoutComponent} from './layout/admin/admin-layout/admin-layout.component';
@@ -14,6 +14,8 @@ import {NavbarHomeComponent} from './layout/user/navbar-home/navbar-home.compone
 import {SidebarHomeComponent} from './layout/user/sidebar-home/sidebar-home.component';
 import {AuthModule} from './auth/auth.module';
 import {AdminModule} from './admin/admin.module';
+import {JwtInterceptor} from "./helper/jwt-interceptor";
+import {ErrorInterceptor} from "./helper/error-interceptor";
 
 
 @NgModule({
@@ -34,7 +36,10 @@ import {AdminModule} from './admin/admin.module';
     AuthModule,
     AdminModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi:true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
