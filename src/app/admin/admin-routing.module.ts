@@ -5,6 +5,7 @@ import {OrderComponent} from './Order/order.component';
 import {ViewUserComponent} from './view-user/view-user.component';
 import {DetailHouseComponent} from './detail-house/detail-house.component';
 import {HistoryOrderComponent} from './history-order/history-order.component';
+import {AuthGuard} from '../helper/auth-guard';
 
 
 const routes: Routes = [
@@ -19,16 +20,18 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    component: ViewUserComponent
+    component: ViewUserComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'house/detail/:id',
+    path: 'house/detail/:id',
     component: DetailHouseComponent
   },
-  {    path: 'orders/history',
+  {
+    path: 'orders/history',
     component: HistoryOrderComponent
   }
-  ];
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
