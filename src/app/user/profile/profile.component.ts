@@ -42,6 +42,8 @@ export class ProfileComponent implements OnInit {
     this.currentUser = localStorage.getItem('currentUser');
     this.currentUser = JSON.parse(this.currentUser);
     this.getProfile(this.currentUser.id);
+    console.log(this.currentUser.id)
+    console.log(this.profile)
   }
 
 
@@ -50,7 +52,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfile(id) {
-    this.profileService.getProfileById(id).subscribe(profileBE => {
+    this.profileService.getProfileByUserId(id).subscribe(profileBE => {
       this.profile = profileBE;
       this.phoneControl.setValue(this.profile.phone);
       this.addressControl.setValue(this.profile.address);
@@ -88,6 +90,7 @@ export class ProfileComponent implements OnInit {
 
 
   submitEditProfile() {
+
     let formData = new FormData();
     formData.append('name', this.profileForm.value.name);
     formData.append('birthday', this.profileForm.value.birthday);
@@ -100,7 +103,10 @@ export class ProfileComponent implements OnInit {
     formData.append('address', this.profileForm.value.address);
     formData.append('email', this.profileForm.value.email);
     formData.append('phone', this.profileForm.value.phone);
-    this.profileService.editProfile(this.profile.id, formData).subscribe(() => {
+
+    console.log(formData);
+
+    this.profileService.editProfile(this.currentUser.id, formData).subscribe(() => {
       this.notificationService.showMessage('success', 'Edit!', 'Chỉnh sửa thành công');
       this.getProfile(this.currentUser.id);
 

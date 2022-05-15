@@ -5,7 +5,8 @@ import {Router} from '@angular/router';
 
 const ONE_DAY = 86000000;
 const TIME_CHECK = 50400000;
-
+declare var $: any;
+declare var Swal: any;
 
 @Component({
   selector: 'app-order-detail',
@@ -28,17 +29,28 @@ export class OrderDetailComponent implements OnInit {
   }
 
   getCheckTimeCaceledOr(id, checkIn) {
-    const currentTime: Date = new Date();
-    const checkInTime: Date = new Date(checkIn);
-    console.log(checkInTime.getTime() - currentTime.getTime() < TIME_CHECK);
-    if (checkInTime.getTime() - currentTime.getTime() < TIME_CHECK) {
-      this.notificationService.showMessage('error', 'Canceled!', 'Không thể hủy do thời gian đên checkin nhỏ hơn 1 ngày');
-    } else {
-      this.orderService.changeStatusOrderCanceled(id).subscribe(() => {
-        this.notificationService.showMessage('success', 'Canceled!', 'Hủy đặt phòng thành công');
-        this.get5OrderByOrderIdRent();
-      });
-    }
+    Swal.fire({
+      title: 'Bạn có chắc chắn?',
+      text: 'Bạn có muốn hủy đơn này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Đồng ý!'
+    }).then((result) => {
+      const currentTime: Date = new Date();
+      const checkInTime: Date = new Date(checkIn);
+      console.log(checkInTime.getTime() - currentTime.getTime() < TIME_CHECK);
+      if (checkInTime.getTime() - currentTime.getTime() < TIME_CHECK) {
+        this.notificationService.showMessage('error', 'Canceled!', 'Không thể hủy do thời gian đến khi checkin còn nhỏ hơn 1 ngày');
+      } else {
+        this.orderService.changeStatusOrderCanceled(id).subscribe(() => {
+          this.notificationService.showMessage('success', 'Canceled!', 'Hủy đặt phòng thành công');
+          this.get5OrderByOrderIdRent();
+        });
+      }
+      }
+    );
   }
 
   get5OrderByOrderIdRent() {

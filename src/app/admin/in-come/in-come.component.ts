@@ -13,6 +13,8 @@ export class InComeComponent implements OnInit {
   years: number[] = [2022, 2023, 2024, 2025, 2026];
   monthFE: any;
   yearFE: any;
+  sum_income: number = 0;
+
   monthForm: FormGroup = new FormGroup({
     month: new FormControl(),
   });
@@ -23,6 +25,13 @@ export class InComeComponent implements OnInit {
 
   ngOnInit() {
     this.viewDate();
+  }
+
+  sumIncome() {
+    for (let i = 0; i < this.orders.length; i++) {
+      this.sum_income += (new Date(this.orders[i].checkOut).getUTCDate() - new Date(this.orders[i].checkIn).getUTCDate()) * this.orders[i].house.price;
+    }
+    console.log(this.sum_income);
   }
 
   viewDate() {
@@ -36,7 +45,7 @@ export class InComeComponent implements OnInit {
     }
     this.orderService.getHouseInMonthYear(this.monthFE, this.yearFE).subscribe((listOrdersBE) => {
       this.orders = listOrdersBE;
-      console.log(this.orders);
+      this.sumIncome();
     });
   }
 }

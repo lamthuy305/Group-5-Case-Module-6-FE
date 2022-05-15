@@ -16,7 +16,7 @@ export class HouseService {
 
 
   getAll(id): Observable<House[]> {
-    return this.http.get<House[]>(`${API_URL}/houses`);
+    return this.http.get<House[]>(`${API_URL}/houses?id=${id}`);
   }
 
   getTop5(): Observable<House[]> {

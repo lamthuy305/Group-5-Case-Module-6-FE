@@ -14,17 +14,14 @@ export class ProfileService {
   constructor(private http: HttpClient) {
   }
 
-  //
-  // getAll(): Observable<Profile[]> {
-  //   return this.http.get<Profile[]>(`${API_URL}` + '/profile');
-  // }
 
-  editProfile(id, profile: FormData){
+
+  editProfile(id, profile){
     return this.http.post(`${API_URL}/profiles/${id}`, profile);
 
   }
 
-  getProfileById(id): Observable<Profile> {
+  getProfileByUserId(id): Observable<Profile> {
     return this.http.get<Profile>(`${API_URL}/profiles/${id}`);
   }
 }

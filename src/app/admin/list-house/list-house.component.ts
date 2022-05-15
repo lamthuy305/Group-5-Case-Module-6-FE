@@ -11,6 +11,7 @@ import {NotificationService} from '../../service/notification/notification.servi
 import {CityService} from '../../service/city/city.service';
 
 declare var $: any;
+declare var Swal: any;
 
 @Component({
   selector: 'app-list-house',
@@ -109,10 +110,24 @@ export class ListHouseComponent implements OnInit {
   }
 
   delete(id) {
-    this.houseService.deleteHouse(id).subscribe(() => {
-      this.notificationService.showMessage('success', 'Delete!!', 'Xóa thành công');
-      this.getAllHouses();
-    });
+    Swal.fire({
+      title: 'Bạn có muốn xóa?',
+      text: 'You wont be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+          this.houseService.deleteHouse(id).subscribe(() => {
+            this.notificationService.showMessage('success', 'Delete!!', 'Xóa thành công');
+            this.getAllHouses();
+          }, error =>
+            this.notificationService.showMessage('erros', 'Delete!','Xóa lỗi'));
+        }
+      }
+    );
   }
 
   createHouse() {
