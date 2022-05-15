@@ -29,7 +29,7 @@ export class OrderService {
     return this.http.get<any>(`${API_URL}/orders/statusDone/${id}`);
   }
 
-  getHouseInMonthYear(id,month,year) {
+  getHouseInMonthYear(id, month, year) {
     return this.http.get<any>(`${API_URL}/orders/income?id=${id}&month=${month}&year=${year}`);
   }
 
@@ -52,5 +52,10 @@ export class OrderService {
 
   deleteOrder(id): Observable<House> {
     return this.http.delete<any>(`${API_URL}/orders/${id}`);
+  }
+
+  getAllOrderByHouseId(id) {
+    return this.http.get<any>(`${API_URL}/orders/house/${id}`);
+
   }
 }

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {ImageService} from '../../service/image/image.service';
-import {NotificationService} from '../../service/notification/notification.service';
+import {ImageService} from '../../../service/image/image.service';
+import {NotificationService} from '../../../service/notification/notification.service';
 
 declare var $: any;
 declare var Swal: any;
