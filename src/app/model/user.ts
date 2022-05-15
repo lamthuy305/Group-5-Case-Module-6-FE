@@ -1,7 +1,8 @@
 export interface User {
+  id?: number;
   username?: string,
   numberPhone?: string,
-  isActive?: boolean,
+  active?: boolean,
   password?: string,
   role?: any,
 }

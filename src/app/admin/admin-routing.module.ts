@@ -6,6 +6,7 @@ import {ViewUserComponent} from './view-user/view-user.component';
 import {DetailHouseComponent} from './detail-house/detail-house.component';
 import {HistoryOrderComponent} from './history-order/history-order.component';
 import {AuthGuard} from '../helper/auth-guard';
+import {InComeComponent} from './in-come/in-come.component';
 
 
 const routes: Routes = [
@@ -30,7 +31,11 @@ const routes: Routes = [
   {
     path: 'orders/history',
     component: HistoryOrderComponent
-  }
+  },
+  {
+    path: 'income',
+    component: InComeComponent
+  },
 ];
 
 @NgModule({

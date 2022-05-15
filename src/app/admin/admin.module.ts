@@ -8,10 +8,11 @@ import {ViewUserComponent} from './view-user/view-user.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {DetailHouseComponent} from './detail-house/detail-house.component';
 import {HistoryOrderComponent} from './history-order/history-order.component';
+import { InComeComponent } from './in-come/in-come.component';
 
 
 @NgModule({
-  declarations: [ListHouseComponent, OrderComponent, ViewUserComponent, DetailHouseComponent, HistoryOrderComponent],
+  declarations: [ListHouseComponent, OrderComponent, ViewUserComponent, DetailHouseComponent, HistoryOrderComponent, InComeComponent],
   exports: [
     ListHouseComponent,
     OrderComponent,
