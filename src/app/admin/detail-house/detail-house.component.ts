@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {House} from '../../model/house';
-import {Type} from '../../model/type';
-import {StatusHouse} from '../../model/status-house';
-import {FormControl, FormGroup} from '@angular/forms';
-import {HouseService} from '../../service/house/house.service';
-import {TypeService} from '../../service/type/type.service';
-import {StatusHouseService} from '../../service/statusHouse/status-house.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ImageService} from '../../service/image/image.service';
+import {NotificationService} from '../../service/notification/notification.service';
+
+declare var $: any;
+declare var Swal: any;
 
 @Component({
   selector: 'app-detail-house',
@@ -14,122 +13,72 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
   styleUrls: ['./detail-house.component.css']
 })
 export class DetailHouseComponent implements OnInit {
+  images: any[] = [];
+  selectedFile: File[] = [];
+  id: number;
 
-  house: House = {};
-  types: Type[] = [];
-  statusHouses: StatusHouse[] = [];
-
-  houseForm: FormGroup =  new FormGroup({
-    id: new FormControl(''),
-    name: new FormControl(''),
-    area: new FormControl(''),
-    location: new FormControl(''),
-    bedroom: new FormControl(''),
-    bathroom: new FormControl(''),
-    price: new FormControl(''),
-    description: new FormControl(''),
-    img: new FormControl(''),
-    count_rent: new FormControl(''),
-    statusHouse: new FormControl(''),
-    type: new FormControl(''),
-    user: new FormControl(''),
-  })
-  constructor(private houseService: HouseService,
-              private typeService: TypeService,
-              private statusHouseService: StatusHouseService,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private imageService: ImageService,
+              private activatedRoute: ActivatedRoute,
+              private notificationService: NotificationService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       const id = +paramMap.get('id');
-      this.getHouseById(id);
-    })
+      this.getAllImagesByHouseId(id);
+    });
   }
+
+  imageForm: FormGroup = new FormGroup({
+    images: new FormControl(),
+
+  });
 
   ngOnInit() {
-    this.getAllStatus();
-    this.getAllTypes();
   }
-  getAllTypes()
-  {
-    this.typeService.getAll().subscribe((listType) => {
-      this.types = listType;
+
+  getAllImagesByHouseId(id) {
+    this.id = id;
+    this.imageService.getAllImageByHouseId(id).subscribe((listImages) => {
+      this.images = listImages;
     });
   }
 
-  getAllStatus()
-  {
-    this.statusHouseService.getAll().subscribe((listStatus) => {
-      this.statusHouses = listStatus;
-    });
+  changeFile($event) {
+    this.selectedFile = $event.target.files;
   }
 
-  get idControl() {
-    return this.houseForm.get('id');
+  deleteImage(id) {
+    Swal.fire({
+      title: 'Bạn có chắc chắn?',
+      text: 'Bạn có muốn xóa ảnh này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Đồng ý xóa!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+          this.imageService.deleteImage(id).subscribe(() => {
+            this.notificationService.showMessage('success', 'Delete!!', 'Xóa thành công');
+            this.getAllImagesByHouseId(this.id);
+          }, error =>
+            this.notificationService.showMessage('erros', 'Delete!','Xóa lỗi'));
+        }
+      }
+    );
   }
 
-  get nameControl() {
-    return this.houseForm.get('name');
-  }
+  submitCreateImage() {
+    const imageForm = new FormData();
+    if (this.selectedFile.length > 0) {
+      for (let i = 0; i < this.selectedFile.length; i++) {
+        imageForm.append('images', this.selectedFile[i]);
+      }
+    }
+    this.imageService.createImage(this.id,imageForm).subscribe(() => {
+        $('#create-image').modal('hide');
+        this.notificationService.showMessage('success', 'Create!!', 'Tạo mới thành công');
+        this.getAllImagesByHouseId(this.id);
+      }, error => this.notificationService.showMessage('error', 'Xảy ra lỗi!', 'Tạo mới lỗi')
+    );
 
-  get areaControl() {
-    return this.houseForm.get('area');
-  }
-
-  get locationControl() {
-    return this.houseForm.get('location');
-  }
-
-  get bedroomControl() {
-    return this.houseForm.get('bedroom');
-  }
-
-  get bathroomControl() {
-    return this.houseForm.get('bathroom');
-  }
-
-  get priceControl() {
-    return this.houseForm.get('price');
-  }
-
-  get descriptionControl(){
-    return this.houseForm.get('description');
-  }
-
-  get imgControl(){
-    return this.houseForm.get('img');
-  }
-
-  get count_rentControl() {
-    return this.houseForm.get('count_rent');
-  }
-
-  get typeControl() {
-    return this.houseForm.get('type');
-  }
-
-  get statusHouseControl(){
-    return this.houseForm.get('statusHouse');
-  }
-
-  get userControl() {
-    return this.houseForm.get('user');
-  }
-
-  getHouseById(id) {
-    this.houseService.getHouseById(id).subscribe((houseFromBE) =>{
-      this.house =  houseFromBE;
-      this.idControl.setValue(this.house.id);
-      this.nameControl.setValue(this.house.name);
-      this.areaControl.setValue(this.house.area);
-      this.locationControl.setValue(this.house.location);
-      this.bedroomControl.setValue(this.house.bedroom);
-      this.bathroomControl.setValue(this.house.bathroom);
-      this.priceControl.setValue(this.house.price);
-      this.descriptionControl.setValue(this.house.description);
-      this.imgControl.setValue(this.house.img);
-      this.count_rentControl.setValue(this.house.count_rent);
-      this.typeControl.setValue(this.house.type);
-      this.statusHouseControl.setValue(this.house.statusHouse);
-      this.userControl.setValue(this.house.user.id)
-    });
   }
 }

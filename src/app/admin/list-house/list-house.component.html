@@ -43,7 +43,7 @@
               <tr *ngFor="let house of houses; index as i">
                 <td>{{i + 1}}</td>
                 <td><a routerLink="/houses/{{house.id}}">{{house.name}}</a></td>
-                <td><img src="http://localhost:8080/image/{{house.img}}" width="250" height="200"></td>
+                <td><a routerLink="/admin/house/{{house.id}}"><img src="http://localhost:8080/image/{{house.img}}" width="250" height="200"></a></td>
                 <td>{{house.area}}</td>
                 <td>{{house.city.name}}</td>
                 <td>{{house.type.name}}</td>

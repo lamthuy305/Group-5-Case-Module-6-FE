@@ -14,6 +14,8 @@ export class InComeComponent implements OnInit {
   monthFE: any;
   yearFE: any;
   sum_income: number = 0;
+  currentUser: any = {};
+
 
   monthForm: FormGroup = new FormGroup({
     month: new FormControl(),
@@ -24,7 +26,14 @@ export class InComeComponent implements OnInit {
 
 
   ngOnInit() {
+    this.getCurrentUser();
+  }
+
+  getCurrentUser() {
+    this.currentUser = localStorage.getItem('currentUser');
+    this.currentUser = JSON.parse(this.currentUser);
     this.viewDate();
+
   }
 
   sumIncome() {
@@ -43,7 +52,7 @@ export class InComeComponent implements OnInit {
     if (this.yearFE % 1 != 0) {
       this.yearFE = '';
     }
-    this.orderService.getHouseInMonthYear(this.monthFE, this.yearFE).subscribe((listOrdersBE) => {
+    this.orderService.getHouseInMonthYear(this.currentUser.id,this.monthFE, this.yearFE).subscribe((listOrdersBE) => {
       this.orders = listOrdersBE;
       this.sumIncome();
     });

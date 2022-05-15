@@ -25,7 +25,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'house/detail/:id',
+    path: 'house/:id',
     component: DetailHouseComponent
   },
   {
