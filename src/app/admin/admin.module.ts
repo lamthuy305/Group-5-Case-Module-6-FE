@@ -6,26 +6,28 @@ import {ListHouseComponent} from './list-house/list-house.component';
 import {OrderComponent} from './Order/order.component';
 import {ViewUserComponent} from './view-user/view-user.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {DetailHouseComponent} from './detail-house/detail-house.component';
+import {DetailHouseComponent} from './detail-house/image/detail-house.component';
 import {HistoryOrderComponent} from './history-order/history-order.component';
-import { InComeComponent } from './in-come/in-come.component';
+import {InComeComponent} from './in-come/in-come.component';
+import {OrderDetailHouseComponent} from './detail-house/order-detail-house/order-detail-house.component';
 
 
 @NgModule({
-  declarations: [ListHouseComponent, OrderComponent, ViewUserComponent, DetailHouseComponent, HistoryOrderComponent, InComeComponent],
+  declarations: [ListHouseComponent, OrderComponent, ViewUserComponent, DetailHouseComponent, HistoryOrderComponent, InComeComponent, OrderDetailHouseComponent],
   exports: [
     ListHouseComponent,
     OrderComponent,
     ViewUserComponent,
     DetailHouseComponent,
-    HistoryOrderComponent
+    HistoryOrderComponent,
+    OrderDetailHouseComponent,
   ],
-    imports: [
-        CommonModule,
-        AdminRoutingModule,
-        ReactiveFormsModule,
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    ReactiveFormsModule,
 
-    ]
+  ]
 })
 export class AdminModule {
 }
