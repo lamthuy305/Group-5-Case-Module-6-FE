@@ -15,7 +15,7 @@ export class HouseService {
   }
 
 
-  getAll(): Observable<House[]> {
+  getAll(id): Observable<House[]> {
     return this.http.get<House[]>(`${API_URL}/houses`);
   }
 

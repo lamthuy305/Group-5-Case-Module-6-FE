@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import {OrderService} from '../../service/order/order.service';
 
 @Component({
   selector: 'app-in-come',
@@ -7,33 +8,35 @@ import {FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./in-come.component.css']
 })
 export class InComeComponent implements OnInit {
-  selectedMonth: any;
+  orders: any[] = [];
   months: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   years: number[] = [2022, 2023, 2024, 2025, 2026];
+  monthFE: any;
+  yearFE: any;
   monthForm: FormGroup = new FormGroup({
     month: new FormControl(),
   });
 
-  constructor() {
+  constructor(private orderService: OrderService) {
   }
 
 
   ngOnInit() {
+    this.viewDate();
   }
 
-  // // this.formSearchFE.price = (<HTMLInputElement> document.getElementById('price')).value;
-  //
-  // changemonth(month) {
-  //   this.selectedMonth = (<HTMLInputElement> document.getElementById('month')).value;
-  //   console.log(month);
-  //   console.log(this.selectedMonth);
-  //
-  //
-  // }
-  createMonth() {
-    console.log((<HTMLInputElement> document.getElementById('month')).value);
-    console.log((<HTMLInputElement> document.getElementById('year')).value);
-
-
+  viewDate() {
+    this.monthFE = (<HTMLInputElement> document.getElementById('month')).value;
+    if (this.monthFE % 1 != 0) {
+      this.monthFE = '';
+    }
+    this.yearFE = (<HTMLInputElement> document.getElementById('year')).value;
+    if (this.yearFE % 1 != 0) {
+      this.yearFE = '';
+    }
+    this.orderService.getHouseInMonthYear(this.monthFE, this.yearFE).subscribe((listOrdersBE) => {
+      this.orders = listOrdersBE;
+      console.log(this.orders);
+    });
   }
 }

@@ -73,7 +73,7 @@ export class ListHouseComponent implements OnInit {
   }
 
   getAllHouses() {
-    this.houseService.getAll().subscribe((listHouse) => {
+    this.houseService.getAll(this.currentUser.id).subscribe((listHouse) => {
       this.houses = listHouse;
       $(function() {
         $('#table-house').DataTable({
