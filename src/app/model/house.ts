@@ -2,11 +2,15 @@ export interface House {
   id?: number;
   name?: string;
   area?: number;
+  city?: {
+    id?: number,
+    name?: string;
+  };
   location?: string;
   bedroom?: number;
   bathroom?: number;
   price?: number;
-  description?:string;
+  description?: string;
   img?: File;
   count_rent?: number;
   statusHouse?: {
@@ -20,5 +24,5 @@ export interface House {
   user?: {
     id?: number;
     username?: string;
-  }
+  };
 }

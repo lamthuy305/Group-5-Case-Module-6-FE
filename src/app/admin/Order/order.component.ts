@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {NotificationService} from '../../service/notification/notification.service';
 
 declare var $: any;
+declare var Swal: any;
 
 @Component({
   selector: 'app-order',
@@ -46,18 +47,41 @@ export class OrderComponent implements OnInit {
   }
 
   changeStatusOrderDone(id) {
-    this.orderService.changeStatusOrderDone(id).subscribe(() => {
-        this.notificationService.showMessage('success', 'Thành công!', 'Đồng ý đơn hàng');
-        this.router.navigateByUrl('/admin/orders');
-      }, error => this.notificationService.showMessage('error', 'Done!', 'Xảy ra lỗi')
+    Swal.fire({
+      title: 'Bạn có chắc chắn?',
+      text: 'Bạn có muốn nhận đơn này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Nhận đơn!'
+    }).then((result) => {
+      this.orderService.changeStatusOrderDone(id).subscribe(() => {
+          this.notificationService.showMessage('success', 'Thành công!', 'Đồng ý đơn hàng');
+          this.getAllOrderProcessingByUserId();
+        }, error => this.notificationService.showMessage('error', 'Done!', 'Xảy ra lỗi')
+      );
+      }
     );
   }
 
   changeStatusOrderCanceled(id) {
-    this.orderService.changeStatusOrderCanceled(id).subscribe(() => {
-        this.notificationService.showMessage('success', 'Thành công!', 'Đã từ chối đơn hàng');
-        this.router.navigateByUrl('/admin/orders');
-      }, error => this.notificationService.showMessage('error', 'Canceled!', 'Xảy ra lỗi')
+    Swal.fire({
+      title: 'Bạn có muốn hủy đơn này?',
+      text: 'You wont be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Hủy đơn!'
+    }).then((result) => {
+      this.orderService.changeStatusOrderCanceled(id).subscribe(() => {
+          this.notificationService.showMessage('success', 'Thành công!', 'Đã từ chối đơn hàng');
+          this.getAllOrderProcessingByUserId();
+
+        }, error => this.notificationService.showMessage('error', 'Canceled!', 'Xảy ra lỗi')
+      );
+      }
     );
   }
 }

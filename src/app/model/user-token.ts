@@ -1,8 +1,8 @@
-export interface User {
-  id?: number;
+export interface UserToken {
   username?: string,
   numberPhone?: string,
-  active?: boolean,
+  isActive?: boolean,
   password?: string,
   role?: any,
+  token?: string
 }

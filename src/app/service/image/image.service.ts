@@ -19,8 +19,8 @@ export class ImageService {
     return this.http.get<any>(`${API_URL}/images/house/${id}`);
   }
 
-  createImage(images: FormData) {
-    return this.http.post(`${API_URL}/images`, images);
+  createImage(id, images) {
+    return this.http.post(`${API_URL}/images/${id}`, images);
   }
 
 

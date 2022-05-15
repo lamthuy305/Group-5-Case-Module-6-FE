@@ -2,26 +2,23 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Profile} from '../../model/profile';
+import {User} from '../../model/user';
 
 const API_URL = `${environment.apiUrl}`;
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService {
+export class UserService {
 
   constructor(private http: HttpClient) {
   }
 
-
-
-  editProfile(id, profile){
-    return this.http.post(`${API_URL}/profiles/${id}`, profile);
-
+  getAllUser(): Observable<User[]> {
+    return this.http.get<User[]>(`${API_URL}/users`);
   }
 
-  getProfileByUserId(id): Observable<Profile> {
-    return this.http.get<Profile>(`${API_URL}/profiles/${id}`);
+  lockOrUnlockUser(id) {
+    return this.http.get<any>(`${API_URL}/users/lockOrUnlock/${id}`);
   }
 }

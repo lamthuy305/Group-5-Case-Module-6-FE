@@ -1,129 +1,59 @@
-<section class="pd-hero-section set-bg" src="img/properties/product-content-bg.jpg">
-  <div class="container">
+<section class="content">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-8 offset-lg-2">
-        <div class="pd-hero-text">
-          <p class="room-location"><i class="icon_pin"></i>{{house.location}}</p>
-          <h2>{{house.name}}</h2>
-          <div class="room-price">
-            <span>Giá phòng:</span>
-            <p>{{house.price}}</p>
-          </div>
-          <ul class="room-features">
-            <li>
-              <i class="fa fa-arrows"></i>
-              <p>{{house.area}} m2</p>
-            </li>
-            <li>
-              <i class="fa fa-bed"></i>
-              <p>{{house.bedroom}} Bed Room</p>
-            </li>
-            <li>
-              <i class="fa fa-bath"></i>
-              <p>{{house.bathroom}} Baths Bed</p>
-            </li>
-            <li>
-              <i class="fa fa-check"></i>
-              <p>{{house.statusHouse.name}}</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="house-details-section spad">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-9">
-        <div class="pd-details-text">
-          <div class="pd-details-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-send"></i></a>
-            <a href="#"><i class="fa fa-star"></i></a>
-            <a href="#"><i class="fa fa-print"></i></a>
-            <a href="#"><i class="fa fa-cloud-download"></i></a>
-          </div>
-          <div class="house-more-pic">
-            <div class="product-pic-zoom">
-              <img class="product-big-img" src="http://localhost:8080/image/{{house.img}}" alt="">
-            </div>
-            <div class="product-thumbs">
-              <div class="product-thumbs-track ps-slider owl-carousel">
-                <div class="pt" data-imgbigurl="img/properties/house-details-b2.jpg"><img
-                  src="img/properties/thumb-1.jpg" alt=""></div>
-                <div class="pt active" data-imgbigurl="img/properties/house-details-b1.jpg"><img
-                  src="img/properties/thumb-2.jpg" alt=""></div>
-                <div class="pt" data-imgbigurl="img/properties/house-details-b3.jpg"><img
-                  src="img/properties/thumb-3.jpg" alt=""></div>
-                <div class="pt" data-imgbigurl="img/properties/house-details-b4.jpg"><img
-                  src="img/properties/thumb-4.jpg" alt=""></div>
-                <div class="pt" data-imgbigurl="img/properties/house-details-b5.jpg"><img
-                  src="img/properties/thumb-5.jpg" alt=""></div>
-              </div>
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-tools">
+              <button class="btn btn-info" data-target="#create-image" data-toggle="modal"
+                      type="button">
+                Thêm mới
+              </button>
             </div>
           </div>
-          <div class="pd-desc">
-            <h4>Description</h4>
-            <p>{{house.description}}</p>
-          </div>
-          <div class="pd-details-tab">
-            <div class="tab-item">
-              <ul class="nav" role="tablist">
-                <li>
-                  <a class="active" data-toggle="tab" href="#tab-1" role="tab">Overview</a>
-                </li>
-                <li>
-                  <a data-toggle="tab" href="#tab-2" role="tab">Description</a>
-                </li>
-              </ul>
-            </div>
-            <div class="tab-item-content">
-              <div class="tab-content">
-                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
-                  <div class="house-more-table">
-                    <table class="left-table">
-                      <tbody>
-                      <tr>
-                        <td class="pt-name">Giá phòng</td>
-                        <td class="p-value">{{house.price}}</td>
-                      </tr>
-                      <tr>
-                        <td class="pt-name">Loại phòng</td>
-                        <td class="p-value">{{house.type.name}}</td>
-                      </tr>
-                      <tr>
-                        <td class="pt-name">Phòng ngủ</td>
-                        <td class="p-value">{{house.bedroom}}</td>
-                      </tr>
-                      <tr>
-                        <td class="pt-name">Phòng tắm</td>
-                        <td class="p-value">{{house.bathroom}}</td>
-                      </tr>
-                      <tr>
-                        <td class="pt-name">Lượt thuê</td>
-                        <td class="p-value">{{house.count_rent}}</td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="house-map">
-            <h4>Map</h4>
-            <div class="map-inside">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2942.5524090066037!2d-71.10245469994108!3d42.47980730490846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e3748250c43a43%3A0xe1b9879a5e9b6657!2sWinter%20Street%20Public%20Parking%20Lot!5e0!3m2!1sen!2sbd!4v1577299251173!5m2!1sen!2sbd"
-                height="320" style="border:0;" allowfullscreen=""></iframe>
-              <div class="icon">
-                <i class="fa fa-home"></i>
+          <div class="card-body row" *ngFor="let image of images" >
+            <div class="card col-3" style="width: 18rem">
+              <img src="http://localhost:8080/image/{{image.name}}" class="card-img-top" height="250px">
+              <div class="card-body">
+                <button class="btn btn-danger" (click)="deleteImage(image.id)"><i
+                  class="fa fa-trash"></i></button>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
 </section>
+
+
+<div class="modal fade" id="create-image">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><b>Đặt homstay</b></h4>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="imageForm" (ngSubmit)="submitCreateImage()">
+        <div class="modal-body">
+
+            <label for="images" class="form-label">Ảnh homstay:</label>
+            <input class="form-control" type="file" multiple id="images" formControlName="images"
+                   (change)="changeFile($event)">
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>
+          <button class="btn btn-info" type="submit">Thêm ảnh
+          </button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
