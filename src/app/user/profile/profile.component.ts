@@ -85,14 +85,11 @@ export class ProfileComponent implements OnInit {
     return this.profileForm.get('email');
   }
 
-
   ngOnInit() {
     this.getCurrentUser();
   }
 
-
   submitEditProfile() {
-
    if (this.profileForm.valid){
      let formData = new FormData();
      formData.append('name', this.profileForm.value.name);
@@ -106,19 +103,13 @@ export class ProfileComponent implements OnInit {
      formData.append('address', this.profileForm.value.address);
      formData.append('email', this.profileForm.value.email);
      formData.append('phone', this.profileForm.value.phone);
-
-     console.log(formData);
-
      this.profileService.editProfile(this.currentUser.id, formData).subscribe(() => {
        this.notificationService.showMessage('success', 'Edit!', 'Chỉnh sửa thành công');
        this.getProfile(this.currentUser.id);
-
      }, error => this.notificationService.showMessage('error', 'Edit!', 'Chỉnh sửa lỗi'));
    }else {
      this.notificationService.showMessage('error', 'Edit!', 'Chỉnh sửa lỗi');
    }
-
   }
-
 
 }

@@ -11,21 +11,17 @@
     </div>
     <div style="text-align: right">
       <div class="card-tools">
-        <button class="btn btn-info" data-target="#create-house" data-toggle="modal"
-                type="button" style="width: 150px; height: 50px">
-          Thêm mới
-        </button>
+        <a routerLink="/houses/create"><button class="btn btn-info" style="width: 150px; height: 50px">Tạo mới</button></a>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-4" *ngFor="let house of houses" style="margin-top: 50px">
         <div class="single-blog-item" style="background: ghostwhite">
-          <div class="sb-pic">
-            <img src="http://localhost:8080/image/{{house.img}}" height="300"
-                 (click)="viewHouseById(house.id)">
+          <div class="sb-pic" routerLink="/houses/images/{{house.id}}">
+            <img src="http://localhost:8080/image/{{house.img}}" height="300">
           </div>
           <div class="sb-text" style="text-align: center">
-            <h4>{{house.name}}</h4>
+            <a routerLink="/view/{{house.id}}"><h4>{{house.name}}</h4></a>
             <ul>
               <li><i class="fa fa-map-marker"></i> {{house.city.name}}</li>
               <li><i class="fa fa-tag"></i> {{house.type.name}}</li>
@@ -50,9 +46,11 @@
               </li>
             </ul>
             <div class="row">
-              <div class="col-lg-6" style="float: left"><button class="btn btn-info" style="width: 130px" data-target="#edit-house" data-toggle="modal" (click)="getHouseById(house.id)">Chỉnh sửa</button>
+              <div class="col-lg-6" style="float: left">
+                <a routerLink="/houses/edit/{{house.id}}"><button class="btn btn-info" style="width: 130px">Chỉnh sửa</button></a>
               </div>
-              <div class="col-lg-6"><button class="btn btn-primary" style="width: 130px" (click)="delete(house.id)">Xóa</button>
+              <div class="col-lg-6">
+                <button class="btn btn-primary" style="width: 130px" (click)="delete(house.id)">Xóa</button>
               </div>
             </div>
           </div>
@@ -61,186 +59,3 @@
     </div>
   </div>
 </section>
-<!-- Ramdom -->
-
-<!--<div class="modal fade" id="edit-house">-->
-<!--  <div class="modal-dialog">-->
-<!--    <div class="modal-content">-->
-<!--      <div class="modal-header">-->
-<!--        <h4 class="modal-title"><b>Chỉnh sửa homestay</b></h4>-->
-<!--        <button aria-label="Close" class="close" data-dismiss="modal" type="button">-->
-<!--          <span aria-hidden="true">&times;</span>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--      <div class="modal-body">-->
-<!--        <form [formGroup]="houseForm" (ngSubmit)="editHouse()" class="mb-3">-->
-<!--          <div>-->
-<!--            <label for="name" class="form-label">Tên:</label>-->
-<!--            <input type="text" class="form-control" id="editName" formControlName="name_edit" placeholder="Nhập tên Homestay">-->
-<!--          </div>-->
-
-<!--          <div>-->
-<!--            <label for="img" class="form-label">Ảnh:</label>-->
-<!--            <div>-->
-<!--              <img src="http://localhost:8080/image/{{houseEdit.img}}" width="465px" height="300px">-->
-<!--            </div>-->
-<!--            <input class="form-control" type="file" id="editImg" formControlName="img_edit">-->
-<!--          </div>-->
-
-<!--          <div>-->
-<!--            <label for="area" class="form-label">Diện tích:</label>-->
-<!--            <input class="form-control" type="text" id="editArea" formControlName="area_edit"-->
-<!--                   placeholder="Nhập diện tích Homestay">-->
-<!--          </div>-->
-
-<!--          <div>-->
-<!--            <label for="city" class="form-label">Thành phố:</label>-->
-<!--            <select formControlName="city_edit" class="form-control" id="editCity" [value]="houseEdit.city.id">-->
-<!--              <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="location" class="form-label">Địa Chỉ:</label>-->
-<!--            <input class="form-control" type="text" id="editLocation" placeholder="Nhập địa chỉ" formControlName="location_edit">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="type" class="form-label">Loại phòng:</label>-->
-<!--            <select formControlName="type_edit" class="form-control" id="editType" [value]="houseEdit.type.id">-->
-<!--              <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="bedroom" class="form-label">Số phòng ngủ:</label>-->
-<!--            <input class="form-control" type="number" id="editBedroom" formControlName="bedroom_edit"-->
-<!--                   placeholder="Nhập số phòng ngủ">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="bathroom" class="form-label">Số phòng tắm:</label>-->
-<!--            <input class="form-control" type="number" id="Editbathroom" formControlName="bathroom_edit"-->
-<!--                   placeholder="Nhâp số phòng tắm">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="price">Giá phòng / đêm:</label>-->
-<!--            <input class="form-control" type="number" id="editPrice" formControlName="price_edit" placeholder="Nhập giá phòng">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="description" class="form-label">Mô tả:</label>-->
-<!--            <input class="form-control" type="text" id="editDescription" formControlName="description_edit"-->
-<!--                   placeholder="Nhập mô tả">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="statusHouse" class="form-label">Trạng thái:</label>-->
-<!--            <select formControlName="statusHouse_edit" class="form-control" id="editStatusHouse" [value]="houseEdit.statusHouse.id" >-->
-<!--              <option *ngFor="let statusHouse of statusHouses" [value]="statusHouse.id">{{statusHouse.name}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--          <div class="modal-footer justify-content-between">-->
-<!--            <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>-->
-<!--            <button class="btn btn-info" type="submit">Lưu-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; /.modal-content &ndash;&gt;-->
-<!--  </div>-->
-<!--  &lt;!&ndash; /.modal-dialog &ndash;&gt;-->
-<!--</div>-->
-
-
-
-
-
-<!--<div class="modal fade" id="create-house">-->
-<!--  <div class="modal-dialog">-->
-<!--    <div class="modal-content">-->
-<!--      <div class="modal-header">-->
-<!--        <h4 class="modal-title"><b>Homestay</b></h4>-->
-<!--        <button aria-label="Close" class="close" data-dismiss="modal" type="button">-->
-<!--          <span aria-hidden="true">&times;</span>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--      <div class="modal-body">-->
-<!--        <form [formGroup]="houseForm" (ngSubmit)="createHouse()" class="mb-3">-->
-<!--          <div>-->
-<!--            <label for="name" class="form-label">Tên:</label>-->
-<!--            <input type="text" class="form-control" id="name" formControlName="name" placeholder="Nhập tên Homestay">-->
-<!--          </div>-->
-
-<!--          <div>-->
-<!--            <label for="img" class="form-label">Ảnh:</label>-->
-<!--            <div >-->
-<!--              <img src="http://localhost:8080/image/{{houseEdit.img}}" width="465px" height="300px">-->
-<!--            </div>-->
-<!--            <input class="form-control" type="file" id="img" formControlName="img">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="images" class="form-label">Ảnh homstay:</label>-->
-<!--            <input class="form-control" type="file" multiple id="images" formControlName="images"-->
-<!--                   (change)="changeFile($event)">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="area" class="form-label">Diện tích:</label>-->
-<!--            <input class="form-control" type="text" id="area" formControlName="area"-->
-<!--                   placeholder="Nhập diện tích Homestay">-->
-<!--          </div>-->
-
-<!--          <div>-->
-<!--            <label for="city" class="form-label">Thành phố:</label>-->
-<!--            <select formControlName="city" class="form-control" id="city">-->
-<!--              <option [ngValue]=null>Chọn thành phố</option>-->
-<!--              <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="location" class="form-label">Địa Chỉ:</label>-->
-<!--            <input class="form-control" type="text" id="location" placeholder="Nhập địa chỉ" formControlName="location">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="type" class="form-label">Loại phòng:</label>-->
-<!--            <select formControlName="type" class="form-control" id="type">-->
-<!--              <option [ngValue]=null>Chọn loại phòng</option>-->
-<!--              <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="bedroom" class="form-label">Số phòng ngủ:</label>-->
-<!--            <input class="form-control" type="number" id="bedroom" formControlName="bedroom"-->
-<!--                   placeholder="Nhập số phòng ngủ">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="bathroom" class="form-label">Số phòng tắm:</label>-->
-<!--            <input class="form-control" type="number" id="bathroom" formControlName="bathroom"-->
-<!--                   placeholder="Nhâp số phòng tắm">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="price">Giá phòng / đêm:</label>-->
-<!--            <input class="form-control" type="number" id="price" formControlName="price" placeholder="Nhập giá phòng">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="description" class="form-label">Mô tả:</label>-->
-<!--            <input class="form-control" type="text" id="description" formControlName="description"-->
-<!--                   placeholder="Nhập mô tả">-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <label for="statusHouse" class="form-label">Trạng thái:</label>-->
-<!--            <select formControlName="statusHouse" class="form-control" id="statusHouse">-->
-<!--              <option [ngValue]=null >Chọn trạng thái</option>-->
-<!--              <option *ngFor="let statusHouse of statusHouses" [value]="statusHouse.id">{{statusHouse.name}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--          <div class="modal-footer justify-content-between">-->
-<!--            <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>-->
-<!--            <button class="btn btn-info" type="submit">Lưu-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; /.modal-content &ndash;&gt;-->
-<!--  </div>-->
-<!--  &lt;!&ndash; /.modal-dialog &ndash;&gt;-->
-<!--</div>-->
-
-
-

@@ -10,10 +10,11 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { ListHousesComponent } from './house/list-houses/list-houses.component';
 import { CreateHouseComponent } from './house/create-house/create-house.component';
 import { EditHouseComponent } from './house/edit-house/edit-house.component';
+import { ImagesDetailComponent } from './house/images-detail/images-detail.component';
 
 
 @NgModule({
-  declarations: [HomeUserComponent, ProfileComponent, ViewHouseComponent, OrderDetailComponent, ListHousesComponent, CreateHouseComponent, EditHouseComponent],
+  declarations: [HomeUserComponent, ProfileComponent, ViewHouseComponent, OrderDetailComponent, ListHousesComponent, CreateHouseComponent, EditHouseComponent, ImagesDetailComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

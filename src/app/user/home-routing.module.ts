@@ -5,6 +5,9 @@ import {ProfileComponent} from './profile/profile.component';
 import {ViewHouseComponent} from './view-house/view-house.component';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
 import {ListHousesComponent} from './house/list-houses/list-houses.component';
+import {EditHouseComponent} from './house/edit-house/edit-house.component';
+import {CreateHouseComponent} from './house/create-house/create-house.component';
+import {ImagesDetailComponent} from './house/images-detail/images-detail.component';
 
 
 const routes: Routes = [
@@ -25,8 +28,20 @@ const routes: Routes = [
     component: ListHousesComponent
   },
   {
+    path: 'houses/create',
+    component: CreateHouseComponent
+  },
+  {
+    path: 'houses/edit/:id',
+    component: EditHouseComponent
+  },
+  {
     path: 'orderDetail',
     component: OrderDetailComponent
+  },
+  {
+    path: 'houses/images/:id',
+    component: ImagesDetailComponent
   }
 ];
 

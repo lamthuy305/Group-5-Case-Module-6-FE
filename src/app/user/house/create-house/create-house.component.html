@@ -1,1 +1,86 @@
-<p>create-house works!</p>
+<div class="container">
+  <div class="main-body">
+    <form [formGroup]="houseForm" (ngSubmit)="createHouse()" class="mb-3">
+      <div class="row gutters-sm">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" style="background: snow">
+          <h3 style="text-align: center"><b>Tạo mới homestay</b></h3>
+          <br>
+          <div>
+            <label for="name" class="form-label">Tên:</label>
+            <input type="text" class="form-control" id="name" formControlName="name"
+                   placeholder="Nhập tên Homestay">
+          </div>
+
+          <div>
+            <label for="img" class="form-label">Ảnh:</label>
+            <input class="form-control" type="file" id="img" formControlName="img">
+          </div>
+          <div>
+            <label for="images" class="form-label">Ảnh homstay:</label>
+            <input class="form-control" type="file" multiple id="images" formControlName="images"
+                   (change)="changeFile($event)">
+          </div>
+          <div>
+            <label for="area" class="form-label">Diện tích:</label>
+            <input class="form-control" type="text" id="area" formControlName="area"
+                   placeholder="Nhập diện tích Homestay">
+          </div>
+
+          <div>
+            <label for="city" class="form-label">Thành phố:</label>
+            <select formControlName="city" class="form-control" id="city">
+              <option [value]=null>Chọn thành phố</option>
+              <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+            </select>
+          </div>
+          <div>
+            <label for="location" class="form-label">Địa Chỉ:</label>
+            <input class="form-control" type="text" id="location" placeholder="Nhập địa chỉ"
+                   formControlName="location">
+          </div>
+          <div>
+            <label for="type" class="form-label">Loại phòng:</label>
+            <select formControlName="type" class="form-control" id="type">
+              <option [value]=null>Chọn loại phòng</option>
+              <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
+            </select>
+          </div>
+          <div>
+            <label for="bedroom" class="form-label">Số phòng ngủ:</label>
+            <input class="form-control" type="number" id="bedroom" formControlName="bedroom"
+                   placeholder="Nhập số phòng ngủ">
+          </div>
+          <div>
+            <label for="bathroom" class="form-label">Số phòng tắm:</label>
+            <input class="form-control" type="number" id="bathroom" formControlName="bathroom"
+                   placeholder="Nhâp số phòng tắm">
+          </div>
+          <div>
+            <label for="price">Giá phòng / đêm:</label>
+            <input class="form-control" type="number" id="price" formControlName="price"
+                   placeholder="Nhập giá phòng">
+          </div>
+          <div>
+            <label for="description" class="form-label">Mô tả:</label>
+            <input class="form-control" type="text" id="description" formControlName="description"
+                   placeholder="Nhập mô tả">
+          </div>
+          <div>
+            <label for="statusHouse" class="form-label">Trạng thái:</label>
+            <select formControlName="statusHouse" class="form-control" id="statusHouse">
+              <option [value]=null>Chọn trạng thái</option>
+              <option *ngFor="let statusHouse of statusHouses" [value]="statusHouse.id">{{statusHouse.name}}</option>
+            </select>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>
+            <button class="btn btn-info" type="submit">Lưu
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
