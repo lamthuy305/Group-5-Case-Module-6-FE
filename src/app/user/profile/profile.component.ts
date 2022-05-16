@@ -28,12 +28,14 @@ export class ProfileComponent implements OnInit {
 
 
   profileForm: FormGroup = new FormGroup({
-    name: new FormControl(''),
-    birthday: new FormControl(''),
+    name: new FormControl('',[Validators.required]),
+    birthday: new FormControl('',[Validators.required]),
     avatar: new FormControl(''),
-    address: new FormControl(''),
-    email: new FormControl(),
-    phone: new FormControl(),
+    address: new FormControl('',[Validators.required]),
+    email: new FormControl('',[Validators.required]),
+    phone: new FormControl('',[Validators.required,
+      Validators.pattern(/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/)]
+    ),
     user: new FormControl()
   });
 
@@ -91,26 +93,30 @@ export class ProfileComponent implements OnInit {
 
   submitEditProfile() {
 
-    let formData = new FormData();
-    formData.append('name', this.profileForm.value.name);
-    formData.append('birthday', this.profileForm.value.birthday);
-    if (this.showInputavatar) {
-      const files = (document.getElementById('avatar') as HTMLInputElement).files;
-      if (files.length > 0) {
-        formData.append('avatar', files[0]);
-      }
-    }
-    formData.append('address', this.profileForm.value.address);
-    formData.append('email', this.profileForm.value.email);
-    formData.append('phone', this.profileForm.value.phone);
+   if (this.profileForm.valid){
+     let formData = new FormData();
+     formData.append('name', this.profileForm.value.name);
+     formData.append('birthday', this.profileForm.value.birthday);
+     if (this.showInputavatar) {
+       const files = (document.getElementById('avatar') as HTMLInputElement).files;
+       if (files.length > 0) {
+         formData.append('avatar', files[0]);
+       }
+     }
+     formData.append('address', this.profileForm.value.address);
+     formData.append('email', this.profileForm.value.email);
+     formData.append('phone', this.profileForm.value.phone);
 
-    console.log(formData);
+     console.log(formData);
 
-    this.profileService.editProfile(this.currentUser.id, formData).subscribe(() => {
-      this.notificationService.showMessage('success', 'Edit!', 'Chỉnh sửa thành công');
-      this.getProfile(this.currentUser.id);
+     this.profileService.editProfile(this.currentUser.id, formData).subscribe(() => {
+       this.notificationService.showMessage('success', 'Edit!', 'Chỉnh sửa thành công');
+       this.getProfile(this.currentUser.id);
 
-    }, error => this.notificationService.showMessage('error', 'Edit!', 'Chỉnh sửa lỗi'));
+     }, error => this.notificationService.showMessage('error', 'Edit!', 'Chỉnh sửa lỗi'));
+   }else {
+     this.notificationService.showMessage('error', 'Edit!', 'Chỉnh sửa lỗi');
+   }
 
   }
 

@@ -39,7 +39,6 @@ export class HouseService {
     return this.http.get(`${API_URL}/houses/search?city=${city}&bedroom=${bedroom}&bathroom=${bathroom}&price=${price}&type=${type}`);
   }
 
-
   editHouse(id, house): Observable<House> {
     return this.http.put<House>(`${API_URL}/houses/${id}`, house);
   }

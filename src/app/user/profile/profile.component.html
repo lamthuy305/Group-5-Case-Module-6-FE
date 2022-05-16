@@ -41,6 +41,9 @@
               <input class="form-control" id="name" placeholder="Nhập tên" type="text"
                      formControlName="name">
             </div>
+            <div *ngIf="profileForm.get('name').invalid&&profileForm.get('name').touched"><p
+              style="color: red">Không được để trống</p>
+            </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
@@ -48,6 +51,9 @@
               </div>
               <input class="form-control" id="birthday" placeholder="Nhập ngày sinh" type="text"
                      formControlName="birthday">
+              <div *ngIf="profileForm.get('birthday').invalid&&profileForm.get('birthday').touched"><p
+                style="color: red">Không được để trống</p>
+              </div>
             </div>
             <hr>
             <div class="row">
@@ -57,6 +63,9 @@
               <input class="form-control" id="email" placeholder="Nhập email" type="email"
                      formControlName="email">
             </div>
+            <div *ngIf="profileForm.get('email').invalid&&profileForm.get('email').touched"><p
+              style="color: red">Không được để trống</p>
+            </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
@@ -64,6 +73,9 @@
               </div>
               <input class="form-control" id="address" placeholder="Nhập địa chỉ" type="text"
                      formControlName="address">
+            </div>
+            <div *ngIf="profileForm.get('address').invalid&&profileForm.get('address').touched"><p
+              style="color: red">Không được để trống</p>
             </div>
             <hr>
             <div class="row">
@@ -74,7 +86,9 @@
               <input class="form-control" id="phone" placeholder="Nhập số điện thoai" type="text"
                      formControlName="phone">
             </div>
-            <hr>
+            <div *ngIf="profileForm.get('phone').invalid && profileForm.get('phone').touched"><p
+              style="color: red">Số điện thoại không hợp lệ</p>
+            </div>
             <hr>
             <div class="row">
               <div class="col-sm-12">
