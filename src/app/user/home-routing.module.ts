@@ -4,7 +4,7 @@ import {HomeUserComponent} from './home-user/home-user.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ViewHouseComponent} from './view-house/view-house.component';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
-import {HouseComponent} from './house/house.component';
+import {ListHousesComponent} from './house/list-houses/list-houses.component';
 
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'houses',
-    component: HouseComponent
+    component: ListHousesComponent
   },
   {
     path: 'orderDetail',

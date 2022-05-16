@@ -59,7 +59,7 @@ export class HistoryOrderComponent implements OnInit {
         if (result.isConfirmed) {
           this.orderService.deleteOrder(id).subscribe(() => {
               this.notificationService.showMessage('success', 'Delete!', 'Xóa thành công');
-              this.router.navigateByUrl('/products');
+              this.getAllOrderStatusDone();
             }, error =>
               this.notificationService.showMessage('erros', 'Delete!', 'Xóa lỗi')
           );
