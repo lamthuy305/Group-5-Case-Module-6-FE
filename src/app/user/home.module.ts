@@ -7,16 +7,17 @@ import {HomeRoutingModule} from './home-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { HouseComponent } from './house/house.component';
 
 
 @NgModule({
-  declarations: [HomeUserComponent, ProfileComponent, ViewHouseComponent, OrderDetailComponent],
+  declarations: [HomeUserComponent, ProfileComponent, ViewHouseComponent, OrderDetailComponent, HouseComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ]
 })
 export class HomeModule {

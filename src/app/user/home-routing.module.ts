@@ -4,6 +4,7 @@ import {HomeUserComponent} from './home-user/home-user.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ViewHouseComponent} from './view-house/view-house.component';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
+import {HouseComponent} from './house/house.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent
+  },
+  {
+    path: 'houses',
+    component: HouseComponent
   },
   {
     path: 'orderDetail',

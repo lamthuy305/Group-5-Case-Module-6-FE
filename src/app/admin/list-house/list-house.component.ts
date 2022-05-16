@@ -76,16 +76,6 @@ export class ListHouseComponent implements OnInit {
   getAllHouses() {
     this.houseService.getAll(this.currentUser.id).subscribe((listHouse) => {
       this.houses = listHouse;
-      $(function() {
-        $('#table-house').DataTable({
-          'paging': true,
-          'lengthChange': false,
-          'searching': false,
-          'ordering': true,
-          'info': true,
-          'autoWidth': false,
-        });
-      });
     }, error => {
     });
   }
