@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import {NotificationService} from '../../../service/notification/notification.service';
 import {CityService} from '../../../service/city/city.service';
 
+
 @Component({
   selector: 'app-create-house',
   templateUrl: './create-house.component.html',
@@ -22,20 +23,21 @@ export class CreateHouseComponent implements OnInit {
   statusHouses: StatusHouse[] = [];
   house: House = {};
   currentUser: any = {};
+  listImageUpLoad: any[] = [];
 
   houseForm: FormGroup = new FormGroup({
     id: new FormControl(''),
-    name: new FormControl('',[Validators.required]),
-    area: new FormControl('',[Validators.required]),
-    city: new FormControl(null,[Validators.required]),
-    location: new FormControl('',[Validators.required]),
-    bedroom: new FormControl('',[Validators.required]),
-    bathroom: new FormControl('',[Validators.required]),
-    price: new FormControl('',[Validators.required]),
-    description: new FormControl('',[Validators.required]),
-    img: new FormControl('',[Validators.required]),
-    statusHouse: new FormControl(null,[Validators.required]),
-    type: new FormControl(null,[Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    area: new FormControl('', [Validators.required]),
+    city: new FormControl(null, [Validators.required]),
+    location: new FormControl('', [Validators.required]),
+    bedroom: new FormControl('', [Validators.required]),
+    bathroom: new FormControl('', [Validators.required]),
+    price: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
+    img: new FormControl('', [Validators.required]),
+    statusHouse: new FormControl(null, [Validators.required]),
+    type: new FormControl(null, [Validators.required]),
   });
 
 
@@ -78,6 +80,7 @@ export class CreateHouseComponent implements OnInit {
       for (let i = 0; i < this.selectedFile.length; i++) {
         house.append('images', this.selectedFile[i]);
       }
+
     }
     house.append('statusHouse', this.houseForm.value.statusHouse);
     house.append('type', this.houseForm.value.type);
@@ -91,6 +94,12 @@ export class CreateHouseComponent implements OnInit {
 
   changeFile($event) {
     this.selectedFile = $event.target.files;
+    for (let i = 0; i < this.selectedFile.length; i++) {
+      this.listImageUpLoad.push(this.selectedFile[i].name);
+      console.log(this.selectedFile[i].name);
+      console.log(this.selectedFile[i]);
+    }
+    console.log(this.listImageUpLoad);
   }
 
 
@@ -112,4 +121,5 @@ export class CreateHouseComponent implements OnInit {
     }, error => {
     });
   }
+
 }
