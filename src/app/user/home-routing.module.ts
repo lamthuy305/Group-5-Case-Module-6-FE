@@ -7,7 +7,6 @@ import {OrderDetailComponent} from './order-detail/order-detail.component';
 import {ListHousesComponent} from './house/list-houses/list-houses.component';
 import {EditHouseComponent} from './house/edit-house/edit-house.component';
 import {CreateHouseComponent} from './house/create-house/create-house.component';
-import {ImagesDetailComponent} from './house/images-detail/images-detail.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 
 
@@ -39,10 +38,6 @@ const routes: Routes = [
   {
     path: 'orderDetail',
     component: OrderDetailComponent
-  },
-  {
-    path: 'houses/images/:id',
-    component: ImagesDetailComponent
   },
   {
     path: 'changePassword',

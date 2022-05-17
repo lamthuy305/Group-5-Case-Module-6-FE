@@ -13,7 +13,6 @@ import {HomeComponent} from './layout/user/home/home.component';
 import {NavbarHomeComponent} from './layout/user/navbar-home/navbar-home.component';
 import {SidebarHomeComponent} from './layout/user/sidebar-home/sidebar-home.component';
 import {AuthModule} from './auth/auth.module';
-import {AdminModule} from './admin/admin.module';
 import {JwtInterceptor} from "./helper/jwt-interceptor";
 import {ErrorInterceptor} from "./helper/error-interceptor";
 

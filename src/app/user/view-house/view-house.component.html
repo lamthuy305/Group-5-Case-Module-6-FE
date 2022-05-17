@@ -5,9 +5,10 @@
     <div class="card-header" style="background: white">
       <div class="card-tools">
         <button class="btn btn-info" data-target="#create-order" data-toggle="modal"
-                type="button">
+                type="button" *ngIf="!ishowEditForm">
           Đặt ngay
         </button>
+
       </div>
     </div>
     <br>
@@ -15,18 +16,39 @@
       <div class="col-lg-12">
         <div class="pd-details-text">
           <div class="property-more-pic">
-            <div class="product-pic-zoom">
-              <img src="http://localhost:8080/image/{{houseFE.img}}" alt="" width="1200px" height="700px">
 
+            <!--            <form [formGroup]="imgForm" (ngSubmit)="submitEditImg()" *ngIf="ishowEditForm">-->
+            <div>
+              <button class="btn btn-info" style="float: right" (click)="isShowInput()" data-target="#edit-img"
+                      data-toggle="modal"
+                      type="button">
+                Thay ảnh
+              </button>
             </div>
+            <img src="http://localhost:8080/image/{{houseFE.img}}" alt="" width="1200px" height="700px">
             <br>
-            <div class="product-thumbs">
-              <div class="product-thumbs-track ps-slider owl-carousel">
-                <div *ngFor="let image of images" class="pt active"><img height="250px"
-                                                                         src="http://localhost:8080/image/{{image.name}}"
-                                                                         alt=""></div>
+            <hr>
+            <br>
+            <button class="btn btn-info" data-target="#create-image" data-toggle="modal"
+                    type="button" *ngIf="ishowEditForm">
+              Thêm ảnh homestay
+            </button>
+
+            <div class="row">
+              <div class="col-lg-3" *ngFor="let image of images" style="margin-top: 50px">
+                <div class="single-blog-item" style="background: ghostwhite">
+                  <button class="btn btn-primary" style="float: right" (click)="deleteImage(image.id)"
+                          type="button" *ngIf="ishowEditForm">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                  <div class="sb-pic">
+                    <img src="http://localhost:8080/image/{{image.name}}" height="300">
+                  </div>
+                  <br>
+                </div>
               </div>
             </div>
+
           </div>
           <hr>
           <div class="pd-details-tab">
@@ -178,6 +200,70 @@
         <div class="modal-footer justify-content-between">
           <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>
           <button class="btn btn-info" type="submit">Đặt ngay
+          </button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="edit-img">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><b>Thay ảnh đại diện homestay</b></h4>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="imgForm" (ngSubmit)="submitEditImg()">
+        <div class="modal-body">
+
+          <label for="img" class="form-label">Ảnh homstay:</label>
+          <input class="form-control" type="file" multiple id="img" formControlName="img"
+                 (change)="changeImg($event)">
+          <p>
+            <img src="{{filePath}}" alt="" width="1200px" height="700px" *ngIf="filePath">
+          </p>
+
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>
+          <button class="btn btn-info" type="submit">lưu
+          </button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="create-image">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><b>Thêm ảnh homestay</b></h4>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="imageForm" (ngSubmit)="submitCreateImage()">
+        <div class="modal-body">
+
+          <label for="images" class="form-label">Ảnh homstay:</label>
+          <input class="form-control" type="file" multiple id="images" formControlName="images"
+                 (change)="changeFileImage($event)">
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>
+          <button class="btn btn-info" type="submit">Thêm ảnh
           </button>
         </div>
       </form>
