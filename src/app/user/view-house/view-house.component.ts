@@ -7,6 +7,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {OrderService} from '../../service/order/order.service';
 import {NotificationService} from '../../service/notification/notification.service';
 import {ImageService} from '../../service/image/image.service';
+import {ProfileService} from '../../service/profile/profile.service';
+import {CommentService} from '../../service/comment/comment.service';
 
 declare var $: any;
 declare var Swal: any;
@@ -21,6 +23,8 @@ export class ViewHouseComponent implements OnInit {
   houseFE: House = {};
   currentUser: any = {};
   images: any = [];
+  comments: any[] = [];
+  commentsAll: any[] = [];
   ishowEditForm: boolean = false;
   selectedFile: File[] = [];
   filePath: string = '';
@@ -34,22 +38,7 @@ export class ViewHouseComponent implements OnInit {
 
   });
   selectedFileImage: File[] = [];
-
-
-  constructor(private shareJSService: ShareJSService,
-              private houseService: HouseService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private orderService: OrderService,
-              private imageService: ImageService,
-              private notificationService: NotificationService) {
-    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      const id = +paramMap.get('id');
-      this.getHouseById(id);
-      this.getAllImageByHouseId(id);
-    });
-  }
-
+  profile: any;
 
   orderForm: FormGroup = new FormGroup({
     house: new FormControl(),
@@ -58,9 +47,41 @@ export class ViewHouseComponent implements OnInit {
     checkOut: new FormControl([Validators.required]),
   });
 
+  commentForm: FormGroup = new FormGroup({
+    user: new FormControl(),
+    text: new FormControl(),
+    house: new FormControl(),
+    profile: new FormControl(),
+  });
+
+  constructor(private shareJSService: ShareJSService,
+              private houseService: HouseService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private orderService: OrderService,
+              private imageService: ImageService,
+              private notificationService: NotificationService,
+              private profileService: ProfileService,
+              private commentService: CommentService) {
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      const id = +paramMap.get('id');
+      this.getHouseById(id);
+      this.getAllImageByHouseId(id);
+      this.getAllCommentByHouseId(id);
+    });
+  }
+
+
   ngOnInit() {
     this.getCurrentUser();
     this.getDateTimePicker();
+    this.getProfile();
+  }
+
+  getProfile() {
+    this.profileService.getProfileByUserId(this.currentUser.id).subscribe(profileBE => {
+      this.profile = profileBE;
+    });
   }
 
   showEditForm(id) {
@@ -97,6 +118,22 @@ export class ViewHouseComponent implements OnInit {
       this.shareJSService.shareJS();
 
     });
+  }
+
+  getAllCommentByHouseId(id) {
+    this.commentService.getAllCommentByHouseId(id).subscribe((listCommentBE) => {
+      this.comments = listCommentBE;
+      console.log(1);
+      console.log(this.comments);
+    });
+  }
+
+  getAllComment(id) {
+    // this.commentService.getAll(id).subscribe((listCommentBE) => {
+    //   this.comments = listCommentBE;
+    //   console.log(1);
+    //   console.log(this.comments);
+    // });
   }
 
   submitCreateOrder() {
@@ -167,10 +204,10 @@ export class ViewHouseComponent implements OnInit {
   submitEditImg() {
     let formData = new FormData();
     formData.append('id', this.house_current_id);
-      const files = (document.getElementById('img') as HTMLInputElement).files;
-      if (files.length > 0) {
-        formData.append('img', files[0]);
-      }
+    const files = (document.getElementById('img') as HTMLInputElement).files;
+    if (files.length > 0) {
+      formData.append('img', files[0]);
+    }
     this.houseService.editImgHouse(formData).subscribe(() => {
       $(function() {
         $('#edit-img').modal('hide');
@@ -200,5 +237,34 @@ export class ViewHouseComponent implements OnInit {
         this.getAllImageByHouseId(this.house_current_id);
       }, error => this.notificationService.showMessage('error', 'Xảy ra lỗi!', 'Tạo mới lỗi')
     );
+  }
+
+  submitCreateComment() {
+    this.commentForm.value.user = {
+      id: this.currentUser.id
+    };
+    this.commentForm.value.house = {
+      id: this.house_current_id
+    };
+    this.commentForm.value.profile = {
+      id: this.profile.id
+    };
+
+    this.commentService.createComment(this.commentForm.value).subscribe(() => {
+      this.getAllCommentByHouseId(this.house_current_id);
+      this.commentForm.reset();
+    },);
+  }
+
+  like(id) {
+    this.commentService.likeComment(id).subscribe(() =>{
+      this.getAllCommentByHouseId(this.house_current_id);
+    });
+  }
+
+  dislike(id) {
+    this.commentService.dislikeComment(id).subscribe(() =>{
+      this.getAllCommentByHouseId(this.house_current_id);
+    });
   }
 }

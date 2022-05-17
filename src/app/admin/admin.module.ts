@@ -25,3 +25,4 @@ import { UserManagementComponent } from './user-management/user-management.compo
 })
 export class   AdminModule {
 }
+

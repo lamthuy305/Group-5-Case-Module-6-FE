@@ -41,8 +41,7 @@
                 <button type="submit" style="width: 247px;font-size: 16px;height: 46px;background: #2cbdb8;color: #ffffff;
   border-radius: 5px;border: #2cbdb8;cursor: pointer;width: 100%">Đăng nhập
                 </button>
-                <p *ngIf="isInvalid" class="font-weight-bold" style="text-align: center;color: red">Tài khoản hoặc mật
-                  khẩu không đúng!</p>
+                <p *ngIf="message!=null" class="font-weight-bold" style="text-align: center;color: red">{{message}}</p>
               </form>
               <div class="text-center pt-3">
                 Bạn chưa có tài khoản? <a class="font-weight-bold" style="color: #005cbf" routerLink="/register">Đăng ký

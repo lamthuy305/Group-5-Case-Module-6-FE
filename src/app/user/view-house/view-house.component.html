@@ -17,9 +17,9 @@
         <div class="pd-details-text">
           <div class="property-more-pic">
 
-            <!--            <form [formGroup]="imgForm" (ngSubmit)="submitEditImg()" *ngIf="ishowEditForm">-->
+
             <div>
-              <button class="btn btn-info" style="float: right" (click)="isShowInput()" data-target="#edit-img"
+              <button class="btn btn-info" style="float: right" data-target="#edit-img" *ngIf="ishowEditForm"
                       data-toggle="modal"
                       type="button">
                 Thay ảnh
@@ -102,7 +102,7 @@
                         <td class="p-value">{{houseFE.bedroom}}</td>
                       </tr>
                       <tr>
-                        <td class="pt-name">Agent</td>
+                        <td class="pt-name">Chủ nhà</td>
                         <td class="p-value">{{houseFE.user.username}}</td>
                       </tr>
                       </tbody>
@@ -124,50 +124,38 @@
 
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <div class="comment-option">
-          <h4>2 Comments</h4>
-          <div class="single-comment-item first-comment">
+        <div class="comment-option" >
+          <h4>{{comments.length}} bình luận</h4>
+          <div class="single-comment-item first-comment" *ngFor="let comment of comments">
             <div class="sc-author">
-              <img src="../../../assets/img/blog/comment/comment-1.jpg" alt="">
+              <img src="http://localhost:8080/image/{{comment.profile.avatar}}">
             </div>
-            <div class="sc-text">
-              <span>27 Aug 2019</span>
-              <h5>Brandon Kelley</h5>
-              <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                magnam.</p>
-              <a href="#" class="comment-btn">Like</a>
-              <a href="#" class="comment-btn">Reply</a>
+            <div>
+              <span></span>
+              <h5>{{comment.profile.name}}</h5>
+              <p>{{comment.text}}</p>
+              <button (click)="like(comment.id)" style="width: 60px; height: 30px; color: grey">{{comment.count_like}} <i class="fas fa-thumbs-up"></i></button>
+              <button (click)="dislike(comment.id)" style="width: 60px; height: 30px; color: grey"> {{comment.count_dislike}} <i class="fas fa-thumbs-down"></i></button>
             </div>
           </div>
-          <div class="single-comment-item second-comment ">
-            <div class="sc-author">
-              <img src="../../../assets/img/blog/comment/comment-3.jpg" alt="">
-            </div>
-            <div class="sc-text">
-              <span>27 Aug 2019</span>
-              <h5>Mike Phillips</h5>
-              <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                magnam.</p>
-              <a href="#" class="comment-btn">Like</a>
-              <a href="#" class="comment-btn">Reply</a>
-            </div>
-          </div>
+
+
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-10 offset-lg-1">
-        <div class="leave-comment">
-          <h4>Leave A Comment</h4>
-          <form action="#">
-            <textarea placeholder="Messages"></textarea>
-            <button type="submit" class="site-btn">Send Message</button>
-          </form>
+    <form action="">
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+          <div class="leave-comment">
+            <h4>Viết bình luận</h4>
+            <form [formGroup]="commentForm" (ngSubmit)="submitCreateComment()">
+              <textarea placeholder="Viết bình luận" formControlName="text"></textarea>
+              <button type="submit" class="site-btn">Gửi</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
 
   </div>
 </section>
