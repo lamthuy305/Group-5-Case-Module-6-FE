@@ -24,7 +24,7 @@ export class CreateHouseComponent implements OnInit {
   house: House = {};
   currentUser: any = {};
   listImageUpLoad: any[] = [];
-
+  filePath: string = '';
   houseForm: FormGroup = new FormGroup({
     id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
@@ -99,6 +99,11 @@ export class CreateHouseComponent implements OnInit {
       console.log(this.selectedFile[i].name);
       console.log(this.selectedFile[i]);
     }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.filePath = reader.result as string;
+    }
+    reader.readAsDataURL(this.selectedFile[0])
     console.log(this.listImageUpLoad);
   }
 
