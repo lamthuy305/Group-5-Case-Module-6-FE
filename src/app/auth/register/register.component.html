@@ -37,7 +37,7 @@
                          placeholder="Số điện thoại" formControlName="numberPhone">
                 </div>
                 <div *ngIf="formRegister.get('numberPhone').invalid&&formRegister.get('numberPhone').touched"><p
-                  style="color: red">Không được để trống</p>
+                  style="color: red">Số điện thoại đăng ký chưa chính xác!</p>
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control"
