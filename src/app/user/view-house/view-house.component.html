@@ -136,7 +136,7 @@
 
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <h4>{{comments.length}} đánh giá</h4>
+        <h4>{{commentsAllCount.length}} đánh giá</h4>
         <div class="stars">
           <form action="">
             <input class="star star-5" id="star-5" type="radio" name="star"/>
@@ -152,7 +152,7 @@
           </form>
         </div>
         <div class="comment-option" >
-          <h4>{{comments.length}} bình luận</h4>
+          <h4>{{commentsAllCount.length}} bình luận</h4>
           <div class="single-comment-item first-comment" *ngFor="let comment of comments">
             <div class="sc-author">
               <img src="http://localhost:8080/image/{{comment.profile.avatar}}">

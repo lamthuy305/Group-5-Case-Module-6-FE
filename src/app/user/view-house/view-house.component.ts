@@ -24,7 +24,7 @@ export class ViewHouseComponent implements OnInit {
   currentUser: any = {};
   images: any = [];
   comments: any[] = [];
-  commentsAll: any[] = [];
+  commentsAllCount: any[] = [];
   ishowEditForm: boolean = false;
   selectedFile: File[] = [];
   filePath: string = '';
@@ -76,6 +76,7 @@ export class ViewHouseComponent implements OnInit {
     this.getCurrentUser();
     this.getDateTimePicker();
     this.getProfile();
+    this.getAllCommentUseCount();
   }
 
   getProfile() {
@@ -128,12 +129,10 @@ export class ViewHouseComponent implements OnInit {
     });
   }
 
-  getAllComment(id) {
-    // this.commentService.getAll(id).subscribe((listCommentBE) => {
-    //   this.comments = listCommentBE;
-    //   console.log(1);
-    //   console.log(this.comments);
-    // });
+  getAllCommentUseCount() {
+    this.commentService.getAll().subscribe((listCommentBE) => {
+      this.commentsAllCount = listCommentBE;
+    });
   }
 
   submitCreateOrder() {
@@ -252,18 +251,19 @@ export class ViewHouseComponent implements OnInit {
 
     this.commentService.createComment(this.commentForm.value).subscribe(() => {
       this.getAllCommentByHouseId(this.house_current_id);
+      this.getAllCommentUseCount();
       this.commentForm.reset();
     },);
   }
 
   like(id) {
-    this.commentService.likeComment(id, this.currentUser.id).subscribe(() =>{
+    this.commentService.likeComment(id, this.currentUser.id).subscribe(() => {
       this.getAllCommentByHouseId(this.house_current_id);
     });
   }
 
   dislike(id) {
-    this.commentService.dislikeComment(id,this.currentUser.id).subscribe(() =>{
+    this.commentService.dislikeComment(id, this.currentUser.id).subscribe(() => {
       this.getAllCommentByHouseId(this.house_current_id);
     });
   }
