@@ -3,7 +3,7 @@ import {Profile} from '../../model/profile';
 import {ProfileService} from '../../service/profile/profile.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ShareJSService} from '../../service/share/share-js.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {NotificationService} from '../../service/notification/notification.service';
 
 @Component({
