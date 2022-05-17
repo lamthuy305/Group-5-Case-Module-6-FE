@@ -25,6 +25,7 @@ export class CreateHouseComponent implements OnInit {
   currentUser: any = {};
   listImageUpLoad: any[] = [];
   filePath: string = '';
+
   houseForm: FormGroup = new FormGroup({
     id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
