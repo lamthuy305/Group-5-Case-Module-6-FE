@@ -9,6 +9,7 @@ import {NotificationService} from '../../service/notification/notification.servi
 import {ImageService} from '../../service/image/image.service';
 
 declare var $: any;
+declare var Swal: any;
 
 @Component({
   selector: 'app-view-house',
@@ -16,10 +17,23 @@ declare var $: any;
   styleUrls: ['./view-house.component.css']
 })
 export class ViewHouseComponent implements OnInit {
+  house_current_id: any;
   houseFE: House = {};
   currentUser: any = {};
   images: any = [];
   ishowEditForm: boolean = false;
+  selectedFile: File[] = [];
+  filePath: string = '';
+  listPathImage: any[];
+  imgForm: FormGroup = new FormGroup({
+    img: new FormControl(''),
+  });
+
+  imageForm: FormGroup = new FormGroup({
+    images: new FormControl(),
+
+  });
+  selectedFileImage: File[] = [];
 
 
   constructor(private shareJSService: ShareJSService,
@@ -47,16 +61,12 @@ export class ViewHouseComponent implements OnInit {
   ngOnInit() {
     this.getCurrentUser();
     this.getDateTimePicker();
-    this.showEditForm();
   }
 
-  showEditForm() {
-    // if (this.houseFE.user.id == this.currentUser.id) {
-    //   this.ishowEditForm = true;
-    // }
-    console.log(this.houseFE);
-    console.log(this.currentUser.id);
-    console.log(this.ishowEditForm);
+  showEditForm(id) {
+    if (id == this.currentUser.id) {
+      this.ishowEditForm = true;
+    }
   }
 
   getDateTimePicker() {
@@ -71,6 +81,8 @@ export class ViewHouseComponent implements OnInit {
   private getHouseById(id) {
     this.houseService.getHouseById(id).subscribe(houseBE => {
       this.houseFE = houseBE;
+      this.house_current_id = this.houseFE.id;
+      this.showEditForm(this.houseFE.user.id);
     });
   }
 
@@ -103,5 +115,90 @@ export class ViewHouseComponent implements OnInit {
       this.router.navigateByUrl('/orderDetail');
       this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
     }, error => this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi'));
+  }
+
+  changeImg($event) {
+    this.selectedFile = $event.target.files;
+    for (let i = 0; i < this.selectedFile.length; i++) {
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.filePath = reader.result as string;
+    };
+    reader.readAsDataURL(this.selectedFile[0]);
+  }
+
+  changeFileImage($event) {
+    this.selectedFileImage = $event.target.files;
+
+
+    // const reader = new FileReader();
+    // for (let i = 0; i < this.selectedFile.length; i++) {
+    //
+    // }
+    // reader.onload = () => {
+    //   this.filePath = reader.result as string;
+    // };
+    // reader.readAsDataURL(this.selectedFile[0]);
+  }
+
+  deleteImage(id) {
+    Swal.fire({
+      title: 'Bạn có chắc chắn?',
+      text: 'Bạn có muốn xóa ảnh này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Đồng ý xóa!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+          this.imageService.deleteImage(id).subscribe(() => {
+            this.notificationService.showMessage('success', 'Delete!!', 'Xóa thành công!!!!!!');
+            this.getAllImageByHouseId(this.house_current_id);
+          }, error =>
+            this.notificationService.showMessage('error', 'Delete!', 'Xóa lỗi'));
+        }
+      }
+    );
+  }
+
+
+  submitEditImg() {
+    let formData = new FormData();
+    formData.append('id', this.house_current_id);
+      const files = (document.getElementById('img') as HTMLInputElement).files;
+      if (files.length > 0) {
+        formData.append('img', files[0]);
+      }
+    this.houseService.editImgHouse(formData).subscribe(() => {
+      $(function() {
+        $('#edit-img').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+      });
+      this.notificationService.showMessage('success', 'Edit!', 'Chỉnh sửa thành công');
+      this.getHouseById(this.house_current_id);
+    }, error => this.notificationService.showMessage('error', 'Edit!', 'Chỉnh sửa lỗi'));
+  }
+
+  submitCreateImage() {
+    const imageForm = new FormData();
+    if (this.selectedFileImage.length > 0) {
+      for (let i = 0; i < this.selectedFileImage.length; i++) {
+        imageForm.append('images', this.selectedFileImage[i]);
+      }
+    }
+    console.log(imageForm);
+    this.imageService.createImage(this.house_current_id, imageForm).subscribe(() => {
+        $(function() {
+          $('#create-image').modal('hide');
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
+        });
+        this.notificationService.showMessage('success', 'Create!!', 'Tạo mới thành công');
+        this.getAllImageByHouseId(this.house_current_id);
+      }, error => this.notificationService.showMessage('error', 'Xảy ra lỗi!', 'Tạo mới lỗi')
+    );
   }
 }

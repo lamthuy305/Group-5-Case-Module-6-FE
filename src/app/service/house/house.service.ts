@@ -39,8 +39,9 @@ export class HouseService {
     return this.http.get(`${API_URL}/houses/search?city=${city}&bedroom=${bedroom}&bathroom=${bathroom}&price=${price}&type=${type}`);
   }
 
-  editHouse(id, house): Observable<House> {
-    return this.http.put<House>(`${API_URL}/houses/${id}`, house);
+
+  editImgHouse(house): Observable<House> {
+    return this.http.post(`${API_URL}/houses/img`, house);
   }
 
   deleteHouse(id): Observable<House> {
