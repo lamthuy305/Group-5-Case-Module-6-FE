@@ -7,11 +7,14 @@ import {HomeRoutingModule} from './home-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
-import { HouseComponent } from './house/house.component';
+import { ListHousesComponent } from './house/list-houses/list-houses.component';
+import { CreateHouseComponent } from './house/create-house/create-house.component';
+import { EditHouseComponent } from './house/edit-house/edit-house.component';
+import { ImagesDetailComponent } from './house/images-detail/images-detail.component';
 
 
 @NgModule({
-  declarations: [HomeUserComponent, ProfileComponent, ViewHouseComponent, OrderDetailComponent, HouseComponent],
+  declarations: [HomeUserComponent, ProfileComponent, ViewHouseComponent, OrderDetailComponent, ListHousesComponent, CreateHouseComponent, EditHouseComponent, ImagesDetailComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
