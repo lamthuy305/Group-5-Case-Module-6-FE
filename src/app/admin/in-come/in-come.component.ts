@@ -37,6 +37,7 @@ export class InComeComponent implements OnInit {
   }
 
   sumIncome() {
+    this.sum_income = 0;
     for (let i = 0; i < this.orders.length; i++) {
       this.sum_income += (new Date(this.orders[i].checkOut).getUTCDate() - new Date(this.orders[i].checkIn).getUTCDate()) * this.orders[i].house.price;
     }
@@ -52,7 +53,7 @@ export class InComeComponent implements OnInit {
     if (this.yearFE % 1 != 0) {
       this.yearFE = '';
     }
-    this.orderService.getHouseInMonthYear(this.currentUser.id,this.monthFE, this.yearFE).subscribe((listOrdersBE) => {
+    this.orderService.getHouseInMonthYear(this.currentUser.id, this.monthFE, this.yearFE).subscribe((listOrdersBE) => {
       this.orders = listOrdersBE;
       this.sumIncome();
     });

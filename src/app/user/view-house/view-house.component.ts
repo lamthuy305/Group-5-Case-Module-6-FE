@@ -46,6 +46,12 @@ export class ViewHouseComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentUser();
+    $(function(){
+      var now = new Date(),
+        minDate = now.toISOString().substring(0,10);
+      $('#check-in').prop('min', minDate);
+      $('#check-out').prop('min', minDate);
+    })
   }
 
   private getHouseById(id) {
@@ -75,7 +81,11 @@ export class ViewHouseComponent implements OnInit {
       id: this.currentUser.id
     };
     this.orderService.createOrder(this.orderForm.value).subscribe(() => {
-      $('#create-order').modal('hide');
+      $(function(){
+        $('#create-order').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+      })
       this.router.navigateByUrl('/orderDetail');
       this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
     }, error => this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi'));

@@ -1,18 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, ParamMap} from '@angular/router';
 import {ImageService} from '../../../service/image/image.service';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 import {NotificationService} from '../../../service/notification/notification.service';
+import {FormControl, FormGroup} from '@angular/forms';
 
 declare var $: any;
 declare var Swal: any;
 
 @Component({
-  selector: 'app-detail-house',
-  templateUrl: './detail-house.component.html',
-  styleUrls: ['./detail-house.component.css']
+  selector: 'app-images-detail',
+  templateUrl: './images-detail.component.html',
+  styleUrls: ['./images-detail.component.css']
 })
-export class DetailHouseComponent implements OnInit {
+export class ImagesDetailComponent implements OnInit {
   images: any[] = [];
   selectedFile: File[] = [];
   id: number;
@@ -60,7 +60,7 @@ export class DetailHouseComponent implements OnInit {
             this.notificationService.showMessage('success', 'Delete!!', 'Xóa thành công');
             this.getAllImagesByHouseId(this.id);
           }, error =>
-            this.notificationService.showMessage('erros', 'Delete!','Xóa lỗi'));
+            this.notificationService.showMessage('erros', 'Delete!', 'Xóa lỗi'));
         }
       }
     );
@@ -73,7 +73,7 @@ export class DetailHouseComponent implements OnInit {
         imageForm.append('images', this.selectedFile[i]);
       }
     }
-    this.imageService.createImage(this.id,imageForm).subscribe(() => {
+    this.imageService.createImage(this.id, imageForm).subscribe(() => {
         $('#create-image').modal('hide');
         this.notificationService.showMessage('success', 'Create!!', 'Tạo mới thành công');
         this.getAllImagesByHouseId(this.id);

@@ -1,24 +1,24 @@
 import {Component, OnInit} from '@angular/core';
-import {House} from '../../model/house';
-import {Type} from '../../model/type';
-import {StatusHouse} from '../../model/status-house';
-import {HouseService} from '../../service/house/house.service';
-import {TypeService} from '../../service/type/type.service';
-import {StatusHouseService} from '../../service/StatusHouse/status-house.service';
+import {House} from '../../../model/house';
+import {Type} from '../../../model/type';
+import {StatusHouse} from '../../../model/status-house';
+import {HouseService} from '../../../service/house/house.service';
+import {TypeService} from '../../../service/type/type.service';
+import {StatusHouseService} from '../../../service/StatusHouse/status-house.service';
 import {Router} from '@angular/router';
-import {NotificationService} from '../../service/notification/notification.service';
-import {CityService} from '../../service/city/city.service';
+import {NotificationService} from '../../../service/notification/notification.service';
+import {CityService} from '../../../service/city/city.service';
 import {FormControl, FormGroup} from '@angular/forms';
 
 declare var $: any;
 declare var Swal: any;
 
 @Component({
-  selector: 'app-house',
-  templateUrl: './house.component.html',
-  styleUrls: ['./house.component.css']
+  selector: 'app-list-houses',
+  templateUrl: './list-houses.component.html',
+  styleUrls: ['./list-houses.component.css']
 })
-export class HouseComponent implements OnInit {
+export class ListHousesComponent implements OnInit {
   houses: House[] = [];
   types: Type[] = [];
   cities: any[] = [];
@@ -26,9 +26,7 @@ export class HouseComponent implements OnInit {
   house: House = {};
   currentUser: any = {};
   selectedFile: File[] = [];
-  houseEdit: House = {};
   houseEdit_Id: number = 0;
-  showUploadListImage: boolean = true;
 
   constructor(private houseService: HouseService,
               private typeService: TypeService,
@@ -41,8 +39,6 @@ export class HouseComponent implements OnInit {
   ngOnInit() {
     this.getCurrentUser();
   }
-
-
   houseForm: FormGroup = new FormGroup({
     id: new FormControl(),
     name: new FormControl(''),
@@ -76,10 +72,6 @@ export class HouseComponent implements OnInit {
     });
   }
 
-  viewHouseById(id) {
-    this.router.navigateByUrl('/view/' + id);
-  }
-
 
   createHouse() {
     const house = new FormData();
@@ -108,8 +100,6 @@ export class HouseComponent implements OnInit {
     house.append('user', this.currentUser.id);
     if (this.houseForm.valid) {
       this.houseService.createHouse(house).subscribe(() => {
-          this.houseForm.reset();
-          $('#create-house').modal('hide');
           this.notificationService.showMessage('success', 'Create!!', 'Tạo mới thành công');
           this.getAllHouses();
         }, error => this.notificationService.showMessage('error', 'Xảy ra lỗi!', 'Vui lòng kiểm tra lại thông tin vừa nhập')
@@ -157,11 +147,10 @@ export class HouseComponent implements OnInit {
             this.notificationService.showMessage('success', 'Delete!!', 'Xóa thành công');
             this.getAllHouses();
           }, error =>
-            this.notificationService.showMessage('erros', 'Delete!','Xóa lỗi'));
+            this.notificationService.showMessage('erros', 'Delete!', 'Xóa lỗi'));
         }
       }
     );
   }
-
 
 }

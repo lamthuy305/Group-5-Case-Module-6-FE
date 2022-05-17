@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="main-body">
+    <form [formGroup]="houseForm" (ngSubmit)="editHouse()" class="mb-3">
+      <div class="row gutters-sm">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" style="background: snow">
+          <h3 style="text-align: center"><b>Chỉnh sửa homestay</b></h3>
+          <br>
+          <div>
+            <label for="name" class="form-label">Tên:</label>
+            <input type="text" class="form-control" id="name" formControlName="name"
+                   placeholder="Nhập tên Homestay">
+          </div>
+          <div *ngIf="houseForm.get('name').invalid&&houseForm.get('name').touched"><p
+            style="color: red">Không được để trống</p>
+          </div>
+
+          <div>
+            <label for="img" class="form-label">Ảnh:</label>
+            <div>
+              <img src="http://localhost:8080/image/{{house.img}}" width="780px" height="550px">
+            </div>
+            <input class="form-control" type="file" id="img" formControlName="img">
+          </div>
+          <div *ngIf="houseForm.get('img').invalid&&houseForm.get('img').touched"><p
+            style="color: red">Không được để trống</p>
+          </div>
+
+          <div>
+            <label for="area" class="form-label">Diện tích:</label>
+            <input class="form-control" type="text" id="area" formControlName="area"
+                   placeholder="Nhập diện tích Homestay">
+          </div>
+          <div *ngIf="houseForm.get('area').invalid&&houseForm.get('area').touched"><p
+            style="color: red">Không được để trống</p>
+          </div>
+
+          <div>
+            <label for="city" class="form-label">Thành phố:</label>
+            <select formControlName="city" class="form-control" id="city" [ngModel]="house.city.id">
+              <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+            </select>
+          </div>
+          <div *ngIf="houseForm.get('city').invalid&&houseForm.get('city').touched"><p
+            style="color: red">Không được để trống</p>
+          </div>
+          <div>
+            <label for="location" class="form-label">Địa Chỉ:</label>
+            <input class="form-control" type="text" id="location" placeholder="Nhập địa chỉ"
+                   formControlName="location">
+          </div>
+          <div *ngIf="houseForm.get('location').invalid&&houseForm.get('location').touched"><p
+            style="color: red">Không được để trống</p>
+          </div>
+          <div>
+            <label for="type" class="form-label">Loại phòng:</label>
+            <select formControlName="type" class="form-control" id="type" [ngModel]="house.type.id">
+              <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
+            </select>
+          </div>
+          <div *ngIf="houseForm.get('type').invalid&&houseForm.get('type').touched"><p
+            style="color: red">Không được để trống</p>
+          </div>
+          <div>
+            <label for="bedroom" class="form-label">Số phòng ngủ:</label>
+            <input class="form-control" type="number" id="bedroom" formControlName="bedroom"
+                   placeholder="Nhập số phòng ngủ">
+          </div>
+          <div *ngIf="houseForm.get('bedroom').invalid&&houseForm.get('bedroom').touched"><p
+            style="color: red">Không được để trống</p>
+          </div>
+          <div>
+            <label for="bathroom" class="form-label">Số phòng tắm:</label>
+            <input class="form-control" type="number" id="bathroom" formControlName="bathroom"
+                   placeholder="Nhâp số phòng tắm">
+          </div>
+          <div *ngIf="houseForm.get('bathroom').invalid&&houseForm.get('bathroom').touched"><p
+            style="color: red">Không được để trống</p>
+          </div>
+          <div>
+            <label for="price">Giá phòng / đêm:</label>
+            <input class="form-control" type="number" id="price" formControlName="price"
+                   placeholder="Nhập giá phòng">
+          </div>
+          <div *ngIf="houseForm.get('price').invalid&&houseForm.get('price').touched"><p
+            style="color: red">Không được để trống</p>
+          </div>
+          <div>
+            <label for="description" class="form-label">Mô tả:</label>
+            <input class="form-control" type="text" id="description" formControlName="description"
+                   placeholder="Nhập mô tả">
+          </div>
+          <div *ngIf="houseForm.get('description').invalid&&houseForm.get('description').touched"><p
+            style="color: red">Không được để trống</p>
+          </div>
+          <div>
+            <label for="statusHouse" class="form-label">Trạng thái:</label>
+            <select formControlName="statusHouse" class="form-control" id="statusHouse"
+                    [ngModel]="house.statusHouse.id">
+              <option *ngFor="let statusHouse of statusHouses" [value]="statusHouse.id">{{statusHouse.name}}</option>
+            </select>
+          </div>
+          <div *ngIf="houseForm.get('statusHouse').invalid&&houseForm.get('statusHouse').touched"><p
+            style="color: red">Không được để trống</p>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>
+            <button class="btn btn-info" type="submit">Lưu
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -52,10 +52,9 @@ export class ChangePasswordComponent implements OnInit {
 
     this.authService.changePassword(this.user).subscribe(() => {
       this.notification.showMessage('success', 'OK!', 'Đổi mật khẩu thành công!')
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/home');
     }, error => {
       this.notification.showMessage('error', ':((!', 'Mật khẩu hiện tại không đúng!')
-      this.router.navigateByUrl('/changePassword')
     })
 
   }
