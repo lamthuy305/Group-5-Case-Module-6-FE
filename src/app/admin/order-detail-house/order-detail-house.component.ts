@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {ImageService} from '../../service/image/image.service';
 import {NotificationService} from '../../service/notification/notification.service';
 import {OrderService} from '../../service/order/order.service';
 

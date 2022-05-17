@@ -19,6 +19,7 @@ export class ViewHouseComponent implements OnInit {
   houseFE: House = {};
   currentUser: any = {};
   images: any = [];
+  ishowEditForm: boolean = false;
 
 
   constructor(private shareJSService: ShareJSService,
@@ -33,7 +34,6 @@ export class ViewHouseComponent implements OnInit {
       this.getHouseById(id);
       this.getAllImageByHouseId(id);
     });
-
   }
 
 
@@ -46,12 +46,26 @@ export class ViewHouseComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentUser();
-    $(function(){
+    this.getDateTimePicker();
+    this.showEditForm();
+  }
+
+  showEditForm() {
+    // if (this.houseFE.user.id == this.currentUser.id) {
+    //   this.ishowEditForm = true;
+    // }
+    console.log(this.houseFE);
+    console.log(this.currentUser.id);
+    console.log(this.ishowEditForm);
+  }
+
+  getDateTimePicker() {
+    $(function() {
       var now = new Date(),
-        minDate = now.toISOString().substring(0,10);
+        minDate = now.toISOString().substring(0, 10);
       $('#check-in').prop('min', minDate);
       $('#check-out').prop('min', minDate);
-    })
+    });
   }
 
   private getHouseById(id) {
@@ -81,11 +95,11 @@ export class ViewHouseComponent implements OnInit {
       id: this.currentUser.id
     };
     this.orderService.createOrder(this.orderForm.value).subscribe(() => {
-      $(function(){
+      $(function() {
         $('#create-order').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
-      })
+      });
       this.router.navigateByUrl('/orderDetail');
       this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
     }, error => this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi'));

@@ -42,10 +42,12 @@ export class UserManagementComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Đồng ý!'
     }).then((result) => {
-        this.userService.lockOrUnlockUser(id).subscribe((listUserFromBE) => {
-          this.notificationService.showMessage('success', 'Success!', 'Thay đổi thành công');
-          this.getAllUser();
-        });
+        if (result.isConfirmed) {
+          this.userService.lockOrUnlockUser(id).subscribe((listUserFromBE) => {
+            this.notificationService.showMessage('success', 'Success!', 'Thay đổi thành công');
+            this.getAllUser();
+          });
+        }
       }
     );
   }
