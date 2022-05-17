@@ -257,13 +257,13 @@ export class ViewHouseComponent implements OnInit {
   }
 
   like(id) {
-    this.commentService.likeComment(id).subscribe(() =>{
+    this.commentService.likeComment(id, this.currentUser.id).subscribe(() =>{
       this.getAllCommentByHouseId(this.house_current_id);
     });
   }
 
   dislike(id) {
-    this.commentService.dislikeComment(id).subscribe(() =>{
+    this.commentService.dislikeComment(id,this.currentUser.id).subscribe(() =>{
       this.getAllCommentByHouseId(this.house_current_id);
     });
   }
