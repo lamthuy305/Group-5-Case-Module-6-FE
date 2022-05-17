@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Type} from '../../../model/type';
 import {StatusHouse} from '../../../model/status-house';
 import {House} from '../../../model/house';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HouseService} from '../../../service/house/house.service';
 import {TypeService} from '../../../service/type/type.service';
 import {StatusHouseService} from '../../../service/StatusHouse/status-house.service';
@@ -25,17 +25,17 @@ export class CreateHouseComponent implements OnInit {
 
   houseForm: FormGroup = new FormGroup({
     id: new FormControl(''),
-    name: new FormControl(''),
-    area: new FormControl(''),
-    city: new FormControl(null),
-    location: new FormControl(''),
-    bedroom: new FormControl(''),
-    bathroom: new FormControl(''),
-    price: new FormControl(''),
-    description: new FormControl(''),
-    img: new FormControl(),
-    statusHouse: new FormControl(null),
-    type: new FormControl(null),
+    name: new FormControl('',[Validators.required]),
+    area: new FormControl('',[Validators.required]),
+    city: new FormControl(null,[Validators.required]),
+    location: new FormControl('',[Validators.required]),
+    bedroom: new FormControl('',[Validators.required]),
+    bathroom: new FormControl('',[Validators.required]),
+    price: new FormControl('',[Validators.required]),
+    description: new FormControl('',[Validators.required]),
+    img: new FormControl('',[Validators.required]),
+    statusHouse: new FormControl(null,[Validators.required]),
+    type: new FormControl(null,[Validators.required]),
   });
 
 
