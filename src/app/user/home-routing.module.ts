@@ -5,6 +5,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {ViewHouseComponent} from './view-house/view-house.component';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
 import {HouseComponent} from './house/house.component';
+import {ChangePasswordComponent} from "./change-password/change-password.component";
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'orderDetail',
     component: OrderDetailComponent
+  },
+  {
+    path:'changePassword',
+    component: ChangePasswordComponent
   }
 ];
 

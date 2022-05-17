@@ -82,7 +82,7 @@
                 </div>
               </li>
               <li class="active"><a routerLink="/home">Trang chủ</a></li>
-              <li class="active"><a routerLink="/profile">Profile</a></li>
+              <li class="active"><a routerLink="/profile">Thông tin</a></li>
               <li class="active"><a routerLink="/admin/houses">Quản lý</a></li>
               <li class="active"><a routerLink="/orderDetail">Lịch sử</a></li>
             </ul>
@@ -99,8 +99,10 @@
               </ul>
               <ul class="navbar-nav mr-auto" *ngIf="currentUser">
                 <li class="nav-item">
-                  <span>{{currentUser.username}}
-                    <span><a class="nav-link" routerLink="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></span></span>
+                  <div style="color: white">Xin chào {{currentUser.username}}!</div>
+                  <span><a class="nav-link" style="color: #00A7AA" routerLink="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></span>
+                  <span>  ||  </span>
+                  <span><a class="nav-link" style="color: #00A7AA" routerLink="/changePassword"><i class="fa fa-key"></i> Đổi mật khẩu</a></span>
                 </li>
               </ul>
             </div>
