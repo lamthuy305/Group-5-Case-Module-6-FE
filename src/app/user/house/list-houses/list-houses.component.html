@@ -11,17 +11,19 @@
     </div>
     <div style="text-align: right">
       <div class="card-tools">
-        <a routerLink="/houses/create"><button class="btn btn-info" style="width: 150px; height: 50px">Tạo mới</button></a>
+        <a routerLink="/houses/create">
+          <button class="btn btn-info" style="width: 150px; height: 50px">Tạo mới</button>
+        </a>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-4" *ngFor="let house of houses" style="margin-top: 50px">
         <div class="single-blog-item" style="background: ghostwhite">
-          <div class="sb-pic" routerLink="/houses/images/{{house.id}}">
+          <div class="sb-pic" routerLink="/view/{{house.id}}">
             <img src="http://localhost:8080/image/{{house.img}}" height="300">
           </div>
           <div class="sb-text" style="text-align: center">
-            <a routerLink="/view/{{house.id}}"><h4>{{house.name}}</h4></a>
+            <h4>{{house.name}}</h4>
             <ul>
               <li><i class="fa fa-map-marker"></i> {{house.city.name}}</li>
               <li><i class="fa fa-tag"></i> {{house.type.name}}</li>
@@ -47,7 +49,9 @@
             </ul>
             <div class="row">
               <div class="col-lg-6" style="float: left">
-                <a routerLink="/houses/edit/{{house.id}}"><button class="btn btn-info" style="width: 130px">Chỉnh sửa</button></a>
+                <a routerLink="/houses/edit/{{house.id}}">
+                  <button class="btn btn-info" style="width: 130px">Chỉnh sửa</button>
+                </a>
               </div>
               <div class="col-lg-6">
                 <button class="btn btn-primary" style="width: 130px" (click)="delete(house.id)">Xóa</button>

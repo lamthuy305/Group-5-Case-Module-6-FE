@@ -56,11 +56,13 @@ export class OrderComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Nhận đơn!'
     }).then((result) => {
-      this.orderService.changeStatusOrderDone(id).subscribe(() => {
-          this.notificationService.showMessage('success', 'Thành công!', 'Đồng ý đơn hàng');
-          this.getAllOrderProcessingByUserId();
-        }, error => this.notificationService.showMessage('error', 'Done!', 'Xảy ra lỗi')
-      );
+        if (result.isConfirmed) {
+          this.orderService.changeStatusOrderDone(id).subscribe(() => {
+              this.notificationService.showMessage('success', 'Thành công!', 'Đồng ý đơn hàng');
+              this.getAllOrderProcessingByUserId();
+            }, error => this.notificationService.showMessage('error', 'Done!', 'Xảy ra lỗi')
+          );
+        }
       }
     );
   }
@@ -75,12 +77,12 @@ export class OrderComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Hủy đơn!'
     }).then((result) => {
-      this.orderService.changeStatusOrderCanceled(id).subscribe(() => {
-          this.notificationService.showMessage('success', 'Thành công!', 'Đã từ chối đơn hàng');
-          this.getAllOrderProcessingByUserId();
+        this.orderService.changeStatusOrderCanceled(id).subscribe(() => {
+            this.notificationService.showMessage('success', 'Thành công!', 'Đã từ chối đơn hàng');
+            this.getAllOrderProcessingByUserId();
 
-        }, error => this.notificationService.showMessage('error', 'Canceled!', 'Xảy ra lỗi')
-      );
+          }, error => this.notificationService.showMessage('error', 'Canceled!', 'Xảy ra lỗi')
+        );
       }
     );
   }
