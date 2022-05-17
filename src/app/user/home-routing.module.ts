@@ -8,6 +8,7 @@ import {ListHousesComponent} from './house/list-houses/list-houses.component';
 import {EditHouseComponent} from './house/edit-house/edit-house.component';
 import {CreateHouseComponent} from './house/create-house/create-house.component';
 import {ImagesDetailComponent} from './house/images-detail/images-detail.component';
+import {ChangePasswordComponent} from './change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'houses/images/:id',
     component: ImagesDetailComponent
+  },
+  {
+    path: 'changePassword',
+    component: ChangePasswordComponent
   }
 ];
 
