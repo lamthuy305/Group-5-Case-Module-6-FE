@@ -18,9 +18,12 @@
           <div>
             <label for="img" class="form-label">Ảnh:</label>
             <div>
-              <img src="http://localhost:8080/image/{{house.img}}" width="780px" height="550px">
+              <img src="http://localhost:8080/image/{{house.img}}" width="780px" height="550px" *ngIf="!filePath">
+              <img src="{{filePath}}" *ngIf="filePath" width="780px" height="550px">
+
+
             </div>
-            <input class="form-control" type="file" id="img" formControlName="img">
+            <input class="form-control" type="file" id="img" formControlName="img" (change)="changeFile($event)">
           </div>
           <div *ngIf="houseForm.get('img').invalid&&houseForm.get('img').touched"><p
             style="color: red">Không được để trống</p>
