@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../service/user/user.service';
 import {User} from '../../model/user';
+import {UserService} from '../../service/user/user.service';
 import {NotificationService} from '../../service/notification/notification.service';
 
 declare var $: any;
 declare var Swal: any;
 
 @Component({
-  selector: 'app-view-user',
-  templateUrl: './view-user.component.html',
-  styleUrls: ['./view-user.component.css']
+  selector: 'app-user-management',
+  templateUrl: './user-management.component.html',
+  styleUrls: ['./user-management.component.css']
 })
-export class ViewUserComponent implements OnInit {
+export class UserManagementComponent implements OnInit {
 
   users: User[] = [];
 
@@ -42,15 +42,13 @@ export class ViewUserComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Đồng ý!'
     }).then((result) => {
-      this.userService.lockOrUnlockUser(id).subscribe((listUserFromBE) => {
-        this.notificationService.showMessage('success', 'Success!', 'Thay đổi thành công');
-        this.getAllUser();
-      });
+        if (result.isConfirmed) {
+          this.userService.lockOrUnlockUser(id).subscribe((listUserFromBE) => {
+            this.notificationService.showMessage('success', 'Success!', 'Thay đổi thành công');
+            this.getAllUser();
+          });
+        }
       }
     );
-
-
-
-
   }
 }

@@ -13,13 +13,7 @@
     <div class="row">
       <div class="col-12">
         <div class="card">
-          <div class="card-header">
-            <div class="card-tools">
-              <a routerLink="/admin/house/create" class="btn btn-primary">Thêm mới</a>
-            </div>
-          </div>
           <div class="card-body">
-
             <table id="books-list" class="table table-bordered table-hover">
               <thead class="table-dark">
               <tr>
@@ -27,7 +21,6 @@
                 <th>Tài khoản</th>
                 <th>Số điện thoại</th>
                 <th>Trạng thái</th>
-                <th></th>
               </tr>
               </thead>
               <tbody>
@@ -35,12 +28,10 @@
                 <td>{{i + 1}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.numberPhone}}</td>
-                <td>{{user.active}}</td>
                 <td>
-                  <button class="btn btn-info" type="button"  *ngIf="!user.active" (click)="lockOrUnlockUser(user.id)"><i class="fa fa-unlock"></i></button>
-                  <button class="btn btn-danger" type="button"  *ngIf="user.active" (click)="lockOrUnlockUser(user.id)"><i class="fa fa-lock"></i></button>
+                  <button class="btn btn-danger" type="button"  *ngIf="!user.active" (click)="lockOrUnlockUser(user.id)"><i class="fa fa-lock"></i></button>
+                  <button class="btn btn-info" type="button"  *ngIf="user.active" (click)="lockOrUnlockUser(user.id)"><i class="fa fa-unlock"></i></button>
                 </td>
-
               </tr>
               </tbody>
             </table>

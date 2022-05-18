@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewUserComponent } from './view-user.component';
+import { NotificationDetailComponent } from './notification-detail.component';
 
-describe('ViewUserComponent', () => {
-  let component: ViewUserComponent;
-  let fixture: ComponentFixture<ViewUserComponent>;
+describe('NotificationDetailComponent', () => {
+  let component: NotificationDetailComponent;
+  let fixture: ComponentFixture<NotificationDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewUserComponent ]
+      declarations: [ NotificationDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewUserComponent);
+    fixture = TestBed.createComponent(NotificationDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

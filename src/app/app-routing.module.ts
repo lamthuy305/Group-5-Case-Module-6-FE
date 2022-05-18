@@ -4,7 +4,6 @@ import {AdminLayoutComponent} from './layout/admin/admin-layout/admin-layout.com
 import {LoginComponent} from './auth/login/login.component';
 import {HomeComponent} from './layout/user/home/home.component';
 import {RegisterComponent} from "./auth/register/register.component";
-import {ChangePasswordComponent} from './auth/change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -26,17 +25,17 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
-  },
-
-  {
-    path: 'changePassword',
-    component: ChangePasswordComponent
   }
+
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration:'enabled'
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
