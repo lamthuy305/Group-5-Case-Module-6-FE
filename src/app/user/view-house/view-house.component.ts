@@ -9,6 +9,8 @@ import {NotificationService} from '../../service/notification/notification.servi
 import {ImageService} from '../../service/image/image.service';
 import {ProfileService} from '../../service/profile/profile.service';
 import {CommentService} from '../../service/comment/comment.service';
+import {Rate} from "../../model/rate";
+import {RateService} from "../../service/rate/rate.service";
 
 declare var $: any;
 declare var Swal: any;
@@ -53,6 +55,19 @@ export class ViewHouseComponent implements OnInit {
     house: new FormControl(),
     profile: new FormControl(),
   });
+  rates: Rate[] = [];
+  rate: Rate = {
+    ratePoint: 0,
+    house: {
+      id: this.houseFE.id
+    },
+    user: {
+      id: this.currentUser.id
+    }
+  }
+  rateChecked: number;
+  rateGuest = 0;
+  isGuest: boolean;
 
   constructor(private shareJSService: ShareJSService,
               private houseService: HouseService,
@@ -62,12 +77,14 @@ export class ViewHouseComponent implements OnInit {
               private imageService: ImageService,
               private notificationService: NotificationService,
               private profileService: ProfileService,
-              private commentService: CommentService) {
+              private commentService: CommentService,
+              private rateService: RateService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       const id = +paramMap.get('id');
       this.getHouseById(id);
       this.getAllImageByHouseId(id);
       this.getAllCommentByHouseId(id);
+      this.getRatesByHouseId(id)
     });
   }
 
@@ -78,6 +95,7 @@ export class ViewHouseComponent implements OnInit {
     this.getProfile();
     this.getAllCommentUseCount();
   }
+
 
   getProfile() {
     this.profileService.getProfileByUserId(this.currentUser.id).subscribe(profileBE => {
@@ -92,7 +110,7 @@ export class ViewHouseComponent implements OnInit {
   }
 
   getDateTimePicker() {
-    $(function() {
+    $(function () {
       var now = new Date(),
         minDate = now.toISOString().substring(0, 10);
       $('#check-in').prop('min', minDate);
@@ -100,7 +118,7 @@ export class ViewHouseComponent implements OnInit {
     });
   }
 
-  private getHouseById(id) {
+  getHouseById(id) {
     this.houseService.getHouseById(id).subscribe(houseBE => {
       this.houseFE = houseBE;
       this.house_current_id = this.houseFE.id;
@@ -135,6 +153,12 @@ export class ViewHouseComponent implements OnInit {
     });
   }
 
+  getRatesByHouseId(houseId){
+    houseId = this.houseFE.id;
+    this.rateService.getRatesByHouseId(houseId);
+    console.log(this.rates)
+  }
+
   submitCreateOrder() {
     this.orderForm.value.house = {
       id: this.houseFE.id
@@ -143,7 +167,7 @@ export class ViewHouseComponent implements OnInit {
       id: this.currentUser.id
     };
     this.orderService.createOrder(this.orderForm.value).subscribe(() => {
-      $(function() {
+      $(function () {
         $('#create-order').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
@@ -208,7 +232,7 @@ export class ViewHouseComponent implements OnInit {
       formData.append('img', files[0]);
     }
     this.houseService.editImgHouse(formData).subscribe(() => {
-      $(function() {
+      $(function () {
         $('#edit-img').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
@@ -227,7 +251,7 @@ export class ViewHouseComponent implements OnInit {
     }
     console.log(imageForm);
     this.imageService.createImage(this.house_current_id, imageForm).subscribe(() => {
-        $(function() {
+        $(function () {
           $('#create-image').modal('hide');
           $('body').removeClass('modal-open');
           $('.modal-backdrop').remove();
@@ -266,5 +290,19 @@ export class ViewHouseComponent implements OnInit {
     this.commentService.dislikeComment(id, this.currentUser.id).subscribe(() => {
       this.getAllCommentByHouseId(this.house_current_id);
     });
+  }
+
+  createRate(i: number) {
+    console.log(i);
+    this.rate.house = this.houseFE;
+    this.rate.ratePoint = i;
+    this.rateService.createRate(this.rate).subscribe(next => {
+        alert(next.message);
+        this.rateService.getRatesByHouseId(this.houseFE.id).subscribe(data => {
+          this.rates = data.data;
+          this.rateChecked = this.rateService.checkRates(this.rates);
+        });
+      }
+    );
   }
 }
