@@ -49,7 +49,7 @@ export class OrderComponent implements OnInit {
   changeStatusOrderDone(id) {
     Swal.fire({
       title: 'Bạn có chắc chắn?',
-      text: 'Bạn có muốn nhận đơn này!',
+      text: 'Nếu bạn nhận đơn này, những đơn khác có thời gian bị trùng sẽ tự động hủy!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
