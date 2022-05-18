@@ -13,6 +13,7 @@ export class NavbarHomeComponent implements OnInit {
   currentUser: any = {};
   listNotificationDetail: any[] = [];
 
+
   constructor(private authService: AuthService,
               private router: Router,
               private notificationDetailService: NotificationDetailService) {
@@ -37,6 +38,13 @@ export class NavbarHomeComponent implements OnInit {
   getAllNotificationDetailByCurrentId() {
     this.notificationDetailService.getAllNotificationDetailByIdUser(this.currentUser.id).subscribe((listBE) => {
       this.listNotificationDetail = listBE;
+    });
+  }
+
+  deleteAllNotificationDetailByIdUser() {
+    this.notificationDetailService.deleteAllNotificationDetailByIdUser(this.currentUser.id).subscribe(() => {
+      this.getAllNotificationDetailByCurrentId();
+      this.router.navigateByUrl('/notification');
     });
   }
 }
