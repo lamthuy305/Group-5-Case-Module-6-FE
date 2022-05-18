@@ -1,0 +1,86 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Quản lý thu nhập</h1>
+      </div>
+
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <form [formGroup]="monthForm" (ngSubmit)="viewDate()">
+              <div class="card-tools" style="float: left">
+                <select id="month" class="btn btn-info">
+                  <option [ngValue]="4">Chọn tháng</option>
+                  <option *ngFor="let month of months" [value]="month">Tháng {{month}}</option>
+                </select>
+
+                <select id="year" class="btn btn-info">
+                  <option *ngFor="let year of years" [value]="year">Năm {{year}}</option>
+                </select>
+
+                <button class="btn btn-info" type="submit">
+                  Xem
+                </button>
+
+              </div>
+              <div style="float: right">
+                <h3>Tổng doanh thu: {{sum_income | number}}</h3>
+              </div>
+            </form>
+
+          </div>
+
+          <div class="card-body">
+
+            <table id="table-order" class="table table-bordered table-hover">
+              <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Tên người đặt</th>
+                <th>Tên nhà</th>
+                <th>Thành phố</th>
+                <th>Địa chỉ</th>
+                <th>Giá thuê</th>
+                <th>Ngày check in</th>
+                <th>Ngày check out</th>
+                <th>Doanh thu</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let order of orders; index as i">
+                <td>{{i + 1}}</td>
+                <td>{{order.user.username}}</td>
+                <td>{{order.house.name}}</td>
+                <td>{{order.house.city.name}}</td>
+                <td>{{order.house.location}}</td>
+                <td>{{order.house.price | number}}</td>
+                <td>{{order.checkIn | date: 'dd'}}/{{order.checkIn | date:'MM'}}/{{order.checkIn | date: 'yyyy'}}</td>
+                <td>{{order.checkOut | date: 'dd'}}/{{order.checkOut | date:'MM'}}
+                  /{{order.checkOut | date: 'yyyy'}}</td>
+                <td>{{((order.checkOut | date: 'dd') - (order.checkIn | date: 'dd')) * order.house.price | number}}</td>
+              </tr>
+              </tbody>
+
+
+            </table>
+
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+

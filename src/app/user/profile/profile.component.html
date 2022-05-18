@@ -1,0 +1,108 @@
+
+<div class="container">
+  <div class="main-body">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="main-breadcrumb" >
+      <ol class="breadcrumb" >
+        <li class="breadcrumb-item"><a routerLink="/home" style="color: #00A7AA">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)" style="color: #00A7AA">{{currentUser.username}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Thông tin</li>
+      </ol>
+    </nav>
+
+    <form [formGroup]="profileForm" (ngSubmit)="submitEditProfile()">
+    <div class="row gutters-sm">
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center" style="height: 300px">
+              <img src="http://localhost:8080/image/{{profile.avatar}}"class="rounded-circle" width="150" *ngIf="!filePath ">
+              <img src="{{filePath}}" class="rounded-circle" width="150" *ngIf="filePath">
+              <div class="mt-3">
+                <h4>{{currentUser.username}}</h4>
+                <br>
+                <button type="button" class="btn btn-info" (click)="isShowInputavatar()">Đổi ảnh đại diện</button>
+                <input class="form-control" id="avatar" placeholder="Nhập tên" type="file"
+                       formControlName="avatar" *ngIf="showInputavatar" (change)="changeFile($event)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Họ và tên</h6>
+              </div>
+              <input class="form-control" id="name" placeholder="Nhập tên" type="text"
+                     formControlName="name">
+            </div>
+            <div *ngIf="profileForm.get('name').invalid&&profileForm.get('name').touched"><p
+              style="color: red">Không được để trống</p>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Ngày sinh</h6>
+              </div>
+              <input class="form-control" id="birthday" placeholder="Nhập ngày sinh" type="text"
+                     formControlName="birthday">
+              <div *ngIf="profileForm.get('birthday').invalid&&profileForm.get('birthday').touched"><p
+                style="color: red">Không được để trống</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <input class="form-control" id="email" placeholder="Nhập email" type="email"
+                     formControlName="email">
+            </div>
+            <div *ngIf="profileForm.get('email').invalid&&profileForm.get('email').touched"><p
+              style="color: red">Không được để trống</p>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Địa chỉ</h6>
+              </div>
+              <input class="form-control" id="address" placeholder="Nhập địa chỉ" type="text"
+                     formControlName="address">
+            </div>
+            <div *ngIf="profileForm.get('address').invalid&&profileForm.get('address').touched"><p
+              style="color: red">Không được để trống</p>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Số điện thoại</h6>
+              </div>
+
+              <input class="form-control" id="phone" placeholder="Nhập số điện thoai" type="text"
+                     formControlName="phone">
+            </div>
+            <div *ngIf="profileForm.get('phone').invalid && profileForm.get('phone').dirty"><p
+              style="color: red">Số điện thoại không hợp lệ</p>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-12">
+                <button class="btn btn-info" type="submit">
+                  Chỉnh sửa
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+

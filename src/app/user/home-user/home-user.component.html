@@ -1,0 +1,342 @@
+<!-- Hero Section Begin -->
+<section class="hero-section">
+  <div class="hero-items owl-carousel">
+    <div class="single-hero-item set-bg" data-setbg="../../../assets/img/hero/hero-1.jpg">
+    </div>
+    <div class="single-hero-item set-bg" data-setbg="../../../assets/img/hero/hero-2.jpg">
+    </div>
+    <div class="single-hero-item set-bg" data-setbg="../../../assets/img/hero/hero-3.jpg">
+    </div>
+  </div>
+  <div class="thumbnail-pic">
+    <div class="thumbs owl-carousel">
+      <div class="item">
+        <img src="../../../assets/img/hero/dot-1.jpg" alt="">
+      </div>
+      <div class="item">
+        <img src="../../../assets/img/hero/dot-2.jpg" alt="">
+      </div>
+      <div class="item">
+        <img src="../../../assets/img/hero/dot-3.jpg" alt="">
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Search -->
+<div class="search-form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="search-form-text">
+          <div class="search-text">
+            <i class="fa fa-search"></i>
+            Tìm kiếm theo nhu cầu
+          </div>
+        </div>
+        <form class="filter-form" [formGroup]="searchForm" (ngSubmit)="searchSubmit()">
+          <div class="first-row">
+            <div>
+              <select formControlName="city" id="city">
+                <option [ngValue]="null">Thành phố</option>
+                <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+              </select>
+            </div>
+            <div>
+              <select formControlName="bedroom" id="bedroom">
+                <option [ngValue]="null">Số phòng ngủ</option>
+                <option *ngFor="let rankBedroom of rankBedrooms" [value]="rankBedroom.id">{{rankBedroom.name}}</option>
+              </select>
+            </div>
+            <div>
+              <select formControlName="bathroom" id="bathroom">
+                <option [ngValue]="null">Số phòng tắm</option>
+                <option *ngFor="let rankBathroom of rankBathrooms"
+                        [value]="rankBathroom.id">{{rankBathroom.name}}</option>
+              </select>
+            </div>
+            <div>
+              <select formControlName="type" id="type">
+                <option [ngValue]="null">Loại phòng</option>
+                <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="second-row">
+            <div>
+              <select formControlName="price" id="price">
+                <option [ngValue]="null">Mức giá</option>
+                <option *ngFor="let rankPrice of rankPrices" [value]="rankPrice.id">{{rankPrice.name}}</option>
+              </select>
+            </div>
+            <div>
+              <button type="submit" class="search-btn">Search</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Search -->
+
+<!-- Search Done -->
+<section class="blog-section latest-blog spad" *ngIf="showFormSearchDone" style="background: powderblue">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title">
+          <h2>Kết quả tìm kiếm phù hợp nhất</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4" *ngFor="let houseSearch of housesSearch" style="margin-top: 50px">
+        <div class="single-blog-item" style="background: ghostwhite">
+          <div class="sb-pic">
+            <img src="http://localhost:8080/image/{{houseSearch.img}}" height="300"
+                 (click)="viewHouseById(houseSearch.id)">
+          </div>
+          <div class="sb-text" style="text-align: center">
+            <h4>{{houseSearch.name}}</h4>
+            <ul>
+              <li><i class="fa fa-map-marker"></i> {{houseSearch.city.name}}</li>
+              <li><i class="fa fa-tag"></i> {{houseSearch.type.name}}</li>
+            </ul>
+            <h5 class="price">Giá: {{houseSearch.price}} VNĐ<span>/ngày</span></h5>
+            <ul class="room-features">
+              <li>
+                <i class="fa fa-arrows"> {{houseSearch.area}}</i>
+              </li>
+              <li>
+                <i class="fa fa-bed"> {{houseSearch.bedroom}}</i>
+                <p></p>
+              </li>
+              <li>
+                <i class="fa fa-bath"> {{houseSearch.bathroom}}</i>
+                <p></p>
+              </li>
+
+              <li>
+                <i class="fa fa-shopping-cart"> {{houseSearch.count_rent}}</i>
+                <p></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Search Done -->
+
+
+<!-- Ramdom -->
+<section class="blog-section latest-blog spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title">
+          <!--          <span>Blog & Events</span>-->
+          <h2>Giới thiệu những Homstay ngẫu nhiên</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4" *ngFor="let houseRandom of housesRandom" style="margin-top: 50px">
+        <div class="single-blog-item" style="background: ghostwhite">
+          <div class="sb-pic">
+            <img src="http://localhost:8080/image/{{houseRandom.img}}" height="300"
+                 (click)="viewHouseById(houseRandom.id)">
+          </div>
+          <div class="sb-text" style="text-align: center">
+            <h4>{{houseRandom.name}}</h4>
+            <ul>
+              <li><i class="fa fa-map-marker"></i> {{houseRandom.city.name}}</li>
+              <li><i class="fa fa-tag"></i> {{houseRandom.type.name}}</li>
+            </ul>
+            <h5 class="price">Giá: {{houseRandom.price}} VNĐ<span>/ngày</span></h5>
+            <ul class="room-features">
+              <li>
+                <i class="fa fa-arrows"> {{houseRandom.area}}</i>
+              </li>
+              <li>
+                <i class="fa fa-bed"> {{houseRandom.bedroom}}</i>
+                <p></p>
+              </li>
+              <li>
+                <i class="fa fa-bath"> {{houseRandom.bathroom}}</i>
+                <p></p>
+              </li>
+
+              <li>
+                <i class="fa fa-shopping-cart"> {{houseRandom.count_rent}}</i>
+                <p></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Ramdom -->
+
+<!-- Video Section Begin -->
+<div class="video-section set-bg" data-setbg="../../../assets/img/video-bg.jpg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="video-text">
+          <a href="https://www.youtube.com/watch?v=z9hSV53v4b8" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+          <h4>Khám phá các Homstay</h4>
+          <h2>Click để xem chi tiết</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Video Section End -->
+
+<!-- Feature Section Begin -->
+<section class="feature-section spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title">
+          <!--          <span>Listing From Our Agents</span>-->
+          <h2>5 HomeStay được thuê nhiều nhất</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="feature-carousel owl-carousel">
+
+
+        <div *ngFor="let house of houses">
+
+          <div class="col-lg-4">
+            <div class="feature-item">
+              <div class="fi-pic set-bg" data-setbg="../../../assets/img/hero/hero-1.jpg"
+                   (click)="viewHouseById(house.id)">
+                <div class="feature-author">
+                  <div class="fa-pic">
+                    <img src="http://localhost:8080/image/{{house.img}}" alt="">
+                  </div>
+                  <div class="fa-text">
+                    <h5 style="color: white">{{house.user.username}}</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="fi-text">
+                <div class="inside-text">
+                  <h4>{{house.name}}</h4>
+                  <ul>
+                    <li><i class="fa fa-map-marker"></i>{{house.city.name}}</li>
+                    <li><i class="fa fa-tag"></i>{{house.type.name}}</li>
+                  </ul>
+                  <h5 class="price">Giá: {{house.price}} VNĐ<span>/ngày</span></h5>
+                </div>
+                <ul class="room-features">
+                  <li>
+                    <i class="fa fa-arrows"></i>
+                    <p>{{house.area}} m2</p>
+                  </li>
+                  <li>
+                    <i class="fa fa-bed"></i>
+                    <p>{{house.bedroom}}</p>
+                  </li>
+                  <li>
+                    <i class="fa fa-bath"></i>
+                    <p>{{house.bathroom}}</p>
+                  </li>
+
+                  <li>
+                    <i class="fa fa-shopping-cart"></i>
+                    <p>{{house.count_rent}}</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Feature Section End -->
+
+<!-- Footer Section Begin -->
+<footer class="footer-section set-bg" data-setbg="../../../assets/img/footer-bg.jpg">
+  <div class="container">
+    <div class="footer-text">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="footer-logo">
+            <div class="logo">
+              <a href="#"><img src="../../../assets/img/footer-logo.png" alt=""></a>
+            </div>
+            <p>Subscribe our newsletter gor get notification about new updates.</p>
+            <form action="#" class="newslatter-form">
+              <input type="text" placeholder="Enter your email...">
+              <button type="submit"><i class="fa fa-location-arrow"></i></button>
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-3 offset-lg-1">
+          <div class="footer-widget">
+            <h4>Property City</h4>
+            <ul>
+              <li><i class="fa fa-caret-right"></i> <a href="#">Florida</a></li>
+              <li><i class="fa fa-caret-right"></i> <a href="#">New York</a></li>
+              <li><i class="fa fa-caret-right"></i> <a href="#">Washington</a></li>
+              <li><i class="fa fa-caret-right"></i> <a href="#">Los Angeles</a></li>
+            </ul>
+            <ul>
+              <li><i class="fa fa-caret-right"></i> <a href="#">St Louis</a></li>
+              <li><i class="fa fa-caret-right"></i> <a href="#">Jacksonville</a></li>
+              <li><i class="fa fa-caret-right"></i> <a href="#">San Jose</a></li>
+              <li><i class="fa fa-caret-right"></i> <a href="#">San Diego</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <div class="footer-widget">
+            <h4>Social</h4>
+            <ul class="social">
+              <li><i class="ti-facebook"></i> <a href="#">Facebook</a></li>
+              <li><i class="ti-instagram"></i> <a href="#">Instagram</a></li>
+              <li><i class="ti-twitter-alt"></i> <a href="#">Twitter</a></li>
+              <li><i class="ti-google"></i> <a href="#">Google+</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="footer-widget">
+            <h4>Contact Us</h4>
+            <ul class="contact-option">
+              <li><i class="fa fa-map-marker"></i> 16 Creek Ave. Farming, NY</li>
+              <li><i class="fa fa-phone"></i> (+88) 666 121 4321</li>
+              <li><i class="fa fa-envelope"></i> info.colorlib@gmail.com</li>
+              <li><i class="fa fa-clock-o"></i> Mon - Sat, 08 AM - 06 PM</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright-text">
+      <p>
+      <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+        All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a
+          href="https://colorlib.com" target="_blank">Colorlib</a>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+    </div>
+  </div>
+</footer>
+
+
+

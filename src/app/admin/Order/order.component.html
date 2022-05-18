@@ -1,0 +1,68 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Danh sách yêu cầu đặt phòng</h1>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <table  id="table-order" class="table table-bordered table-hover">
+              <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Tên người đặt</th>
+                <th>Tên nhà</th>
+                <th>Thành phố</th>
+                <th>Địa chỉ</th>
+                <th>Giá thuê</th>
+                <th>Ngày check in</th>
+                <th>Ngày check out</th>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let order of orders; index as i">
+                <td>{{i + 1}}</td>
+                <td>{{order.user.username}}</td>
+                <td>{{order.house.name}}</td>
+                <td>{{order.house.city.name}}</td>
+                <td>{{order.house.location}}</td>
+                <td>{{order.house.price}}</td>
+                <td>{{order.checkIn | date: 'dd'}}/{{order.checkIn | date:'MM'}}/{{order.checkIn | date: 'yyyy'}}</td>
+                <td>{{order.checkOut | date: 'dd'}}/{{order.checkOut | date:'MM'}}/{{order.checkOut | date: 'yyyy'}}</td>
+
+                <td class="text-center">
+                  <a class="btn btn-info" (click)="changeStatusOrderDone(order.id)">
+                    <i class="fa fa-check"></i>
+                  </a>
+                </td>
+                <td class="text-center">
+                  <a class="btn btn-danger" (click)="changeStatusOrderCanceled(order.id)">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+
+
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+

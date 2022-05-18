@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<!-- thaotrinh.info/preview/theme-2/register.html  2021 09:01:13 GMT -->
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Askbootstrap">
+  <meta name="author" content="Askbootstrap">
+  <title>Osahan Eat - Online Food Ordering Website HTML Template</title>
+
+</head>
+<body class="bg-white">
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto pl-5 pr-5">
+              <h1 class="login-heading mb-4" style="text-align: center">Đăng ký!</h1>
+              <form [formGroup]="formRegister" (ngSubmit)="register()">
+                <div class="form-group">
+                  <input type="text" class="form-control"
+                         placeholder="Tài khoản" formControlName="username">
+                </div>
+                <p *ngIf="message!=null" style="color:red">{{message}}</p>
+                <div *ngIf="formRegister.get('username').invalid&&formRegister.get('username').touched"><p
+                  style="color: red">Không được để trống</p>
+
+                </div>
+                <div class="form-group">
+                  <input type="tel" id="inputEmail" class="form-control"
+                         placeholder="Số điện thoại" formControlName="numberPhone">
+                </div>
+                <div *ngIf="formRegister.get('numberPhone').invalid&&formRegister.get('numberPhone').dirty"><p
+                  style="color: red">Số điện thoại đăng ký chưa chính xác!</p>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control"
+                         placeholder="Mật khẩu" formControlName="password">
+                </div>
+                <div *ngIf="formRegister.get('password').invalid&&formRegister.get('password').dirty"><p
+                  style="color: red">Mật khẩu phải từ 6-8 ký tự</p>
+                </div>
+
+                <div class="form-group">
+                  <input type="password" class="form-control"
+                         placeholder="Nhập lại mật khẩu" formControlName="confirmPassword">
+                </div>
+                <div
+                  *ngIf="formRegister.get('password').value!==formRegister.get('confirmPassword').value&&formRegister.get('confirmPassword').dirty">
+                  <p
+                    style="color: red">Mật khẩu không trùng khớp</p>
+                </div>
+                <button type="submit" style="width: 247px;font-size: 16px;height: 46px;background: #2cbdb8;color: #ffffff;
+  border-radius: 5px;border: #2cbdb8;cursor: pointer;width: 100%">Đăng ký</button>
+
+
+<!--                <button type="submit"-->
+<!--                        class="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2">-->
+<!--                  Đăng ký-->
+<!--                </button>-->
+              </form>
+              <div class="text-center pt-3">
+                Bạn đã có tài khoản? <a class="font-weight-bold" style="color: #005cbf" routerLink="/login">Đăng nhập
+                ngay!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+<!-- thaotrinh.info/preview/theme-2/register.html  2021 09:01:13 GMT -->
+
+</html>
+
+

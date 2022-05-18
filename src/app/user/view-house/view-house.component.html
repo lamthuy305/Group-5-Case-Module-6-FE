@@ -1,0 +1,297 @@
+<!-- Property Details Section Begin -->
+<section class="property-details-section spad">
+
+  <div class="container">
+    <div class="card-header" style="background: white">
+      <div class="card-tools">
+        <button class="btn btn-info" data-target="#create-order" data-toggle="modal"
+                type="button" *ngIf="!ishowEditForm">
+          Đặt ngay
+        </button>
+
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="pd-details-text">
+          <div class="property-more-pic">
+
+
+            <div>
+              <button class="btn btn-info" style="float: right" data-target="#edit-img" *ngIf="ishowEditForm"
+                      data-toggle="modal"
+                      type="button">
+                Thay ảnh
+              </button>
+            </div>
+            <img src="http://localhost:8080/image/{{houseFE.img}}" alt="" width="1200px" height="700px">
+            <br>
+            <hr>
+            <br>
+            <button class="btn btn-info" data-target="#create-image" data-toggle="modal"
+                    type="button" *ngIf="ishowEditForm">
+              Thêm ảnh homestay
+            </button>
+            <button class="btn btn-info" *ngIf="ishowEditForm" (click)="changeShowEditForm()"
+                    type="button">
+              Xóa ảnh homestay
+            </button>
+
+            <div class="row" *ngIf="isShowListImagesForm">
+
+
+              <div class="col-lg-3" *ngFor="let image of images" style="margin-top: 50px">
+                <div class="single-blog-item" style="background: ghostwhite">
+                  <button class="btn btn-primary" style="float: right" (click)="deleteImage(image.id)"
+                          type="button" *ngIf="ishowEditForm">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                  <div class="sb-pic">
+                    <img src="http://localhost:8080/image/{{image.name}}" height="300">
+                  </div>
+                  <br>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="product-thumbs" *ngIf="!isShowListImagesForm">
+              <div class="product-thumbs-track ps-slider owl-carousel">
+                <ng-container *ngFor="let image of images">
+                  <div class="pt" data-imgbigurl="img/properties/property-details-b2.jpg"><img
+                    src="http://localhost:8080/image/{{image.name}}" style="width: 230px;height: 170px"></div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="pd-details-tab">
+            <div class="tab-item">
+              <ul class="nav" role="tablist">
+                <li>
+                  <a class="active" data-toggle="tab" href="#tab-1" role="tab">Thông tin cơ bản</a>
+                </li>
+                <li>
+                  <a data-toggle="tab" href="#tab-2" role="tab">Mô tả</a>
+                </li>
+
+              </ul>
+            </div>
+            <div class="tab-item-content">
+              <div class="tab-content">
+                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                  <div class="property-more-table">
+                    <table class="table">
+                      <tbody>
+                      <tr>
+                        <td class="pt-name">Tên</td>
+                        <td class="p-value">{{houseFE.name}}</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Thành phố</td>
+                        <td class="p-value">{{houseFE.city.name}}</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Địa chỉ</td>
+                        <td class="p-value">{{houseFE.location}}</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Giá</td>
+                        <td class="p-value">{{houseFE.price | number}}</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Diện tích</td>
+                        <td class="p-value">{{houseFE.area}} m2</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Loại phòng</td>
+                        <td class="p-value">{{houseFE.type.name}}</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Số phòng tắm</td>
+                        <td class="p-value">{{houseFE.bathroom}}</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Số phòng ngủ</td>
+                        <td class="p-value">{{houseFE.bedroom}}</td>
+                      </tr>
+                      <tr>
+                        <td class="pt-name">Chủ nhà</td>
+                        <td class="p-value">{{houseFE.user.username}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                  <div class="pd-table-desc">
+                    <p>{{houseFE.description}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <h4>{{commentsAllCount.length}} đánh giá</h4>
+        <div class="stars">
+          <form action="">
+            <input class="star star-5" id="star-5" type="radio" name="star"/>
+            <label class="star star-5" for="star-5"></label>
+            <input class="star star-4" id="star-4" type="radio" name="star"/>
+            <label class="star star-4" for="star-4"></label>
+            <input class="star star-3" id="star-3" type="radio" name="star"/>
+            <label class="star star-3" for="star-3"></label>
+            <input class="star star-2" id="star-2" type="radio" name="star"/>
+            <label class="star star-2" for="star-2"></label>
+            <input class="star star-1" id="star-1" type="radio" name="star"/>
+            <label class="star star-1" for="star-1"></label>
+          </form>
+        </div>
+        <div class="comment-option">
+          <h4>Tổng: {{commentsAllCount.length}} bình luận</h4>
+          <div class="single-comment-item first-comment" *ngFor="let comment of comments">
+            <div class="sc-author">
+              <img src="http://localhost:8080/image/{{comment.profile.avatar}}">
+            </div>
+            <div>
+              <span></span>
+              <h5>{{comment.profile.name}}</h5>
+              <p>{{comment.text}}</p>
+              <button (click)="like(comment.id)"
+                      style="width: 60px; height: 30px; color: grey;border: lightyellow">{{comment.count_like}} <i
+                class="fas fa-thumbs-up"></i></button>
+              <button (click)="dislike(comment.id)"
+                      style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px" > {{comment.count_dislike}} <i
+                class="fas fa-thumbs-down"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form action="">
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+          <div class="leave-comment">
+            <h4>Viết bình luận</h4>
+            <form [formGroup]="commentForm" (ngSubmit)="submitCreateComment()">
+              <textarea placeholder="Viết bình luận" formControlName="text"></textarea>
+              <button type="submit" class="site-btn">Gửi</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</section>
+<!-- Property Details Section End -->
+
+
+<div class="modal fade" id="create-order">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><b>Đặt homstay</b></h4>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="orderForm" (ngSubmit)="submitCreateOrder()">
+        <div class="modal-body">
+
+          <div class="form-group">
+            <span class="form-label"><b>Check In</b></span>
+            <input class="form-control" id="check-in" type="date" formControlName="checkIn">
+          </div>
+          <div class="form-group">
+            <span class="form-label"><b>Check out</b></span>
+            <input class="form-control" id="check-out" type="date" formControlName="checkOut">
+          </div>
+
+
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>
+          <button class="btn btn-info" type="submit">Đặt ngay
+          </button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="edit-img">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><b>Thay ảnh đại diện homestay</b></h4>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="imgForm" (ngSubmit)="submitEditImg()">
+        <div class="modal-body">
+
+          <label for="img" class="form-label">Ảnh homstay:</label>
+          <input class="form-control" type="file" multiple id="img" formControlName="img"
+                 (change)="changeImg($event)">
+          <p>
+            <img src="{{filePath}}" alt="" width="1200px" height="700px" *ngIf="filePath">
+          </p>
+
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>
+          <button class="btn btn-info" type="submit">lưu
+          </button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="create-image">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><b>Thêm ảnh homestay</b></h4>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="imageForm" (ngSubmit)="submitCreateImage()">
+        <div class="modal-body">
+
+          <label for="images" class="form-label">Ảnh homstay:</label>
+          <input class="form-control" type="file" multiple id="images" formControlName="images"
+                 (change)="changeFileImage($event)">
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>
+          <button class="btn btn-info" type="submit">Thêm ảnh
+          </button>
+        </div>
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

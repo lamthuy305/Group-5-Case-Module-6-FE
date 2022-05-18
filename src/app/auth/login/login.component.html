@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<!-- thaotrinh.info/preview/theme-2/login.html  2021 09:01:13 GMT -->
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Askbootstrap">
+  <meta name="author" content="Askbootstrap">
+  <title>Osahan Eat - Online Food Ordering Website HTML Template</title>
+
+</head>
+<router-outlet></router-outlet>
+<body class="bg-white">
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto pl-5 pr-5">
+              <h1 class="login-heading mb-4" style="text-align: center">Đăng nhập!</h1>
+              <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="form-group">
+                  <input type="text" id="username" class="form-control"
+                         placeholder="Tài khoản" formControlName="username">
+                  <!--                  <label for="username">Tài khoản</label>-->
+                </div>
+                <div class="form-group">
+                  <input type="password" id="password" class="form-control"
+                         placeholder="Mật khẩu" formControlName="password">
+                  <!--                  <label for="inputPassword">Mật khẩu</label>-->
+                </div>
+                <!--                <div class="custom-control custom-checkbox mb-3">-->
+                <!--                  <input type="checkbox" class="custom-control-input" id="customCheck1">-->
+                <!--                  <label class="custom-control-label" for="customCheck1">Nhớ mật khẩu</label>-->
+                <!--                </div>-->
+                <button type="submit" style="width: 247px;font-size: 16px;height: 46px;background: #2cbdb8;color: #ffffff;
+  border-radius: 5px;border: #2cbdb8;cursor: pointer;width: 100%">Đăng nhập
+                </button>
+                <p *ngIf="message!=null" class="font-weight-bold" style="text-align: center;color: red">{{message}}</p>
+              </form>
+              <div class="text-center pt-3">
+                Bạn chưa có tài khoản? <a class="font-weight-bold" style="color: #005cbf" routerLink="/register">Đăng ký
+                ngay!</a>
+              </div>
+              <!--              <hr class="my-4">-->
+              <!--              <p class="text-center">ĐĂNG NHẬP BẰNG TÀI KHOẢN MXH</p>-->
+              <!--              <div class="row">-->
+              <!--                <div class="col pr-2">-->
+              <!--                  <button-->
+              <!--                    class="btn pl-1 pr-1 btn-lg btn-google font-weight-normal text-white btn-block text-uppercase"-->
+              <!--                    type="submit"><i class="fab fa-google mr-2"></i> Google</button>-->
+              <!--                </div>-->
+              <!--                <div class="col pl-2">-->
+              <!--                  <button-->
+              <!--                    class="btn pl-1 pr-1 btn-lg btn-facebook font-weight-normal text-white btn-block text-uppercase"-->
+              <!--                    type="submit"><i class="fab fa-facebook-f mr-2"></i> Facebook</button>-->
+              <!--                </div>-->
+              <!--              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+
+<!-- thaotrinh.info/preview/theme-2/login.html  2021 09:01:13 GMT -->
+
+</html>
+
+

@@ -1,0 +1,61 @@
+<section class="section pt-4 pb-4 osahan-account-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="osahan-account-page-right rounded shadow-sm bg-white p-4 h-100">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="orders" role="tabpanel"
+                 aria-labelledby="orders-tab">
+              <h4 class="font-weight-bold mt-0 mb-4">Lịch sử thuê homestay (5 đơn gần nhất)</h4>
+              <div class="bg-white card mb-4 order-list shadow-sm" *ngFor="let order of orders">
+                <div class="gold-members p-4">
+                  <div class="media">
+                    <div>
+                      <a routerLink="/view/{{order.house.id}}"><img src="http://localhost:8080/image/{{order.house.img}}" width="230px" height="153px"
+                                                                  style="margin-right: 20px"></a>
+                      <table class="table">
+                        <tr>
+                          <td><i class="fa fa-bed"></i> {{order.house.bedroom}}</td>
+                          <td><i class="fa fa-bath"></i> {{order.house.bathroom}}</td>
+                        </tr>
+                      </table>
+                    </div>
+
+                    <div class="media-body">
+                      <span class="float-right text-info">Checkin: {{order.checkIn | date: 'dd'}}/{{order.checkIn | date:'MM'}}/{{order.checkIn | date: 'yyyy'}} <i class="fa fa-clock"></i></span>
+
+                      <h6 class="mb-2">
+                        {{order.house.name}}
+                      </h6>
+                      <span class="float-right text-info">Checkout: {{order.checkOut | date: 'dd'}}/{{order.checkOut | date:'MM'}}/{{order.checkOut | date: 'yyyy'}} <i class="fa fa-clock"></i></span>
+
+                      <p class="text-gray mb-1"><i class="fa fa-location-arrow"></i> {{order.house.location}}
+                      </p>
+                      <p class="text-gray mb-3"><i class="fa fa-cart-plus"></i> {{order.house.price}}
+                      <p class="text-dark"> {{order.house.description}}
+                      </p>
+                      <hr>
+                      <div class="float-right">
+                        <p>Tình trạng đơn: {{order.statusOrder.name}}</p>
+                      </div>
+
+                      <button class="btn btn-primary" *ngIf="order.statusOrder.id != 3"
+                              (click)="getCheckTimeCaceledOr(order.id,order.checkIn)"><i class="fa fa-trash"></i>
+                        Hủy đơn
+                      </button>
+                      <!--                      <p class="mb-0 text-black text-primary pt-2"><span-->
+                      <!--                        class="text-black font-weight-bold"> Total Paid:</span> $300-->
+                      <!--                      </p>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

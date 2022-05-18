@@ -1,0 +1,50 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Quản lý tài khoản</h1>
+      </div>
+
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <table id="books-list" class="table table-bordered table-hover">
+              <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Tài khoản</th>
+                <th>Số điện thoại</th>
+                <th>Trạng thái</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of users; index as i">
+                <td>{{i + 1}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.numberPhone}}</td>
+                <td>
+                  <button class="btn btn-danger" type="button"  *ngIf="!user.active" (click)="lockOrUnlockUser(user.id)"><i class="fa fa-lock"></i></button>
+                  <button class="btn btn-info" type="button"  *ngIf="user.active" (click)="lockOrUnlockUser(user.id)"><i class="fa fa-unlock"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+
