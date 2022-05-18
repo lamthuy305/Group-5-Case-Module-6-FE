@@ -86,7 +86,7 @@
               <input class="form-control" id="phone" placeholder="Nhập số điện thoai" type="text"
                      formControlName="phone">
             </div>
-            <div *ngIf="profileForm.get('phone').invalid && profileForm.get('phone').touched"><p
+            <div *ngIf="profileForm.get('phone').invalid && profileForm.get('phone').dirty"><p
               style="color: red">Số điện thoại không hợp lệ</p>
             </div>
             <hr>
