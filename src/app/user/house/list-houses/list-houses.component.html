@@ -1,0 +1,65 @@
+<!-- Ramdom -->
+<section class="blog-section latest-blog spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title">
+          <!--          <span>Blog & Events</span>-->
+          <h2>Danh sách homestay của bạn</h2>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: right">
+      <div class="card-tools">
+        <a routerLink="/houses/create">
+          <button class="btn btn-info" style="width: 150px; height: 50px">Tạo mới</button>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4" *ngFor="let house of houses" style="margin-top: 50px">
+        <div class="single-blog-item" style="background: ghostwhite">
+          <div class="sb-pic" routerLink="/view/{{house.id}}">
+            <img src="http://localhost:8080/image/{{house.img}}" height="300">
+          </div>
+          <div class="sb-text" style="text-align: center">
+            <h4>{{house.name}}</h4>
+            <ul>
+              <li><i class="fa fa-map-marker"></i> {{house.city.name}}</li>
+              <li><i class="fa fa-tag"></i> {{house.type.name}}</li>
+            </ul>
+            <h5 class="price">Giá: {{house.price}} VNĐ<span>/ngày</span></h5>
+            <ul class="room-features">
+              <li>
+                <i class="fa fa-arrows"> {{house.area}}</i>
+              </li>
+              <li>
+                <i class="fa fa-bed"> {{house.bedroom}}</i>
+                <p></p>
+              </li>
+              <li>
+                <i class="fa fa-bath"> {{house.bathroom}}</i>
+                <p></p>
+              </li>
+
+              <li>
+                <i class="fa fa-shopping-cart"> {{house.count_rent}}</i>
+                <p></p>
+              </li>
+            </ul>
+            <div class="row">
+              <div class="col-lg-6" style="float: left">
+                <a routerLink="/houses/edit/{{house.id}}">
+                  <button class="btn btn-info" style="width: 130px">Chỉnh sửa</button>
+                </a>
+              </div>
+              <div class="col-lg-6">
+                <button class="btn btn-primary" style="width: 130px" (click)="delete(house.id)">Xóa</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

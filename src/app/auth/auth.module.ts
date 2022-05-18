@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {ReactiveFormsModule} from "@angular/forms";
-import { ChangePasswordComponent } from './change-password/change-password.component';
 import {AuthRoutingModule} from './auth-routing.module';
 
 
@@ -12,7 +11,6 @@ import {AuthRoutingModule} from './auth-routing.module';
   declarations: [
     LoginComponent,
     RegisterComponent,
-    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

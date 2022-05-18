@@ -55,42 +55,41 @@ export class HomeUserComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getTop5RentHouse();
     this.getRandom9House();
-    this.getAllTypes();
-    this.getAllCity();
-    this.getAllRankPrice();
-    this.getAllRankBedroom();
-    this.getAllRankBathroom();
   }
 
   getAllTypes() {
     this.typeService.getAll().subscribe((listType) => {
       this.types = listType;
+      this.getAllCity();
     });
   }
 
   getAllRankPrice() {
     this.rankPriceService.getAll().subscribe((rankPricesBE) => {
       this.rankPrices = rankPricesBE;
+      this.getAllRankBedroom();
     });
   }
 
   getAllRankBedroom() {
     this.rankBedroomService.getAll().subscribe((rankBedroomsBE) => {
       this.rankBedrooms = rankBedroomsBE;
+      this.getAllRankBathroom();
     });
   }
 
   getAllRankBathroom() {
     this.rankBathroomService.getAll().subscribe((rankbathroomsBE) => {
       this.rankBathrooms = rankbathroomsBE;
+      this.getTop5RentHouse();
     });
   }
 
   getAllCity() {
     this.cityService.getAll().subscribe((citiesBE) => {
       this.cities = citiesBE;
+      this.getAllRankPrice();
     });
   }
 
@@ -104,15 +103,14 @@ export class HomeUserComponent implements OnInit {
   viewHouseById(id) {
     this.router.navigateByUrl('/view/' + id);
   }
-
   getRandom9House() {
+    this.getAllTypes();
     this.houseService.getRandom9House().subscribe((housesRandomBE) => {
       this.housesRandom = housesRandomBE;
     });
   }
 
   searchSubmit() {
-
     this.formSearchFE.city = (<HTMLInputElement> document.getElementById('city')).value;
     if (this.formSearchFE.city % 1 != 0) {
       this.formSearchFE.city = '';
