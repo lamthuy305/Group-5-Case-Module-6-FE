@@ -18,7 +18,9 @@
 
           <div>
             <label for="img" class="form-label">Ảnh:</label>
-            <input class="form-control" type="file" id="img" formControlName="img">
+            <img src="{{filePath}}">
+            <input class="form-control" type="file" id="img" formControlName="img"
+                   (change)="changeFile($event)">
           </div>
           <div *ngIf="houseForm.get('img').invalid&&houseForm.get('img').touched"><p
             style="color: red">Không được để trống</p>
@@ -26,10 +28,7 @@
           <div>
             <label for="images" class="form-label">Ảnh homstay:</label>
 
-            <img src="{{filePath}}">
-
-            <input class="form-control" type="file" multiple id="images" formControlName="images"
-                   (change)="changeFile($event)">
+            <input class="form-control" type="file" multiple id="images" formControlName="images">
           </div>
 
           <div>

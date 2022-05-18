@@ -16,6 +16,7 @@ declare var Swal: any;
 export class OrderDetailComponent implements OnInit {
   orders: any = [];
   currentUser: any = {};
+  currentTime: any= new Date().getTime()
 
   constructor(private orderService: OrderService,
               private notificationService: NotificationService,
@@ -27,6 +28,10 @@ export class OrderDetailComponent implements OnInit {
     this.currentUser = JSON.parse(this.currentUser);
     this.get5OrderByOrderIdRent();
   }
+
+  // getCurrentTime(){
+  // this.currentTime =
+  // }
 
   getCheckTimeCaceledOr(id, checkIn) {
     Swal.fire({
@@ -65,4 +70,8 @@ export class OrderDetailComponent implements OnInit {
     this.getCurrentUser();
   }
 
+  changeCheckinOrder(id) {
+    this.orderService.changeCheckinOrder(id).subscribe(ordersBE => {
+    });
+  }
 }

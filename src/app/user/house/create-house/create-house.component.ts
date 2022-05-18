@@ -18,13 +18,13 @@ import {CityService} from '../../../service/city/city.service';
 })
 export class CreateHouseComponent implements OnInit {
   selectedFile: File[] = [];
+  filePath: string = '';
   types: Type[] = [];
   cities: any[] = [];
   statusHouses: StatusHouse[] = [];
   house: House = {};
   currentUser: any = {};
   listImageUpLoad: any[] = [];
-  filePath: string = '';
 
   houseForm: FormGroup = new FormGroup({
     id: new FormControl(''),

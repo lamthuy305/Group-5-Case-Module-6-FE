@@ -249,7 +249,7 @@
           <input class="form-control" type="file" multiple id="img" formControlName="img"
                  (change)="changeImg($event)">
           <p>
-            <img src="{{filePath}}" alt="" width="1200px" height="700px" *ngIf="filePath">
+            <img src="{{filePath}}" alt="" width="480" height="400px" *ngIf="filePath">
           </p>
 
         </div>
@@ -282,6 +282,9 @@
           <label for="images" class="form-label">Ảnh homstay:</label>
           <input class="form-control" type="file" multiple id="images" formControlName="images"
                  (change)="changeFileImage($event)">
+          <p *ngFor="let filePathImage of listPathImage">
+            <img src="{{filePathImage.filePathImage}}" alt="" width="480" height="400px" *ngIf="filePathImage.filePathImage">
+          </p>
         </div>
         <div class="modal-footer justify-content-between">
           <button class="btn btn-secondary" data-dismiss="modal" type="button">Quay lại</button>

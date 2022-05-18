@@ -29,6 +29,7 @@ export class ViewHouseComponent implements OnInit {
   isShowListImagesForm: boolean = false;
   selectedFile: File[] = [];
   filePath: string = '';
+  filePathImage: string = '';
   listPathImage: any[];
   imgForm: FormGroup = new FormGroup({
     img: new FormControl(''),
@@ -220,16 +221,14 @@ export class ViewHouseComponent implements OnInit {
 
   changeFileImage($event) {
     this.selectedFileImage = $event.target.files;
-
-
-    // const reader = new FileReader();
-    // for (let i = 0; i < this.selectedFile.length; i++) {
-    //
-    // }
-    // reader.onload = () => {
-    //   this.filePath = reader.result as string;
-    // };
-    // reader.readAsDataURL(this.selectedFile[0]);
+    for (let i = 0; i < this.selectedFileImage.length; i++) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.filePathImage = reader.result as string;
+      };
+      reader.readAsDataURL(this.selectedFileImage[i]);
+      this.listPathImage.push(this.filePathImage);
+    }
   }
 
   deleteImage(id) {
