@@ -41,7 +41,6 @@ export class OrderDetailComponent implements OnInit {
         if (result.isConfirmed) {
           const currentTime: Date = new Date();
           const checkInTime: Date = new Date(checkIn);
-          console.log(checkInTime.getTime() - currentTime.getTime() < TIME_CHECK);
           if (checkInTime.getTime() - currentTime.getTime() < TIME_CHECK) {
             this.notificationService.showMessage('error', 'Canceled!', 'Không thể hủy do thời gian đến khi checkin còn nhỏ hơn 1 ngày');
           } else {

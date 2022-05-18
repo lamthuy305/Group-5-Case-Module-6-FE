@@ -38,8 +38,12 @@ export class ViewHouseComponent implements OnInit {
     images: new FormControl(),
 
   });
+  listOrdersDoneByIdHoue: any[] = [];
   selectedFileImage: File[] = [];
   profile: any;
+
+  ischeckOrder: boolean = true;
+  orderExists: any = {};
 
   orderForm: FormGroup = new FormGroup({
     house: new FormControl(),
@@ -47,6 +51,7 @@ export class ViewHouseComponent implements OnInit {
     checkIn: new FormControl([Validators.required]),
     checkOut: new FormControl([Validators.required]),
   });
+
 
   commentForm: FormGroup = new FormGroup({
     user: new FormControl(),
@@ -70,6 +75,7 @@ export class ViewHouseComponent implements OnInit {
       this.getAllImageByHouseId(id);
       this.getAllCommentUseCount(id);
       this.get5CommentByHouseId(id);
+      this.getAllOrdersDoneByIdHouse(id);
     });
   }
 
@@ -78,6 +84,33 @@ export class ViewHouseComponent implements OnInit {
     this.getCurrentUser();
     this.getDateTimePicker();
     this.getProfile();
+  }
+
+  getAllOrdersDoneByIdHouse(id) {
+    this.orderService.getAllOrderStatusDoneByIdHouse(id).subscribe((list) => {
+      this.listOrdersDoneByIdHoue = list;
+    });
+  }
+
+  isCheckinAndCheckOutValidate(checkin, checkout) {
+    for (let i = 0; i < this.listOrdersDoneByIdHoue.length; i++) {
+      const timeCheckin: Date = new Date(checkin);
+      const timeCheckout: Date = new Date(checkout);
+      const testCheckin: Date = new Date(this.listOrdersDoneByIdHoue[i].checkIn);
+      const testCheckout: Date = new Date(this.listOrdersDoneByIdHoue[i].checkOut);
+      if (timeCheckin.getTime() >= testCheckin.getTime() && timeCheckin.getTime() < testCheckout.getTime()) {
+        this.orderExists = this.listOrdersDoneByIdHoue[i];
+        return this.ischeckOrder = false;
+      }
+      if (timeCheckout.getTime() >= testCheckin.getTime() && timeCheckout.getTime() < testCheckout.getTime()) {
+        this.orderExists = this.listOrdersDoneByIdHoue[i];
+        return this.ischeckOrder = false;
+      }
+      if (timeCheckin.getTime() <= testCheckin.getTime() && timeCheckout.getTime() >= testCheckout.getTime()) {
+        this.orderExists = this.listOrdersDoneByIdHoue[i];
+        return this.ischeckOrder = false;
+      }
+    }
   }
 
   getProfile() {
@@ -122,6 +155,7 @@ export class ViewHouseComponent implements OnInit {
     });
   }
 
+
   get5CommentByHouseId(id) {
     this.commentService.get5CommentByHouseId(id).subscribe((listCommentBE) => {
       this.comments = listCommentBE;
@@ -141,16 +175,37 @@ export class ViewHouseComponent implements OnInit {
     this.orderForm.value.user = {
       id: this.currentUser.id
     };
-    this.orderService.createOrder(this.orderForm.value).subscribe(() => {
-      $(function() {
-        $('#create-order').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
-      });
-      this.router.navigateByUrl('/orderDetail');
-      this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
-    }, error => this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi'));
+
+    this.isCheckinAndCheckOutValidate(this.orderForm.value.checkIn, this.orderForm.value.checkOut);
+    const timeCheckin: Date = new Date(this.orderForm.value.checkIn);
+    const timeCheckout: Date = new Date(this.orderForm.value.checkOut);
+    if (timeCheckout.getTime() > timeCheckin.getTime()) {
+      if (this.ischeckOrder) {
+        this.orderService.createOrder(this.orderForm.value).subscribe(() => {
+          $(function() {
+            $('#create-order').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+          });
+          this.router.navigateByUrl('/orderDetail');
+          this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
+        }, error => this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi'));
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Book!!!',
+          text: 'Đặt lỗi do thời gian này đã có khách đặt! Từ: ngày ' + new Date(this.orderExists.checkIn).getUTCDate() + '/' + new Date(this.orderExists.checkIn).getUTCMonth()
+            + '/' + new Date(this.orderExists.checkIn).getFullYear() + 'đến ngày ' + new Date(this.orderExists.checkOut).getUTCDate()
+            + '/' + new Date(this.orderExists.checkOut).getUTCMonth() + '/' + new Date(this.orderExists.checkOut).getFullYear(),
+        });
+        this.ischeckOrder = true;
+        this.orderExists = {};
+      }
+    } else {
+      this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi do thời gian đặt homestay chưa hợp lệ');
+    }
   }
+
 
   changeImg($event) {
     this.selectedFile = $event.target.files;
