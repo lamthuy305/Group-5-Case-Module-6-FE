@@ -24,7 +24,7 @@ export class ViewHouseComponent implements OnInit {
   currentUser: any = {};
   images: any = [];
   comments: any[] = [];
-  commentsAll: any[] = [];
+  commentsAllCount: any[] = [];
   ishowEditForm: boolean = false;
   selectedFile: File[] = [];
   filePath: string = '';
@@ -67,7 +67,8 @@ export class ViewHouseComponent implements OnInit {
       const id = +paramMap.get('id');
       this.getHouseById(id);
       this.getAllImageByHouseId(id);
-      this.getAllCommentByHouseId(id);
+      this.getAllCommentUseCount(id);
+      this.get5CommentByHouseId(id);
     });
   }
 
@@ -120,20 +121,16 @@ export class ViewHouseComponent implements OnInit {
     });
   }
 
-  getAllCommentByHouseId(id) {
-    this.commentService.getAllCommentByHouseId(id).subscribe((listCommentBE) => {
+  get5CommentByHouseId(id) {
+    this.commentService.get5CommentByHouseId(id).subscribe((listCommentBE) => {
       this.comments = listCommentBE;
-      console.log(1);
-      console.log(this.comments);
     });
   }
 
-  getAllComment(id) {
-    // this.commentService.getAll(id).subscribe((listCommentBE) => {
-    //   this.comments = listCommentBE;
-    //   console.log(1);
-    //   console.log(this.comments);
-    // });
+  getAllCommentUseCount(id) {
+    this.commentService.getAll(id).subscribe((listCommentBE) => {
+      this.commentsAllCount = listCommentBE;
+    });
   }
 
   submitCreateOrder() {
@@ -251,20 +248,21 @@ export class ViewHouseComponent implements OnInit {
     };
 
     this.commentService.createComment(this.commentForm.value).subscribe(() => {
-      this.getAllCommentByHouseId(this.house_current_id);
+      this.get5CommentByHouseId(this.house_current_id);
+      this.getAllCommentUseCount(this.house_current_id);
       this.commentForm.reset();
     },);
   }
 
   like(id) {
-    this.commentService.likeComment(id).subscribe(() =>{
-      this.getAllCommentByHouseId(this.house_current_id);
+    this.commentService.likeComment(id, this.currentUser.id).subscribe(() => {
+      this.get5CommentByHouseId(this.house_current_id);
     });
   }
 
   dislike(id) {
-    this.commentService.dislikeComment(id).subscribe(() =>{
-      this.getAllCommentByHouseId(this.house_current_id);
+    this.commentService.dislikeComment(id, this.currentUser.id).subscribe(() => {
+      this.get5CommentByHouseId(this.house_current_id);
     });
   }
 }

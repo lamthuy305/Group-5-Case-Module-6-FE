@@ -86,6 +86,13 @@
               <li class="active"><a routerLink="/houses">Homestay</a></li>
               <li class="active"><a routerLink="/admin">Quản lý</a></li>
               <li class="active"><a routerLink="/orderDetail">Lịch sử</a></li>
+
+              <li class="nav-item dropdown" *ngIf="listNotificationDetail != 0">
+                <a style="height: 50px">
+                  <span class="badge badge-warning navbar-badge">{{listNotificationDetail.length}}</span>
+                  <i class="far fa-bell"></i>
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
@@ -101,18 +108,17 @@
               <ul class="navbar-nav mr-auto" *ngIf="currentUser">
                 <li class="nav-item">
                   <div style="color: white">Xin chào {{currentUser.username}}!</div>
-                  <span><a class="nav-link" style="color: #00A7AA" routerLink="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></span>
+                  <span><a class="nav-link" style="color: #00A7AA" routerLink="#" (click)="logout()"><i
+                    class="fas fa-sign-out-alt"></i> Đăng xuất</a></span>
                   <span>  ||  </span>
-                  <span><a class="nav-link" style="color: #00A7AA" routerLink="/changePassword"><i class="fa fa-key"></i> Đổi mật khẩu</a></span>
+                  <span><a class="nav-link" style="color: #00A7AA" routerLink="/changePassword"><i
+                    class="fa fa-key"></i> Đổi mật khẩu</a></span>
                 </li>
               </ul>
             </div>
           </div>
 
         </div>
-
-
-
 
 
         <!--        <div class="col-lg-5">-->

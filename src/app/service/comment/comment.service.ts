@@ -14,19 +14,19 @@ export class CommentService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<any[]> {
-    return this.http.get<any[]>(`${API_URL}/comments`);
+  getAll(id): Observable<any[]> {
+    return this.http.get<any[]>(`${API_URL}/comments?id=${id}`);
   }
 
-  likeComment(id){
-    return this.http.get<any[]>(`${API_URL}/comments/like/${id}`);
+  likeComment(id,user_id){
+    return this.http.get<any[]>(`${API_URL}/likeComment/like/${id}?user=${user_id}`);
   }
 
-  dislikeComment(id){
-    return this.http.get<any[]>(`${API_URL}/comments/dislike/${id}`);
+  dislikeComment(id,user_id){
+    return this.http.get<any[]>(`${API_URL}/dislikeComment/dislike/${id}?user=${user_id}`);
   }
 
-  getAllCommentByHouseId(id) {
+  get5CommentByHouseId(id) {
     return this.http.get<any[]>(`${API_URL}/comments/house/${id}`);
   }
 
