@@ -16,8 +16,6 @@
       <div class="col-lg-12">
         <div class="pd-details-text">
           <div class="property-more-pic">
-
-
             <div>
               <button class="btn btn-info" style="float: right" data-target="#edit-img" *ngIf="ishowEditForm"
                       data-toggle="modal"
@@ -33,8 +31,14 @@
                     type="button" *ngIf="ishowEditForm">
               Thêm ảnh homestay
             </button>
+            <button class="btn btn-info" *ngIf="ishowEditForm" (click)="changeShowEditForm()"
+                    type="button">
+              Xóa ảnh homestay
+            </button>
 
-            <div class="row">
+            <div class="row" *ngIf="isShowListImagesForm">
+
+
               <div class="col-lg-3" *ngFor="let image of images" style="margin-top: 50px">
                 <div class="single-blog-item" style="background: ghostwhite">
                   <button class="btn btn-primary" style="float: right" (click)="deleteImage(image.id)"
@@ -48,11 +52,13 @@
                 </div>
               </div>
             </div>
-            <div class="product-thumbs">
+
+
+            <div class="product-thumbs" *ngIf="!isShowListImagesForm">
               <div class="product-thumbs-track ps-slider owl-carousel">
-                <ng-container  *ngFor="let image of images">
+                <ng-container *ngFor="let image of images">
                   <div class="pt" data-imgbigurl="img/properties/property-details-b2.jpg"><img
-                    src="http://localhost:8080/image/{{image.name}}" alt=""></div>
+                    src="http://localhost:8080/image/{{image.name}}" style="width: 230px;height: 170px"></div>
                 </ng-container>
               </div>
             </div>
@@ -131,52 +137,30 @@
 
 
 
-
-
-    <div class="row">
+    <div class="row" >
       <div class="col-lg-10 offset-lg-1">
-        <h4>{{commentsAllCount.length}} bình luận</h4>
-        <div>
-          <div
-            style="margin-bottom: 10px; margin-top: 30px; border-radius: 15px; text-align: center; border: black solid 2px"
-            *ngIf="rateChecked">
-            <h5>Đánh giá: </h5>
-            {{rateChecked}}/5
-            <span class="fa fa-star checked"></span>
-          </div>
+        <div class="row">
+          <h4>Được đánh giá  bởi khách hàng của chúng tôi</h4>
+        </div>
+        <div class="stars">
           <div style="margin-bottom: 10px; margin-top: 30px; border-radius: 15px; text-align: center; border: black solid 2px">
             <h5>Hãy là người đầu tiên đánh giá dịch vụ này</h5>
           </div>
-          <div style="margin-top: 20px; margin-bottom: 20px">
-            <div>
-              <h5>Đánh giá của bạn về dịch vụ này: </h5>
-              <fieldset class="rating">
-                <input type="radio" id="star5" name="rating" value="5"/><label class="full" for="star5"
-                                                                               (click)="createRate(5)"></label>
-                <input type="radio" id="star4" name="rating" value="4"/><label class="full" for="star4"
-                                                                               (click)="createRate(4)"></label>
-                <input type="radio" id="star3" name="rating" value="3"/><label class="full" for="star3"
-                                                                               (click)="createRate(3)"></label>
-                <input type="radio" id="star2" name="rating" value="2"/><label class="full" for="star2"
-                                                                               (click)="createRate(2)"></label>
-                <input type="radio" id="star1" name="rating" value="1"/><label class="full" for="star1"
-                                                                               (click)="createRate(1)"></label>
-              </fieldset>
-            </div>
-
-<!--            <div *ngIf="rateGuest !== 0">-->
-<!--              <h5>Đánh giá của bạn về dịch vụ này: </h5>-->
-<!--              <div>-->
-<!--                <span class="fa fa-star" [class.checked]="rateGuest>0"></span>-->
-<!--                <span class="fa fa-star" [class.checked]="rateGuest-1>0"></span>-->
-<!--                <span class="fa fa-star" [class.checked]="rateGuest-2>0"></span>-->
-<!--                <span class="fa fa-star" [class.checked]="rateGuest-3>0"></span>-->
-<!--                <span class="fa fa-star" [class.checked]="rateGuest-4>0"></span>-->
-<!--              </div>-->
-<!--            </div>-->
-          </div>
+          <form>
+            <input class="star star-5" id="star-5" type="radio" name="star" value="5"/>
+            <label class="star star-5" for="star-5" (click)="createRate(5)"></label>
+            <input class="star star-4" id="star-4" type="radio" name="star" value="4"/>
+            <label class="star star-4" for="star-4" (click)="createRate(4)"></label>
+            <input class="star star-3" id="star-3" type="radio" name="star" value="3"/>
+            <label class="star star-3" for="star-3" (click)="createRate(3)"></label>
+            <input class="star star-2" id="star-2" type="radio" name="star" value="2"/>
+            <label class="star star-2" for="star-2" (click)="createRate(2)"></label>
+            <input class="star star-1" id="star-1" type="radio" name="star" value="1"/>
+            <label class="star star-1" for="star-1" (click)="createRate(1)"></label>
+          </form>
         </div>
-        <div class="comment-option" >
+
+        <div class="comment-option">
           <h4>{{commentsAllCount.length}} bình luận</h4>
           <div class="single-comment-item first-comment" *ngFor="let comment of comments">
             <div class="sc-author">
@@ -186,8 +170,12 @@
               <span></span>
               <h5>{{comment.profile.name}}</h5>
               <p>{{comment.text}}</p>
-              <button (click)="like(comment.id)" style="width: 60px; height: 30px; color: grey">{{comment.count_like}} <i class="fas fa-thumbs-up"></i></button>
-              <button (click)="dislike(comment.id)" style="width: 60px; height: 30px; color: grey"> {{comment.count_dislike}} <i class="fas fa-thumbs-down"></i></button>
+              <button (click)="like(comment.id)"
+                      style="width: 60px; height: 30px; color: grey;border: lightyellow">{{comment.count_like}} <i
+                class="fas fa-thumbs-up"></i></button>
+              <button (click)="dislike(comment.id)"
+                      style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px" > {{comment.count_dislike}} <i
+                class="fas fa-thumbs-down"></i></button>
             </div>
           </div>
         </div>

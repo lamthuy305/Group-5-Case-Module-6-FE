@@ -14,8 +14,8 @@ export class CommentService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<any[]> {
-    return this.http.get<any[]>(`${API_URL}/comments`);
+  getAll(id): Observable<any[]> {
+    return this.http.get<any[]>(`${API_URL}/comments?id=${id}`);
   }
 
   likeComment(id,user_id){
@@ -26,7 +26,7 @@ export class CommentService {
     return this.http.get<any[]>(`${API_URL}/dislikeComment/dislike/${id}?user=${user_id}`);
   }
 
-  getAllCommentByHouseId(id) {
+  get5CommentByHouseId(id) {
     return this.http.get<any[]>(`${API_URL}/comments/house/${id}`);
   }
 

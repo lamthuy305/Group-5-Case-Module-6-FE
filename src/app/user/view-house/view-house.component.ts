@@ -11,6 +11,7 @@ import {ProfileService} from '../../service/profile/profile.service';
 import {CommentService} from '../../service/comment/comment.service';
 import {Rate} from "../../model/rate";
 import {RateService} from "../../service/rate/rate.service";
+import {Comment} from "@angular/compiler";
 
 declare var $: any;
 declare var Swal: any;
@@ -28,6 +29,7 @@ export class ViewHouseComponent implements OnInit {
   comments: any[] = [];
   commentsAllCount: any[] = [];
   ishowEditForm: boolean = false;
+  isShowListImagesForm: boolean = false;
   selectedFile: File[] = [];
   filePath: string = '';
   listPathImage: any[];
@@ -49,6 +51,8 @@ export class ViewHouseComponent implements OnInit {
     checkOut: new FormControl([Validators.required]),
   });
 
+  comment: any = {};
+
   commentForm: FormGroup = new FormGroup({
     user: new FormControl(),
     text: new FormControl(),
@@ -57,7 +61,7 @@ export class ViewHouseComponent implements OnInit {
   });
   rates: Rate[] = [];
   rate: Rate = {
-    ratePoint: 0,
+    star: 0,
     house: {
       id: this.houseFE.id
     },
@@ -65,9 +69,7 @@ export class ViewHouseComponent implements OnInit {
       id: this.currentUser.id
     }
   }
-  rateChecked: number;
-  rateGuest = 0;
-  isGuest: boolean;
+  totalRate: number;
 
   constructor(private shareJSService: ShareJSService,
               private houseService: HouseService,
@@ -83,8 +85,9 @@ export class ViewHouseComponent implements OnInit {
       const id = +paramMap.get('id');
       this.getHouseById(id);
       this.getAllImageByHouseId(id);
-      this.getAllCommentByHouseId(id);
-      this.getRatesByHouseId(id)
+      this.getRatesByHouseId(id);
+      this.getAllCommentUseCount(id);
+      this.get5CommentByHouseId(id);
     });
   }
 
@@ -93,7 +96,7 @@ export class ViewHouseComponent implements OnInit {
     this.getCurrentUser();
     this.getDateTimePicker();
     this.getProfile();
-    this.getAllCommentUseCount();
+    this.totalRate = this.getTotalRateByHouseId(this.houseFE.id);
   }
 
 
@@ -139,16 +142,14 @@ export class ViewHouseComponent implements OnInit {
     });
   }
 
-  getAllCommentByHouseId(id) {
-    this.commentService.getAllCommentByHouseId(id).subscribe((listCommentBE) => {
+  get5CommentByHouseId(id) {
+    this.commentService.get5CommentByHouseId(id).subscribe((listCommentBE) => {
       this.comments = listCommentBE;
-      console.log(1);
-      console.log(this.comments);
     });
   }
 
-  getAllCommentUseCount() {
-    this.commentService.getAll().subscribe((listCommentBE) => {
+  getAllCommentUseCount(id) {
+    this.commentService.getAll(id).subscribe((listCommentBE) => {
       this.commentsAllCount = listCommentBE;
     });
   }
@@ -274,35 +275,45 @@ export class ViewHouseComponent implements OnInit {
     };
 
     this.commentService.createComment(this.commentForm.value).subscribe(() => {
-      this.getAllCommentByHouseId(this.house_current_id);
-      this.getAllCommentUseCount();
+      this.get5CommentByHouseId(this.house_current_id);
+      this.getAllCommentUseCount(this.house_current_id);
       this.commentForm.reset();
     },);
   }
 
   like(id) {
     this.commentService.likeComment(id, this.currentUser.id).subscribe(() => {
-      this.getAllCommentByHouseId(this.house_current_id);
+      this.get5CommentByHouseId(this.house_current_id);
     });
   }
 
   dislike(id) {
     this.commentService.dislikeComment(id, this.currentUser.id).subscribe(() => {
-      this.getAllCommentByHouseId(this.house_current_id);
+      this.get5CommentByHouseId(this.house_current_id);
     });
   }
 
   createRate(i: number) {
     console.log(i);
     this.rate.house = this.houseFE;
-    this.rate.ratePoint = i;
+    this.rate.user = this.currentUser.id;
+    this.rate.star = i;
     this.rateService.createRate(this.rate).subscribe(next => {
-        alert(next.message);
-        this.rateService.getRatesByHouseId(this.houseFE.id).subscribe(data => {
-          this.rates = data.data;
-          this.rateChecked = this.rateService.checkRates(this.rates);
+        this.rateService.getRatesByHouseId(this.houseFE.id).subscribe(rateBE => {
+          Swal.fire('Cảm ơn bạn đã đánh giá!');
+          this.rates = rateBE.data;
+          this._rateChecked = this.rateService.checkRates(this.rates);
         });
       }
     );
+  }
+
+  changeShowEditForm() {
+    this.isShowListImagesForm = !this.isShowListImagesForm;
+  }
+
+  getTotalRateByHouseId(houseId){
+    houseId = this.houseFE.id;
+    return this.rateService.getTotalRateByHouseId(houseId);
   }
 }

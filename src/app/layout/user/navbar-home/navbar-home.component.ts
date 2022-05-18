@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NotificationService} from '../../../service/notification/notification.service';
 import {AuthService} from '../../../service/auth/auth.service';
 import {Router} from '@angular/router';
+import {NotificationDetailService} from '../../../service/notification-detail/notification-detail.service';
 
 @Component({
   selector: 'app-navbar-home',
@@ -10,10 +11,12 @@ import {Router} from '@angular/router';
 })
 export class NavbarHomeComponent implements OnInit {
   currentUser: any = {};
+  listNotificationDetail: any[] = [];
 
 
   constructor(private authService: AuthService,
-              private router: Router) {
+              private router: Router,
+              private notificationDetailService: NotificationDetailService) {
   }
 
   ngOnInit() {
@@ -23,11 +26,25 @@ export class NavbarHomeComponent implements OnInit {
   getCurrentUser() {
     this.currentUser = localStorage.getItem('currentUser');
     this.currentUser = JSON.parse(this.currentUser);
+    this.getAllNotificationDetailByCurrentId();
   }
 
 
   logout() {
     this.authService.logout();
-    this.router.navigateByUrl('/login')
+    this.router.navigateByUrl('/login');
+  }
+
+  getAllNotificationDetailByCurrentId() {
+    this.notificationDetailService.getAllNotificationDetailByIdUser(this.currentUser.id).subscribe((listBE) => {
+      this.listNotificationDetail = listBE;
+    });
+  }
+
+  deleteAllNotificationDetailByIdUser() {
+    this.notificationDetailService.deleteAllNotificationDetailByIdUser(this.currentUser.id).subscribe(() => {
+      this.getAllNotificationDetailByCurrentId();
+      this.router.navigateByUrl('/notification');
+    });
   }
 }
