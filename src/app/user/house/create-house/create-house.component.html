@@ -28,19 +28,19 @@
 
             <img src="{{filePath}}">
 
-
             <input class="form-control" type="file" multiple id="images" formControlName="images"
                    (change)="changeFile($event)">
           </div>
 
           <div>
-            <label for="area" class="form-label">Diện tích:</label>
+            <label for="area" class="form-label">Diện tích(ví dụ: 100m2 = 100):</label>
             <input class="form-control" type="text" id="area" formControlName="area"
                    placeholder="Nhập diện tích Homestay">
           </div>
           <div *ngIf="houseForm.get('area').invalid&&houseForm.get('area').touched"><p
             style="color: red">Không được để trống</p>
           </div>
+
 
           <div>
             <label for="city" class="form-label">Thành phố:</label>
@@ -70,22 +70,24 @@
           <div *ngIf="houseForm.get('type').invalid&&houseForm.get('type').touched"><p
             style="color: red">Không được để trống</p>
           </div>
-          <div>
+          <div >
             <label for="bedroom" class="form-label">Số phòng ngủ:</label>
             <input class="form-control" type="number" id="bedroom" formControlName="bedroom"
                    placeholder="Nhập số phòng ngủ">
           </div>
-          <div *ngIf="houseForm.get('bedroom').invalid&&houseForm.get('bedroom').touched"><p
-            style="color: red">Không được để trống</p>
+          <div *ngIf="houseForm.get('bedroom').invalid&&houseForm.get('bedroom').dirty"><p
+            style="color: red">Số phòng ngủ không hợp lệ</p>
           </div>
+          <div *ngIf="houseForm.errors?.min"></div>
           <div>
             <label for="bathroom" class="form-label">Số phòng tắm:</label>
             <input class="form-control" type="number" id="bathroom" formControlName="bathroom"
                    placeholder="Nhâp số phòng tắm">
           </div>
-          <div *ngIf="houseForm.get('bathroom').invalid&&houseForm.get('bathroom').touched"><p
-            style="color: red">Không được để trống</p>
+          <div *ngIf="houseForm.get('bathroom').invalid&&houseForm.get('bathroom').dirty"><p
+            style="color: red">Số phòng tắm không hợp lệ</p>
           </div>
+          <div *ngIf="houseForm.errors?.min"></div>
           <div>
             <label for="price">Giá phòng / đêm:</label>
             <input class="form-control" type="number" id="price" formControlName="price"

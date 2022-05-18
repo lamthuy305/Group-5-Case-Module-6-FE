@@ -21,9 +21,8 @@ import { UserManagementComponent } from './user-management/user-management.compo
     CommonModule,
     AdminRoutingModule,
     ReactiveFormsModule,
-
   ]
 })
-export class AdminModule {
+export class   AdminModule {
 }
 
