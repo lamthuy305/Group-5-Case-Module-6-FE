@@ -45,7 +45,7 @@ export class OrderDetailComponent implements OnInit {
           if (checkInTime.getTime() - currentTime.getTime() < TIME_CHECK) {
             this.notificationService.showMessage('error', 'Canceled!', 'Không thể hủy do thời gian đến khi checkin còn nhỏ hơn 1 ngày');
           } else {
-            this.orderService.changeStatusOrderCanceled(id).subscribe(() => {
+            this.orderService.customerChangeStatusOrderCanceled(id).subscribe(() => {
               this.notificationService.showMessage('success', 'Canceled!', 'Hủy đặt phòng thành công');
               this.get5OrderByOrderIdRent();
             });

@@ -50,7 +50,7 @@
             </div>
             <div class="product-thumbs">
               <div class="product-thumbs-track ps-slider owl-carousel">
-                <ng-container  *ngFor="let image of images">
+                <ng-container *ngFor="let image of images">
                   <div class="pt" data-imgbigurl="img/properties/property-details-b2.jpg"><img
                     src="http://localhost:8080/image/{{image.name}}" alt=""></div>
                 </ng-container>
@@ -130,10 +130,6 @@
     </div>
 
 
-
-
-
-
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
         <h4>{{commentsAllCount.length}} đánh giá</h4>
@@ -151,7 +147,7 @@
             <label class="star star-1" for="star-1"></label>
           </form>
         </div>
-        <div class="comment-option" >
+        <div class="comment-option">
           <h4>{{commentsAllCount.length}} bình luận</h4>
           <div class="single-comment-item first-comment" *ngFor="let comment of comments">
             <div class="sc-author">
@@ -161,8 +157,12 @@
               <span></span>
               <h5>{{comment.profile.name}}</h5>
               <p>{{comment.text}}</p>
-              <button (click)="like(comment.id)" style="width: 60px; height: 30px; color: grey">{{comment.count_like}} <i class="fas fa-thumbs-up"></i></button>
-              <button (click)="dislike(comment.id)" style="width: 60px; height: 30px; color: grey"> {{comment.count_dislike}} <i class="fas fa-thumbs-down"></i></button>
+              <button (click)="like(comment.id)"
+                      style="width: 60px; height: 30px; color: grey;border: lightyellow">{{comment.count_like}} <i
+                class="fas fa-thumbs-up"></i></button> 
+              <button (click)="dislike(comment.id)"
+                      style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px" > {{comment.count_dislike}} <i
+                class="fas fa-thumbs-down"></i></button>
             </div>
           </div>
         </div>

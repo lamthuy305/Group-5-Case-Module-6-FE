@@ -25,6 +25,10 @@ export class OrderService {
     return this.http.get<any>(`${API_URL}/orders/changeStatusCanceled/${id}`);
   }
 
+  customerChangeStatusOrderCanceled(id) {
+    return this.http.get<any>(`${API_URL}/orders/customerChangeStatusCanceled/${id}`);
+  }
+
   getAllOrderStatusDone(id) {
     return this.http.get<any>(`${API_URL}/orders/statusDone/${id}`);
   }
