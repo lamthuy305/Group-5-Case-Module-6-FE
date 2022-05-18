@@ -33,8 +33,14 @@
                     type="button" *ngIf="ishowEditForm">
               Thêm ảnh homestay
             </button>
+            <button class="btn btn-info" *ngIf="ishowEditForm" (click)="changeShowEditForm()"
+                    type="button">
+              Xóa ảnh homestay
+            </button>
 
-            <div class="row">
+            <div class="row" *ngIf="isShowListImagesForm">
+
+
               <div class="col-lg-3" *ngFor="let image of images" style="margin-top: 50px">
                 <div class="single-blog-item" style="background: ghostwhite">
                   <button class="btn btn-primary" style="float: right" (click)="deleteImage(image.id)"
@@ -48,11 +54,13 @@
                 </div>
               </div>
             </div>
-            <div class="product-thumbs">
+
+
+            <div class="product-thumbs" *ngIf="!isShowListImagesForm">
               <div class="product-thumbs-track ps-slider owl-carousel">
                 <ng-container *ngFor="let image of images">
                   <div class="pt" data-imgbigurl="img/properties/property-details-b2.jpg"><img
-                    src="http://localhost:8080/image/{{image.name}}" alt=""></div>
+                    src="http://localhost:8080/image/{{image.name}}" style="width: 230px;height: 170px"></div>
                 </ng-container>
               </div>
             </div>
@@ -130,6 +138,7 @@
     </div>
 
 
+
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
         <h4>{{commentsAllCount.length}} đánh giá</h4>
@@ -159,7 +168,7 @@
               <p>{{comment.text}}</p>
               <button (click)="like(comment.id)"
                       style="width: 60px; height: 30px; color: grey;border: lightyellow">{{comment.count_like}} <i
-                class="fas fa-thumbs-up"></i></button> 
+                class="fas fa-thumbs-up"></i></button>
               <button (click)="dislike(comment.id)"
                       style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px" > {{comment.count_dislike}} <i
                 class="fas fa-thumbs-down"></i></button>

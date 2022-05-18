@@ -11,10 +11,11 @@ import {ListHousesComponent} from './house/list-houses/list-houses.component';
 import {CreateHouseComponent} from './house/create-house/create-house.component';
 import {EditHouseComponent} from './house/edit-house/edit-house.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
+import { NotificationDetailComponent } from './notification-detail/notification-detail.component';
 
 
 @NgModule({
-  declarations: [HomeUserComponent, ProfileComponent, ViewHouseComponent, OrderDetailComponent, ListHousesComponent, CreateHouseComponent, EditHouseComponent, ChangePasswordComponent],
+  declarations: [HomeUserComponent, ProfileComponent, ViewHouseComponent, OrderDetailComponent, ListHousesComponent, CreateHouseComponent, EditHouseComponent, ChangePasswordComponent, NotificationDetailComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

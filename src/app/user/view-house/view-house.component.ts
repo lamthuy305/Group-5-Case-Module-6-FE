@@ -26,6 +26,7 @@ export class ViewHouseComponent implements OnInit {
   comments: any[] = [];
   commentsAllCount: any[] = [];
   ishowEditForm: boolean = false;
+  isShowListImagesForm: boolean = false;
   selectedFile: File[] = [];
   filePath: string = '';
   listPathImage: any[];
@@ -264,5 +265,9 @@ export class ViewHouseComponent implements OnInit {
     this.commentService.dislikeComment(id, this.currentUser.id).subscribe(() => {
       this.get5CommentByHouseId(this.house_current_id);
     });
+  }
+
+  changeShowEditForm() {
+    this.isShowListImagesForm = !this.isShowListImagesForm;
   }
 }

@@ -87,9 +87,10 @@
               <li class="active"><a routerLink="/admin">Quản lý</a></li>
               <li class="active"><a routerLink="/orderDetail">Lịch sử</a></li>
 
-              <li class="nav-item dropdown" *ngIf="listNotificationDetail != 0">
-                <a style="height: 50px">
-                  <span class="badge badge-warning navbar-badge">{{listNotificationDetail.length}}</span>
+              <li class="nav-item dropdown">
+                <a routerLink="#" (click)="deleteAllNotificationDetailByIdUser()">
+                  <span class="badge badge-warning navbar-badge"
+                        *ngIf="listNotificationDetail != 0">{{listNotificationDetail.length}}</span>
                   <i class="far fa-bell"></i>
                 </a>
               </li>
