@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {OrderService} from '../../service/order/order.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-in-come',
   templateUrl: './in-come.component.html',
@@ -41,7 +43,6 @@ export class InComeComponent implements OnInit {
     for (let i = 0; i < this.orders.length; i++) {
       this.sum_income += (new Date(this.orders[i].checkOut).getUTCDate() - new Date(this.orders[i].checkIn).getUTCDate()) * this.orders[i].house.price;
     }
-    console.log(this.sum_income);
   }
 
   viewDate() {
@@ -56,6 +57,23 @@ export class InComeComponent implements OnInit {
     this.orderService.getHouseInMonthYear(this.currentUser.id, this.monthFE, this.yearFE).subscribe((listOrdersBE) => {
       this.orders = listOrdersBE;
       this.sumIncome();
+
+
+      $.fn.dataTable.ext.errMode = 'none';
+      $('#table-income').on('error.dt', function(e, settings, techNote, message) {
+      });
+
+      $(function() {
+        $('#table-income').DataTable({
+          'paging': true,
+          'lengthChange': false,
+          'searching': false,
+          'ordering': true,
+          'info': true,
+          'autoWidth': false,
+        });
+      });
+
     });
   }
 }

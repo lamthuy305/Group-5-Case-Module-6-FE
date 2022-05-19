@@ -16,8 +16,6 @@
       <div class="col-lg-12">
         <div class="pd-details-text">
           <div class="property-more-pic">
-
-
             <div>
               <button class="btn btn-info" style="float: right" data-target="#edit-img" *ngIf="ishowEditForm"
                       data-toggle="modal"
@@ -86,11 +84,11 @@
                       <tbody>
                       <tr>
                         <td class="pt-name">Tên</td>
-                        <td class="p-value">{{houseFE.name}}</td>
+                        <td class="p-value" *ngIf="houseFE.name">{{houseFE.name}}</td>
                       </tr>
                       <tr>
                         <td class="pt-name">Thành phố</td>
-                        <td class="p-value">{{houseFE.city.name}}</td>
+                        <td class="p-value" >{{houseFE.city.name}}</td>
                       </tr>
                       <tr>
                         <td class="pt-name">Địa chỉ</td>
@@ -138,27 +136,34 @@
     </div>
 
 
-
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <h4>{{commentsAllCount.length}} đánh giá</h4>
+        <div class="row">
+          <h4 *ngIf="avgRate > 0">Ngôi nhà được {{rates.length}} người đánh giá, sao trung bình là : {{avgRate}} <i class="fa fa-star" style="color: yellow"></i></h4>
+        </div>
         <div class="stars">
-          <form action="">
-            <input class="star star-5" id="star-5" type="radio" name="star"/>
-            <label class="star star-5" for="star-5"></label>
-            <input class="star star-4" id="star-4" type="radio" name="star"/>
-            <label class="star star-4" for="star-4"></label>
-            <input class="star star-3" id="star-3" type="radio" name="star"/>
-            <label class="star star-3" for="star-3"></label>
-            <input class="star star-2" id="star-2" type="radio" name="star"/>
-            <label class="star star-2" for="star-2"></label>
-            <input class="star star-1" id="star-1" type="radio" name="star"/>
-            <label class="star star-1" for="star-1"></label>
+          <div
+            style="margin-bottom: 10px; margin-top: 30px; border-radius: 15px; text-align: center; border: black solid 2px ; width: 300px">
+            <h5>Đánh giá của bạn về ngôi nhà này</h5>
+          </div>
+          <form>
+            <input class="star star-5" id="star-5" type="radio" name="star" value="5"/>
+            <label class="star star-5" for="star-5" (click)="createRate(5)"></label>
+            <input class="star star-4" id="star-4" type="radio" name="star" value="4"/>
+            <label class="star star-4" for="star-4" (click)="createRate(4)"></label>
+            <input class="star star-3" id="star-3" type="radio" name="star" value="3"/>
+            <label class="star star-3" for="star-3" (click)="createRate(3)"></label>
+            <input class="star star-2" id="star-2" type="radio" name="star" value="2"/>
+            <label class="star star-2" for="star-2" (click)="createRate(2)"></label>
+            <input class="star star-1" id="star-1" type="radio" name="star" value="1"/>
+            <label class="star star-1" for="star-1" (click)="createRate(1)"></label>
           </form>
         </div>
+
         <div class="comment-option">
-          <h4>Tổng: {{commentsAllCount.length}} bình luận</h4>
-          <div class="single-comment-item first-comment" *ngFor="let comment of comments">
+
+          <h4>{{commentsAllCount.length}} bình luận</h4>
+          <div class="single-comment-item first-comment" *ngFor="let comment of comments;index as i">
             <div class="sc-author">
               <img src="http://localhost:8080/image/{{comment.profile.avatar}}">
             </div>
@@ -167,31 +172,76 @@
               <h5>{{comment.profile.name}}</h5>
               <p>{{comment.text}}</p>
               <button (click)="like(comment.id)"
-                      style="width: 60px; height: 30px; color: grey;border: lightyellow">{{comment.count_like}} <i
+                      style=" width: 60px; height: 30px; color: grey;border: lightyellow">{{comment.count_like}} <i
                 class="fas fa-thumbs-up"></i></button>
               <button (click)="dislike(comment.id)"
-                      style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px" > {{comment.count_dislike}} <i
-                class="fas fa-thumbs-down"></i></button>
+                      style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px"> {{comment.count_dislike}}
+                <i
+                  class="fas fa-thumbs-down"></i></button>
+              <button style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px"
+                      (click)="isShowFormReply(i,idComment)"><i class="fa fa-reply"></i>
+              </button>
+              <button (click)="getAllReplyByIdComment(comment.id, i)"
+                      style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px"><i
+                class="fa fa-commenting"></i>
+              </button>
+              <br>
+              <form style="display: none" id="{{i}}">
+                <div *ngFor="let reply of replies;index as j">
+                  <div class="sc-author" style="margin-left: 120px;margin-top: 10px" [id]="'rep-' + j">
+                    <img src="http://localhost:8080/image/{{reply.profile.avatar}}">
+                  </div>
+                  <div class="single-comment-item first-comment">
+                    <div style="margin-top: 10px">
+                      <span></span>
+                      <h5>{{reply.profile.name}}</h5>
+                      <p>{{reply.text}}</p>
+                      <button
+                              style="width: 60px; height: 30px; color: grey;border: lightyellow">0
+                        <i
+                          class="fas fa-thumbs-up"></i></button>
+                      <button
+                              style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px"> 0
+                        <i
+                          class="fas fa-thumbs-down"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                  <div class="leave-comment">
+                    <form [formGroup]="replyForm" [id]="'rep-form-' + i" style="display: none"
+                          (ngSubmit)="submitCreateReply(comment.id)">
+                        <textarea placeholder="Phản hồi {{comment.profile.name}}: " formControlName="text"
+                                  style="margin-top: 20px;margin-left: 35px"></textarea>
+                      <button type="submit" class="site-btn" style="margin-left: 32px">Gửi</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
     </div>
-    <form action="">
-      <div class="row">
-        <div class="col-lg-10 offset-lg-1">
-          <div class="leave-comment">
-            <h4>Viết bình luận</h4>
-            <form [formGroup]="commentForm" (ngSubmit)="submitCreateComment()">
-              <textarea placeholder="Viết bình luận" formControlName="text"></textarea>
-              <button type="submit" class="site-btn">Gửi</button>
-            </form>
-          </div>
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="leave-comment">
+          <h4>Viết bình luận</h4>
+          <form [formGroup]="commentForm" (ngSubmit)="submitCreateComment()">
+            <textarea placeholder="Viết bình luận" formControlName="text"></textarea>
+            <button type="submit" class="site-btn">Gửi</button>
+          </form>
         </div>
       </div>
-    </form>
+    </div>
+
 
   </div>
+
+
 </section>
 <!-- Property Details Section End -->
 
@@ -283,7 +333,8 @@
           <input class="form-control" type="file" multiple id="images" formControlName="images"
                  (change)="changeFileImage($event)">
           <p *ngFor="let filePathImage of listPathImage">
-            <img src="{{filePathImage.filePathImage}}" alt="" width="480" height="400px" *ngIf="filePathImage.filePathImage">
+            <img src="{{filePathImage.filePathImage}}" alt="" width="480" height="400px"
+                 *ngIf="filePathImage.filePathImage">
           </p>
         </div>
         <div class="modal-footer justify-content-between">

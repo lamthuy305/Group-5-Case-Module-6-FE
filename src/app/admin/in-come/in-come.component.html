@@ -16,16 +16,16 @@
           <div class="card-header">
             <form [formGroup]="monthForm" (ngSubmit)="viewDate()">
               <div class="card-tools" style="float: left">
-                <select id="month" class="btn btn-info">
+                <select id="month" class="btn btn-info" style="height: 35px">
                   <option [ngValue]="4">Chọn tháng</option>
                   <option *ngFor="let month of months" [value]="month">Tháng {{month}}</option>
                 </select>
 
-                <select id="year" class="btn btn-info">
+                <select id="year" class="btn btn-info" style="height: 35px; margin-left: 10px">
                   <option *ngFor="let year of years" [value]="year">Năm {{year}}</option>
                 </select>
 
-                <button class="btn btn-info" type="submit">
+                <button class="btn btn-info" type="submit" style="height: 35px; margin-left: 10px">
                   Xem
                 </button>
 
@@ -39,7 +39,7 @@
 
           <div class="card-body">
 
-            <table id="table-order" class="table table-bordered table-hover">
+            <table id="table-income" class="table table-bordered table-hover">
               <thead class="table-dark">
               <tr>
                 <th>#</th>

@@ -33,6 +33,10 @@ export class OrderComponent implements OnInit {
   getAllOrderProcessingByUserId() {
     this.orderService.getAllOrderProcessingByUserId(this.currentUser.id).subscribe((ordersBE) => {
       this.orders = ordersBE;
+      $.fn.dataTable.ext.errMode = 'none';
+      $('#table-order').on('error.dt', function(e, settings, techNote, message) {
+      });
+
       $(function() {
         $('#table-order').DataTable({
           'paging': true,
@@ -86,4 +90,6 @@ export class OrderComponent implements OnInit {
       }
     );
   }
+
+
 }
