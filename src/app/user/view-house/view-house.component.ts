@@ -11,7 +11,7 @@ import {ProfileService} from '../../service/profile/profile.service';
 import {CommentService} from '../../service/comment/comment.service';
 import {Rate} from "../../model/rate";
 import {RateService} from "../../service/rate/rate.service";
-import {Comment} from "@angular/compiler";
+import {error} from 'protractor';
 
 declare var $: any;
 declare var Swal: any;
@@ -33,6 +33,7 @@ export class ViewHouseComponent implements OnInit {
   isShowListImagesForm: boolean = false;
   selectedFile: File[] = [];
   filePath: string = '';
+  filePathImage: string = '';
   listPathImage: any[];
   imgForm: FormGroup = new FormGroup({
     img: new FormControl(''),
@@ -42,8 +43,12 @@ export class ViewHouseComponent implements OnInit {
     images: new FormControl(),
 
   });
+  listOrdersDoneByIdHoue: any[] = [];
   selectedFileImage: File[] = [];
   profile: any;
+
+  ischeckOrder: boolean = true;
+  orderExists: any = {};
 
   orderForm: FormGroup = new FormGroup({
     house: new FormControl(),
@@ -51,7 +56,6 @@ export class ViewHouseComponent implements OnInit {
     checkIn: new FormControl([Validators.required]),
     checkOut: new FormControl([Validators.required]),
   });
-
   comment: any = {};
 
   commentForm: FormGroup = new FormGroup({
@@ -70,6 +74,7 @@ export class ViewHouseComponent implements OnInit {
       id: this.currentUser.id
     }
   }
+  totalRate: any;
 
   constructor(private shareJSService: ShareJSService,
               private houseService: HouseService,
@@ -88,6 +93,7 @@ export class ViewHouseComponent implements OnInit {
       this.getRatesByHouseId(id);
       this.getAllCommentUseCount(id);
       this.get5CommentByHouseId(id);
+      this.getAllOrdersDoneByIdHouse(id);
     });
   }
 
@@ -97,6 +103,33 @@ export class ViewHouseComponent implements OnInit {
     this.getDateTimePicker();
     this.getProfile();
     this.getTotalRateByHouseId(this.houseFE.id);
+  }
+
+  getAllOrdersDoneByIdHouse(id) {
+    this.orderService.getAllOrderStatusDoneByIdHouse(id).subscribe((list) => {
+      this.listOrdersDoneByIdHoue = list;
+    });
+  }
+
+  isCheckinAndCheckOutValidate(checkin, checkout) {
+    for (let i = 0; i < this.listOrdersDoneByIdHoue.length; i++) {
+      const timeCheckin: Date = new Date(checkin);
+      const timeCheckout: Date = new Date(checkout);
+      const testCheckin: Date = new Date(this.listOrdersDoneByIdHoue[i].checkIn);
+      const testCheckout: Date = new Date(this.listOrdersDoneByIdHoue[i].checkOut);
+      if (timeCheckin.getTime() >= testCheckin.getTime() && timeCheckin.getTime() < testCheckout.getTime()) {
+        this.orderExists = this.listOrdersDoneByIdHoue[i];
+        return this.ischeckOrder = false;
+      }
+      if (timeCheckout.getTime() >= testCheckin.getTime() && timeCheckout.getTime() < testCheckout.getTime()) {
+        this.orderExists = this.listOrdersDoneByIdHoue[i];
+        return this.ischeckOrder = false;
+      }
+      if (timeCheckin.getTime() <= testCheckin.getTime() && timeCheckout.getTime() >= testCheckout.getTime()) {
+        this.orderExists = this.listOrdersDoneByIdHoue[i];
+        return this.ischeckOrder = false;
+      }
+    }
   }
 
 
@@ -142,6 +175,7 @@ export class ViewHouseComponent implements OnInit {
     });
   }
 
+
   get5CommentByHouseId(id) {
     this.commentService.get5CommentByHouseId(id).subscribe((listCommentBE) => {
       this.comments = listCommentBE;
@@ -161,22 +195,52 @@ export class ViewHouseComponent implements OnInit {
   }
 
   submitCreateOrder() {
-    this.orderForm.value.house = {
-      id: this.houseFE.id
-    };
-    this.orderForm.value.user = {
-      id: this.currentUser.id
-    };
-    this.orderService.createOrder(this.orderForm.value).subscribe(() => {
-      $(function () {
-        $('#create-order').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
-      });
-      this.router.navigateByUrl('/orderDetail');
-      this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
-    }, error => this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi'));
+   if (this.currentUser != null){
+     this.orderForm.value.house = {
+       id: this.houseFE.id
+     };
+     this.orderForm.value.user = {
+       id: this.currentUser.id
+     };
+     this.isCheckinAndCheckOutValidate(this.orderForm.value.checkIn, this.orderForm.value.checkOut);
+     const timeCheckin: Date = new Date(this.orderForm.value.checkIn);
+     const timeCheckout: Date = new Date(this.orderForm.value.checkOut);
+     if (timeCheckout.getTime() > timeCheckin.getTime()) {
+       if (this.ischeckOrder) {
+         this.orderService.createOrder(this.orderForm.value).subscribe(() => {
+           $(function() {
+             $('#create-order').modal('hide');
+             $('body').removeClass('modal-open');
+             $('.modal-backdrop').remove();
+           });
+           this.router.navigateByUrl('/orderDetail');
+           this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
+         }, error => this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi'));
+       } else {
+         Swal.fire({
+           icon: 'error',
+           title: 'Book!!!',
+           text: 'Đặt lỗi do thời gian này đã có khách đặt! Từ: ngày ' + new Date(this.orderExists.checkIn).getUTCDate() + '/' + new Date(this.orderExists.checkIn).getUTCMonth()
+             + '/' + new Date(this.orderExists.checkIn).getFullYear() + 'đến ngày ' + new Date(this.orderExists.checkOut).getUTCDate()
+             + '/' + new Date(this.orderExists.checkOut).getUTCMonth() + '/' + new Date(this.orderExists.checkOut).getFullYear(),
+         });
+         this.ischeckOrder = true;
+         this.orderExists = {};
+       }
+     } else {
+       this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi do thời gian đặt homestay chưa hợp lệ');
+     }
+   } else {
+     $(function() {
+       $('#create-order').modal('hide');
+       $('body').removeClass('modal-open');
+       $('.modal-backdrop').remove();
+     });
+     Swal.fire('Vui lòng đăng nhập trước khi đặt nhà!')
+     this.router.navigateByUrl('/login')
+   }
   }
+
 
   changeImg($event) {
     this.selectedFile = $event.target.files;
@@ -191,16 +255,14 @@ export class ViewHouseComponent implements OnInit {
 
   changeFileImage($event) {
     this.selectedFileImage = $event.target.files;
-
-
-    // const reader = new FileReader();
-    // for (let i = 0; i < this.selectedFile.length; i++) {
-    //
-    // }
-    // reader.onload = () => {
-    //   this.filePath = reader.result as string;
-    // };
-    // reader.readAsDataURL(this.selectedFile[0]);
+    for (let i = 0; i < this.selectedFileImage.length; i++) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.filePathImage = reader.result as string;
+      };
+      reader.readAsDataURL(this.selectedFileImage[i]);
+      this.listPathImage.push(this.filePathImage);
+    }
   }
 
   deleteImage(id) {
@@ -264,21 +326,26 @@ export class ViewHouseComponent implements OnInit {
   }
 
   submitCreateComment() {
-    this.commentForm.value.user = {
-      id: this.currentUser.id
-    };
-    this.commentForm.value.house = {
-      id: this.house_current_id
-    };
-    this.commentForm.value.profile = {
-      id: this.profile.id
-    };
+    if(this.currentUser != null) {
+      this.commentForm.value.user = {
+        id: this.currentUser.id
+      };
+      this.commentForm.value.house = {
+        id: this.house_current_id
+      };
+      this.commentForm.value.profile = {
+        id: this.profile.id
+      };
 
-    this.commentService.createComment(this.commentForm.value).subscribe(() => {
-      this.get5CommentByHouseId(this.house_current_id);
-      this.getAllCommentUseCount(this.house_current_id);
-      this.commentForm.reset();
-    },);
+      this.commentService.createComment(this.commentForm.value).subscribe(() => {
+        this.get5CommentByHouseId(this.house_current_id);
+        this.getAllCommentUseCount(this.house_current_id);
+        this.commentForm.reset();
+      });
+    } else {
+      Swal.fire('Vui lòng đăng nhập trước khi bình luận!')
+      this.router.navigateByUrl('/login')
+    }
   }
 
   like(id) {
@@ -295,25 +362,29 @@ export class ViewHouseComponent implements OnInit {
 
   createRate(i: number) {
     console.log(i);
-    this.rate.house = this.houseFE;
-    this.rate.user = this.currentUser.id;
-    this.rate.star = i;
-    this.rateService.createRate(this.rate).subscribe(next => {
-        this.rateService.getRatesByHouseId(this.houseFE.id).subscribe(rateBE => {
-          Swal.fire('Cảm ơn bạn đã đánh giá!');
-          this.rates = rateBE.data;
-        });
-      }
-    );
-  }
+    if (this.currentUser != null){
+      this.rate.house = this.houseFE;
+      this.rate.user = this.currentUser.id;
+      this.rate.star = i;
+      this.rateService.createRate(this.rate).subscribe(next => {
+          this.rateService.getRatesByHouseId(this.houseFE.id).subscribe(rateBE => {
+            Swal.fire('Cảm ơn bạn đã đánh giá!');
+            this.rates = rateBE.data;
+          });
+        }
+      );
+    } else {
+      Swal.fire('Vui lòng đăng nhập để đánh giá!')
+      this.router.navigateByUrl('/login')
+    }
+}
 
   changeShowEditForm() {
     this.isShowListImagesForm = !this.isShowListImagesForm;
   }
 
   getTotalRateByHouseId(houseId){
-    var totalRate;
     houseId = this.houseFE.id;
-    return totalRate = this.rateService.getTotalRateByHouseId(houseId);
+    return this.rateService.getTotalRateByHouseId(houseId);
   }
 }

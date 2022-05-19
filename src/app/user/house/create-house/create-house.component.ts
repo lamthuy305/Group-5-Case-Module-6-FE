@@ -18,13 +18,13 @@ import {CityService} from '../../../service/city/city.service';
 })
 export class CreateHouseComponent implements OnInit {
   selectedFile: File[] = [];
+  filePath: string = '';
   types: Type[] = [];
   cities: any[] = [];
   statusHouses: StatusHouse[] = [];
   house: House = {};
   currentUser: any = {};
   listImageUpLoad: any[] = [];
-  filePath: string = '';
 
   houseForm: FormGroup = new FormGroup({
     id: new FormControl(''),
@@ -32,9 +32,9 @@ export class CreateHouseComponent implements OnInit {
     area: new FormControl('', [Validators.required]),
     city: new FormControl(null, [Validators.required]),
     location: new FormControl('', [Validators.required]),
-    bedroom: new FormControl('', [Validators.required]),
-    bathroom: new FormControl('', [Validators.required]),
-    price: new FormControl('', [Validators.required]),
+    bedroom: new FormControl('', [Validators.required,Validators.min(0)]),
+    bathroom: new FormControl('', [Validators.required,Validators.min(0)]),
+    price: new FormControl('', [Validators.required,Validators.min(0)]),
     description: new FormControl('', [Validators.required]),
     img: new FormControl('', [Validators.required]),
     statusHouse: new FormControl(null, [Validators.required]),

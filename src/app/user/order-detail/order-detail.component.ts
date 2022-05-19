@@ -16,6 +16,7 @@ declare var Swal: any;
 export class OrderDetailComponent implements OnInit {
   orders: any = [];
   currentUser: any = {};
+  currentTime: any= new Date().getTime()
 
   constructor(private orderService: OrderService,
               private notificationService: NotificationService,
@@ -27,6 +28,10 @@ export class OrderDetailComponent implements OnInit {
     this.currentUser = JSON.parse(this.currentUser);
     this.get5OrderByOrderIdRent();
   }
+
+  // getCurrentTime(){
+  // this.currentTime =
+  // }
 
   getCheckTimeCaceledOr(id, checkIn) {
     Swal.fire({
@@ -41,7 +46,6 @@ export class OrderDetailComponent implements OnInit {
         if (result.isConfirmed) {
           const currentTime: Date = new Date();
           const checkInTime: Date = new Date(checkIn);
-          console.log(checkInTime.getTime() - currentTime.getTime() < TIME_CHECK);
           if (checkInTime.getTime() - currentTime.getTime() < TIME_CHECK) {
             this.notificationService.showMessage('error', 'Canceled!', 'Không thể hủy do thời gian đến khi checkin còn nhỏ hơn 1 ngày');
           } else {
@@ -66,4 +70,8 @@ export class OrderDetailComponent implements OnInit {
     this.getCurrentUser();
   }
 
+  changeCheckinOrder(id) {
+    this.orderService.changeCheckinOrder(id).subscribe(ordersBE => {
+    });
+  }
 }

@@ -5,7 +5,7 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="main-breadcrumb" >
       <ol class="breadcrumb" >
-        <li class="breadcrumb-item"><a href="index.html" style="color: #00A7AA">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a routerLink="/home" style="color: #00A7AA">Trang chủ</a></li>
         <li class="breadcrumb-item"><a href="javascript:void(0)" style="color: #00A7AA">{{currentUser.username}}</a></li>
         <li class="breadcrumb-item active" aria-current="page">Thông tin</li>
       </ol>
@@ -86,7 +86,7 @@
               <input class="form-control" id="phone" placeholder="Nhập số điện thoai" type="text"
                      formControlName="phone">
             </div>
-            <div *ngIf="profileForm.get('phone').invalid && profileForm.get('phone').touched"><p
+            <div *ngIf="profileForm.get('phone').invalid && profileForm.get('phone').dirty"><p
               style="color: red">Số điện thoại không hợp lệ</p>
             </div>
             <hr>

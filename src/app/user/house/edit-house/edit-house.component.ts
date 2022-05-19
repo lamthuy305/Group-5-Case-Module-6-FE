@@ -22,6 +22,8 @@ export class EditHouseComponent implements OnInit {
   statusHouses: StatusHouse[] = [];
   house: House = {};
   currentUser: any = {};
+  selectedFile: File[] = [];
+  filePath: string = '';
 
   houseForm: FormGroup = new FormGroup({
     id: new FormControl('',[Validators.required]),
@@ -107,6 +109,17 @@ export class EditHouseComponent implements OnInit {
      this.router.navigateByUrl('/houses')
       }, error => this.notificationService.showMessage('error', 'Xảy ra lỗi!', 'Vui lòng kiểm tra lại thông tin vừa nhập')
     );
+  }
+
+  changeFile($event) {
+    this.selectedFile = $event.target.files;
+    for (let i = 0; i < this.selectedFile.length; i++) {
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.filePath = reader.result as string;
+    }
+    reader.readAsDataURL(this.selectedFile[0])
   }
 
 

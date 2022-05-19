@@ -33,13 +33,20 @@ export class OrderService {
     return this.http.get<any>(`${API_URL}/orders/statusDone/${id}`);
   }
 
+  getAllOrderStatusDoneByIdHouse(id) {
+    return this.http.get<any>(`${API_URL}/orders/statusDone/house/${id}`);
+  }
+
   getHouseInMonthYear(id, month, year) {
     return this.http.get<any>(`${API_URL}/orders/income?id=${id}&month=${month}&year=${year}`);
   }
 
   get5OrderByOrderIdRent(id) {
     return this.http.get<any>(`${API_URL}/orders/historyOrderTop5/${id}`);
+  }
 
+  changeCheckinOrder(id) {
+    return this.http.get<any>(`${API_URL}/orders/changeStatusCheckin/${id}`);
   }
 
   getOrderById(id): Observable<any> {
