@@ -149,7 +149,7 @@
         </div>
         <div class="comment-option">
           <h4>{{commentsAllCount.length}} bình luận</h4>
-          <div class="single-comment-item first-comment" *ngFor="let comment of comments">
+          <div class="single-comment-item first-comment" *ngFor="let comment of comments;index as i">
             <div class="sc-author">
               <img src="http://localhost:8080/image/{{comment.profile.avatar}}">
             </div>
@@ -159,16 +159,49 @@
               <p>{{comment.text}}</p>
               <button (click)="like(comment.id)"
                       style="width: 60px; height: 30px; color: grey;border: lightyellow">{{comment.count_like}} <i
-                class="fas fa-thumbs-up"></i></button> 
+                class="fas fa-thumbs-up"></i></button>
               <button (click)="dislike(comment.id)"
                       style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px" > {{comment.count_dislike}} <i
                 class="fas fa-thumbs-down"></i></button>
+              <button style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px" (click)="isShowFormReply(i)"><i class="fa fa-reply"></i>
+              </button>
+              <span><form>
+              <button style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px"><i class="fa fa-arrow-circle-down"></i>
+              </button>
+              </form></span>
+              <br>
+
+              <div class="sc-author" style="margin-left: 120px;margin-top: 10px">
+                <img src="http://localhost:8080/image/{{comment.profile.avatar}}">
+              </div>
+              <div class="single-comment-item first-comment">
+              <div style="margin-top: 10px">
+                <span></span>
+                <h5>{{comment.text}}</h5>
+                <p>def</p>
+                <button (click)="like(comment.id)"
+                        style="width: 60px; height: 30px; color: grey;border: lightyellow">{{comment.count_like}} <i
+                  class="fas fa-thumbs-up"></i></button>
+                <button (click)="dislike(comment.id)"
+                        style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px" > {{comment.count_dislike}} <i
+                  class="fas fa-thumbs-down"></i></button>
+              </div>
+                <div class="row">
+                  <div class="col-lg-10 offset-lg-1">
+                    <div class="leave-comment">
+                      <form [formGroup]="replyForm" [id]="'rep-form-' + i" style="display: none" (ngSubmit)="submitCreateReply(comment.id)">
+                        <textarea placeholder="Phản hồi {{comment.profile.name}}: " formControlName="text" style="margin-top: 20px;margin-left: 35px"></textarea>
+                        <button type="submit" class="site-btn" style="margin-left: 32px">Gửi</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <form action="">
       <div class="row">
         <div class="col-lg-10 offset-lg-1">
           <div class="leave-comment">
@@ -180,7 +213,7 @@
           </div>
         </div>
       </div>
-    </form>
+
 
   </div>
 </section>
@@ -256,6 +289,8 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+
 
 
 <div class="modal fade" id="create-image">

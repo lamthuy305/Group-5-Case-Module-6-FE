@@ -29,6 +29,8 @@ export class ViewHouseComponent implements OnInit {
   selectedFile: File[] = [];
   filePath: string = '';
   listPathImage: any[];
+  replies: any;
+  idComment: number = 0;
   imgForm: FormGroup = new FormGroup({
     img: new FormControl(''),
   });
@@ -53,6 +55,13 @@ export class ViewHouseComponent implements OnInit {
     house: new FormControl(),
     profile: new FormControl(),
   });
+  replyForm: FormGroup = new FormGroup({
+    comment: new FormControl(),
+    text: new FormControl(),
+    user: new FormControl(),
+    profile: new FormControl()
+  });
+
 
   constructor(private shareJSService: ShareJSService,
               private houseService: HouseService,
@@ -92,7 +101,7 @@ export class ViewHouseComponent implements OnInit {
   }
 
   getDateTimePicker() {
-    $(function() {
+    $(function () {
       var now = new Date(),
         minDate = now.toISOString().substring(0, 10);
       $('#check-in').prop('min', minDate);
@@ -141,7 +150,7 @@ export class ViewHouseComponent implements OnInit {
       id: this.currentUser.id
     };
     this.orderService.createOrder(this.orderForm.value).subscribe(() => {
-      $(function() {
+      $(function () {
         $('#create-order').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
@@ -206,7 +215,7 @@ export class ViewHouseComponent implements OnInit {
       formData.append('img', files[0]);
     }
     this.houseService.editImgHouse(formData).subscribe(() => {
-      $(function() {
+      $(function () {
         $('#edit-img').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
@@ -225,7 +234,7 @@ export class ViewHouseComponent implements OnInit {
     }
     console.log(imageForm);
     this.imageService.createImage(this.house_current_id, imageForm).subscribe(() => {
-        $(function() {
+        $(function () {
           $('#create-image').modal('hide');
           $('body').removeClass('modal-open');
           $('.modal-backdrop').remove();
@@ -264,5 +273,36 @@ export class ViewHouseComponent implements OnInit {
     this.commentService.dislikeComment(id, this.currentUser.id).subscribe(() => {
       this.get5CommentByHouseId(this.house_current_id);
     });
+  }
+
+
+  isShowFormReply(index, idComment) {
+    $('#rep-form-' + index).toggle();
+    this.idComment = idComment;
+  }
+
+  submitCreateReply(id) {
+    this.replyForm.value.comment = {
+      id: id
+    };
+      this.replyForm.value.user = {
+        id: this.currentUser.id
+      };
+      this.replyForm.value.profile = {
+        id: this.profile.id
+      };
+
+    this.commentService.createReply(this.replyForm.value).subscribe(() => {
+      alert('thành công')
+    }, error => {
+      alert('thất bại')
+    })
+
+  }
+
+  getAllReply() {
+    this.commentService.getAllReplyByIdComment(this.idComment).subscribe(listReplyBE => {
+      // this.replies = listReplyBE;
+    })
   }
 }
