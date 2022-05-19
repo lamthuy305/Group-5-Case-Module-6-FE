@@ -23,7 +23,7 @@
       Quản lý thu nhập
     </a>
     <hr>
-    <a routerLink="/admin/users" class="nav-link">
+    <a routerLink="/admin/users" class="nav-link" *ngIf="currentUser.roles.length == 2">
       <i class="nav-icon fas fa-tachometer-alt"></i>
       Quản lý User
     </a>

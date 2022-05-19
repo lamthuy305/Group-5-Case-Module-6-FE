@@ -29,6 +29,9 @@ export class UserManagementComponent implements OnInit {
   getAllUser() {
     this.userService.getAllUser().subscribe((listUserFromBE) => {
       this.users = listUserFromBE;
+      $.fn.dataTable.ext.errMode = 'none';
+      $('#user-list-table').on('error.dt', function(e, settings, techNote, message) {
+      });
       $(function() {
         $('#user-list-table').DataTable({
           'paging': true,
