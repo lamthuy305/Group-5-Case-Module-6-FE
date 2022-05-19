@@ -72,7 +72,7 @@
   <div class="top-nav">
     <div class="container">
       <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
           <nav class="main-menu">
             <ul>
               <li>
@@ -82,73 +82,51 @@
                 </div>
               </li>
               <li class="active"><a routerLink="/home">Trang chủ</a></li>
-              <li class="active"><a routerLink="/profile">Thông tin</a></li>
-              <li class="active"><a routerLink="/houses">Homestay</a></li>
-              <li class="active"><a routerLink="/admin">Quản lý</a></li>
-              <li class="active"><a routerLink="/orderDetail">Lịch sử</a></li>
-
-              <li class="nav-item dropdown">
+              <li class="nav-item"><a routerLink="/houses">Homestay</a></li>
+              <li class="nav-item"><a routerLink="/admin">Quản lý</a></li>
+              <li class="nav-item"><a routerLink="/orderDetail">Lịch sử</a></li>
+              <li class="nav-item dropdown float-right">
                 <a routerLink="#" (click)="deleteAllNotificationDetailByIdUser()">
-                  <span class="badge badge-warning navbar-badge"
-                        *ngIf="listNotificationDetail != 0">{{listNotificationDetail.length}}</span>
+                            <span class="badge badge-warning navbar-badge"
+                                  *ngIf="listNotificationDetail != 0"><i class="far fa-bell"></i>{{listNotificationDetail.length}}</span>
                   <i class="far fa-bell"></i>
                 </a>
               </li>
             </ul>
           </nav>
         </div>
-
-        <div class="col-lg-4">
+        <div class="col-lg-2">
           <div class="top-right">
-            <div class="language-option">
-              <ul class="navbar-nav mr-auto" *ngIf="!currentUser">
-                <li class="nav-item">
-                  <a class="nav-link" routerLink="/login"><i class="fas fa-sign-in-alt fa-lg"></i> Đăng nhập</a>
-                </li>
-              </ul>
-              <ul class="navbar-nav mr-auto" *ngIf="currentUser">
-                <li class="nav-item">
-                  <div style="color: white">Xin chào {{currentUser.username}}!</div>
-                  <span><a class="nav-link" style="color: #00A7AA" routerLink="#" (click)="logout()"><i
-                    class="fas fa-sign-out-alt"></i> Đăng xuất</a></span>
-                  <span>  ||  </span>
-                  <span><a class="nav-link" style="color: #00A7AA" routerLink="/changePassword"><i
-                    class="fa fa-key"></i> Đổi mật khẩu</a></span>
-                </li>
-              </ul>
+            <div class="language-option" *ngIf="!currentUser">>
+              <span>Tài khoản</span>
+              <i class="fa fa-angle-down"></i>
+              <div class="flag-dropdown">
+                <ul style="width: 150px">
+                  <li><a class="nav-link" style="color: #00A7AA" routerLink="/login"><i
+                    class="fas fa-sign-out-alt"></i>Đăng nhập</a></li>
+                  <li><a class="nav-link" style="color: #00A7AA" routerLink="/register"><i
+                    class="fas fa-sign-out-alt"></i>Đăng ký</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="language-option" *ngIf="currentUser">>
+              <span *ngIf="!profile.name">{{currentUser.username}}</span>
+              <span *ngIf="profile.name">{{profile.name}}</span>
+              <i class="fa fa-angle-down"></i>
+              <div class="flag-dropdown">
+                <ul style="width: 150px">
+                  <li><a class="nav-link" style="color: #00A7AA" routerLink="/profile"><i
+                    class="fas fa-sign-out-alt"></i> Thông tin</a></li>
+                  <li><a class="nav-link" style="color: #00A7AA" routerLink="#" (click)="logout()"><i
+                    class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                  <li><a class="nav-link" style="color: #00A7AA" routerLink="/changePassword"><i
+                    class="fa fa-key"></i> Đổi mật khẩu</a></li>
+                </ul>
+              </div>
             </div>
           </div>
-
         </div>
 
-
-        <!--        <div class="col-lg-5">-->
-        <!--          <div class="top-right">-->
-        <!--&lt;!&ndash;            <nav class="main-menu">&ndash;&gt;-->
-        <!--&lt;!&ndash;              <a href="#" class="property-sub">Submit Property</a>&ndash;&gt;-->
-
-
-        <!--              <div class="language-option">-->
-        <!--                <span>Tài khoản</span>-->
-        <!--                <span>Tài khoản</span>-->
-        <!--                <i class="fa fa-angle-down"></i>-->
-        <!--                <div class="flag-dropdown">-->
-        <!--                  <ul>-->
-        <!--                    <li routerLink="/login">Đăng nhập</li>-->
-        <!--                    <li routerLink="/register">Đăng ký</li>-->
-        <!--                    <li routerLink="/changePassword">Đổi mật khẩu</li>-->
-        <!--                  </ul>-->
-        <!--                </div>-->
-        <!--              </div>-->
-
-
-        <!--&lt;!&ndash;              <ul>&ndash;&gt;-->
-        <!--&lt;!&ndash;                <li class="active" [hidden]="currentUser!=null"><a routerLink="/login">Đăng nhập</a></li>&ndash;&gt;-->
-        <!--&lt;!&ndash;                <li class="active" [hidden]="currentUser==null" (click)="logout()">Đăng xuất</li>&ndash;&gt;-->
-        <!--&lt;!&ndash;              </ul>&ndash;&gt;-->
-        <!--&lt;!&ndash;            </nav>&ndash;&gt;-->
-        <!--          </div>-->
-        <!--        </div>-->
       </div>
     </div>
   </div>

@@ -30,11 +30,4 @@ export class RateService {
     return this.http.get<any>(`${API_URL}/rates/${houseId}/average`)
   }
 
-  checkRates(rates: Rate[]): number {
-    let totalRate = 0;
-    for (const rate of rates) {
-      totalRate += rate.star;
-    }
-    return Math.round((totalRate / rates.length) * 100) / 100;
-  }
 }

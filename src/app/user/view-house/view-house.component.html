@@ -84,11 +84,11 @@
                       <tbody>
                       <tr>
                         <td class="pt-name">Tên</td>
-                        <td class="p-value">{{houseFE.name}}</td>
+                        <td class="p-value" *ngIf="houseFE.name">{{houseFE.name}}</td>
                       </tr>
                       <tr>
                         <td class="pt-name">Thành phố</td>
-                        <td class="p-value">{{houseFE.city.name}}</td>
+                        <td class="p-value" >{{houseFE.city.name}}</td>
                       </tr>
                       <tr>
                         <td class="pt-name">Địa chỉ</td>
@@ -140,11 +140,11 @@
     <div class="row" >
       <div class="col-lg-10 offset-lg-1">
         <div class="row">
-          <h4>Được đánh giá  bởi khách hàng của chúng tôi</h4>
+          <h4 *ngIf="avgRate > 0">Ngôi nhà được {{rates.length}} người đánh giá, sao trung bình là : {{avgRate}} <i class="fa fa-star" style="color: yellow"></i></h4>
         </div>
         <div class="stars">
-          <div style="margin-bottom: 10px; margin-top: 30px; border-radius: 15px; text-align: center; border: black solid 2px">
-            <h5>Hãy là người đầu tiên đánh giá dịch vụ này</h5>
+          <div style="margin-bottom: 10px; margin-top: 30px; border-radius: 15px; text-align: center; border: black solid 2px ; width: 300px">
+            <h5>Đánh giá của bạn về ngôi nhà này</h5>
           </div>
           <form>
             <input class="star star-5" id="star-5" type="radio" name="star" value="5"/>
@@ -161,8 +161,9 @@
         </div>
 
         <div class="comment-option">
-          <h4>Tổng: {{commentsAllCount.length}} bình luận</h4>
-          <div class="single-comment-item first-comment" *ngFor="let comment of comments">
+
+          <h4>{{commentsAllCount.length}} bình luận</h4>
+          <div class="single-comment-item first-comment" *ngFor="let comment of comments;index as i">
             <div class="sc-author">
               <img src="http://localhost:8080/image/{{comment.profile.avatar}}">
             </div>
@@ -176,12 +177,45 @@
               <button (click)="dislike(comment.id)"
                       style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px" > {{comment.count_dislike}} <i
                 class="fas fa-thumbs-down"></i></button>
+              <button style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px" (click)="isShowFormReply(i,idComment)"><i class="fa fa-reply"></i>
+              </button>
+              <span><form>
+              <button style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px"><i class="fa fa-arrow-circle-down"></i>
+              </button>
+              </form></span>
+              <br>
+
+              <div class="sc-author" style="margin-left: 120px;margin-top: 10px">
+                <img src="http://localhost:8080/image/{{comment.profile.avatar}}">
+              </div>
+              <div class="single-comment-item first-comment">
+              <div style="margin-top: 10px">
+                <span></span>
+                <h5>{{comment.text}}</h5>
+                <p>def</p>
+                <button (click)="like(comment.id)"
+                        style="width: 60px; height: 30px; color: grey;border: lightyellow">{{comment.count_like}} <i
+                  class="fas fa-thumbs-up"></i></button>
+                <button (click)="dislike(comment.id)"
+                        style="width: 60px; height: 30px; color: grey;border: lightyellow;margin-left: 10px" > {{comment.count_dislike}} <i
+                  class="fas fa-thumbs-down"></i></button>
+              </div>
+                <div class="row">
+                  <div class="col-lg-10 offset-lg-1">
+                    <div class="leave-comment">
+                      <form [formGroup]="replyForm" [id]="'rep-form-' + i" style="display: none" (ngSubmit)="submitCreateReply(comment.id)">
+                        <textarea placeholder="Phản hồi {{comment.profile.name}}: " formControlName="text" style="margin-top: 20px;margin-left: 35px"></textarea>
+                        <button type="submit" class="site-btn" style="margin-left: 32px">Gửi</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <form action="">
       <div class="row">
         <div class="col-lg-10 offset-lg-1">
           <div class="leave-comment">
@@ -193,11 +227,15 @@
           </div>
         </div>
       </div>
-    </form>
+
 
   </div>
+
+
 </section>
 <!-- Property Details Section End -->
+
+
 
 
 <div class="modal fade" id="create-order">
@@ -269,6 +307,8 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+
 
 
 <div class="modal fade" id="create-image">
