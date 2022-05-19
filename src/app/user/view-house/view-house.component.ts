@@ -11,7 +11,6 @@ import {ProfileService} from '../../service/profile/profile.service';
 import {CommentService} from '../../service/comment/comment.service';
 import {Rate} from "../../model/rate";
 import {RateService} from "../../service/rate/rate.service";
-import {error} from 'protractor';
 
 declare var $: any;
 declare var Swal: any;
@@ -74,7 +73,7 @@ export class ViewHouseComponent implements OnInit {
       id: this.currentUser.id
     }
   }
-  totalRate: any;
+  totalRate: number;
 
   constructor(private shareJSService: ShareJSService,
               private houseService: HouseService,
@@ -189,9 +188,11 @@ export class ViewHouseComponent implements OnInit {
   }
 
   getRatesByHouseId(houseId){
-    houseId = this.houseFE.id;
-    this.rateService.getRatesByHouseId(houseId);
-    console.log(this.rates)
+    this.rateService.getRatesByHouseId(houseId).subscribe((listRate) => {
+      this.rates = listRate
+      console.log(this.rates)
+
+    });
   }
 
   submitCreateOrder() {
@@ -383,8 +384,12 @@ export class ViewHouseComponent implements OnInit {
     this.isShowListImagesForm = !this.isShowListImagesForm;
   }
 
+
   getTotalRateByHouseId(houseId){
-    houseId = this.houseFE.id;
-    return this.rateService.getTotalRateByHouseId(houseId);
+    this.rateService.getRatesByHouseId(houseId).subscribe((listRate) => {
+      this.rates = listRate.data;
+    })
+    this.rateService.checkRates(this.rates);
+    return this.totalRate;
   }
 }

@@ -11,7 +11,8 @@ const API_URL = `${environment.apiUrl}`;
 })
 export class RateService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getRatesByHouseId(houseId: number): Observable<any> {
     return this.http.get<any>(`${API_URL}/rates/${houseId}`)
@@ -26,7 +27,14 @@ export class RateService {
   }
 
   getTotalRateByHouseId(houseId: number): Observable<any>{
-    return this.http.get<any>(`${API_URL}/${houseId}/average`)
+    return this.http.get<any>(`${API_URL}/rates/${houseId}/average`)
   }
 
+  checkRates(rates: Rate[]): number {
+    let totalRate = 0;
+    for (const rate of rates) {
+      totalRate += rate.star;
+    }
+    return Math.round((totalRate / rates.length) * 100) / 100;
+  }
 }
