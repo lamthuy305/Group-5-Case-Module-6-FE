@@ -151,7 +151,7 @@ export class ViewHouseComponent implements OnInit {
   }
 
   getDateTimePicker() {
-    $(function() {
+    $(function () {
       var now = new Date(),
         minDate = now.toISOString().substring(0, 10);
       $('#check-in').prop('min', minDate);
@@ -226,7 +226,7 @@ export class ViewHouseComponent implements OnInit {
       if (timeCheckout.getTime() > timeCheckin.getTime()) {
         if (this.ischeckOrder) {
           this.orderService.createOrder(this.orderForm.value).subscribe(() => {
-            $(function() {
+            $(function () {
               $('#create-order').modal('hide');
               $('body').removeClass('modal-open');
               $('.modal-backdrop').remove();
@@ -249,7 +249,7 @@ export class ViewHouseComponent implements OnInit {
         this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi do thời gian đặt homestay chưa hợp lệ');
       }
     } else {
-      $(function() {
+      $(function () {
         $('#create-order').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
@@ -313,7 +313,7 @@ export class ViewHouseComponent implements OnInit {
       formData.append('img', files[0]);
     }
     this.houseService.editImgHouse(formData).subscribe(() => {
-      $(function() {
+      $(function () {
         $('#edit-img').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
@@ -332,7 +332,7 @@ export class ViewHouseComponent implements OnInit {
     }
     console.log(imageForm);
     this.imageService.createImage(this.house_current_id, imageForm).subscribe(() => {
-        $(function() {
+        $(function () {
           $('#create-image').modal('hide');
           $('body').removeClass('modal-open');
           $('.modal-backdrop').remove();
@@ -373,6 +373,7 @@ export class ViewHouseComponent implements OnInit {
     });
   }
 
+
   dislike(id) {
     this.commentService.dislikeComment(id, this.currentUser.id).subscribe(() => {
       this.get5CommentByHouseId(this.house_current_id);
@@ -407,6 +408,10 @@ export class ViewHouseComponent implements OnInit {
     this.idComment = idComment;
   }
 
+  onlyRepliesOfComment(index) {
+    $('#rep-' + index).toggle();
+  }
+
   submitCreateReply(id) {
     this.replyForm.value.comment = {
       id: id
@@ -419,9 +424,9 @@ export class ViewHouseComponent implements OnInit {
     };
 
     this.commentService.createReply(this.replyForm.value).subscribe(() => {
-      // alert('thành công');
+      alert('thành công');
     }, error => {
-      // alert('thất bại');
+      alert('thất bại');
     });
   }
 
@@ -431,4 +436,19 @@ export class ViewHouseComponent implements OnInit {
 //     })
 // >>>>>>> 0a65d9f48c38ab6337e1638d50617653b0a37253
 
+  getAllReplyByIdComment(id, i) {
+    this.commentService.getAllReplyByIdComment(id).subscribe((listReplyByIdComment) => {
+      this.replies = listReplyByIdComment;
+      let style = document.getElementById(i).style;
+      for (let j = 0; j < this.replies.length; j++) {
+        if (i == j) {
+          if (style.display == 'block') {
+            style.display = 'none'
+          } else if (style.display == 'none') {
+            style.display = 'block'
+          }
+        }
+      }
+    })
+  }
 }
