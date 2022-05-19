@@ -22,6 +22,7 @@ declare var Swal: any;
   styleUrls: ['./view-house.component.css']
 })
 export class ViewHouseComponent implements OnInit {
+
   house_current_id: any;
   houseFE: House = {};
   currentUser: any = {};
@@ -69,7 +70,6 @@ export class ViewHouseComponent implements OnInit {
       id: this.currentUser.id
     }
   }
-  totalRate: number;
 
   constructor(private shareJSService: ShareJSService,
               private houseService: HouseService,
@@ -96,7 +96,7 @@ export class ViewHouseComponent implements OnInit {
     this.getCurrentUser();
     this.getDateTimePicker();
     this.getProfile();
-    this.totalRate = this.getTotalRateByHouseId(this.houseFE.id);
+    this.getTotalRateByHouseId(this.houseFE.id);
   }
 
 
@@ -302,7 +302,6 @@ export class ViewHouseComponent implements OnInit {
         this.rateService.getRatesByHouseId(this.houseFE.id).subscribe(rateBE => {
           Swal.fire('Cảm ơn bạn đã đánh giá!');
           this.rates = rateBE.data;
-          this._rateChecked = this.rateService.checkRates(this.rates);
         });
       }
     );
@@ -313,7 +312,8 @@ export class ViewHouseComponent implements OnInit {
   }
 
   getTotalRateByHouseId(houseId){
+    var totalRate;
     houseId = this.houseFE.id;
-    return this.rateService.getTotalRateByHouseId(houseId);
+    return totalRate = this.rateService.getTotalRateByHouseId(houseId);
   }
 }
