@@ -28,12 +28,4 @@ export class RateService {
   getTotalRateByHouseId(houseId: number): Observable<any>{
     return this.http.get<any>(`${API_URL}/${houseId}/average`)
   }
-
-  checkRates(rates: Rate[]): number {
-    let total = 0;
-    for (const rate of rates) {
-      total += rate.star;
-    }
-    return Math.round((total / rates.length) * 100) / 100;
-  }
 }

@@ -9,9 +9,7 @@ import {NotificationService} from '../../service/notification/notification.servi
 import {ImageService} from '../../service/image/image.service';
 import {ProfileService} from '../../service/profile/profile.service';
 import {CommentService} from '../../service/comment/comment.service';
-import {Rate} from "../../model/rate";
-import {RateService} from "../../service/rate/rate.service";
-import {error} from 'protractor';
+import {RateService} from '../../service/rate/rate.service';
 
 declare var $: any;
 declare var Swal: any;
@@ -34,6 +32,8 @@ export class ViewHouseComponent implements OnInit {
   filePath: string = '';
   filePathImage: string = '';
   listPathImage: any[];
+  replies: any;
+  idComment: number = 0;
   imgForm: FormGroup = new FormGroup({
     img: new FormControl(''),
   });
@@ -56,15 +56,14 @@ export class ViewHouseComponent implements OnInit {
     checkOut: new FormControl([Validators.required]),
   });
   comment: any = {};
-
   commentForm: FormGroup = new FormGroup({
     user: new FormControl(),
     text: new FormControl(),
     house: new FormControl(),
     profile: new FormControl(),
   });
-  rates: Rate[] = [];
-  rate: Rate = {
+  rates: any[] = [];
+  rate: any = {
     star: 0,
     house: {
       id: this.houseFE.id
@@ -72,9 +71,16 @@ export class ViewHouseComponent implements OnInit {
     user: {
       id: this.currentUser.id
     }
-  }
-  totalRate: any;
-   _rateChecked: any;
+  };
+  totalRate: number = 0;
+  avgRate: any;
+  replyForm: FormGroup = new FormGroup({
+    comment: new FormControl(),
+    text: new FormControl(),
+    user: new FormControl(),
+    profile: new FormControl()
+  });
+
 
   constructor(private shareJSService: ShareJSService,
               private houseService: HouseService,
@@ -102,7 +108,6 @@ export class ViewHouseComponent implements OnInit {
     this.getCurrentUser();
     this.getDateTimePicker();
     this.getProfile();
-    this.totalRate = this.getTotalRateByHouseId(this.houseFE.id);
   }
 
   getAllOrdersDoneByIdHouse(id) {
@@ -146,7 +151,7 @@ export class ViewHouseComponent implements OnInit {
   }
 
   getDateTimePicker() {
-    $(function () {
+    $(function() {
       var now = new Date(),
         minDate = now.toISOString().substring(0, 10);
       $('#check-in').prop('min', minDate);
@@ -188,57 +193,70 @@ export class ViewHouseComponent implements OnInit {
     });
   }
 
-  getRatesByHouseId(houseId){
-    houseId = this.houseFE.id;
-    this.rateService.getRatesByHouseId(houseId);
-    console.log(this.rates)
+  getRatesByHouseId(houseId) {
+    this.rateService.getRatesByHouseId(houseId).subscribe((listBE) => {
+      this.rates = listBE;
+      this.getTotalRate();
+    });
+  }
+
+  getTotalRate() {
+    for (let i = 0; i < this.rates.length; i++) {
+      this.totalRate += this.rates[i].star;
+    }
+    this.getAVGRate();
+  }
+
+  getAVGRate() {
+    this.avgRate = (this.totalRate / this.rates.length).toFixed(1);
+    console.log(this.avgRate);
   }
 
   submitCreateOrder() {
-   if (this.currentUser != null){
-     this.orderForm.value.house = {
-       id: this.houseFE.id
-     };
-     this.orderForm.value.user = {
-       id: this.currentUser.id
-     };
-     this.isCheckinAndCheckOutValidate(this.orderForm.value.checkIn, this.orderForm.value.checkOut);
-     const timeCheckin: Date = new Date(this.orderForm.value.checkIn);
-     const timeCheckout: Date = new Date(this.orderForm.value.checkOut);
-     if (timeCheckout.getTime() > timeCheckin.getTime()) {
-       if (this.ischeckOrder) {
-         this.orderService.createOrder(this.orderForm.value).subscribe(() => {
-           $(function() {
-             $('#create-order').modal('hide');
-             $('body').removeClass('modal-open');
-             $('.modal-backdrop').remove();
-           });
-           this.router.navigateByUrl('/orderDetail');
-           this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
-         }, error => this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi'));
-       } else {
-         Swal.fire({
-           icon: 'error',
-           title: 'Book!!!',
-           text: 'Đặt lỗi do thời gian này đã có khách đặt! Từ: ngày ' + new Date(this.orderExists.checkIn).getUTCDate() + '/' + new Date(this.orderExists.checkIn).getUTCMonth()
-             + '/' + new Date(this.orderExists.checkIn).getFullYear() + 'đến ngày ' + new Date(this.orderExists.checkOut).getUTCDate()
-             + '/' + new Date(this.orderExists.checkOut).getUTCMonth() + '/' + new Date(this.orderExists.checkOut).getFullYear(),
-         });
-         this.ischeckOrder = true;
-         this.orderExists = {};
-       }
-     } else {
-       this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi do thời gian đặt homestay chưa hợp lệ');
-     }
-   } else {
-     $(function() {
-       $('#create-order').modal('hide');
-       $('body').removeClass('modal-open');
-       $('.modal-backdrop').remove();
-     });
-     Swal.fire('Vui lòng đăng nhập trước khi đặt nhà!')
-     this.router.navigateByUrl('/login')
-   }
+    if (this.currentUser != null) {
+      this.orderForm.value.house = {
+        id: this.houseFE.id
+      };
+      this.orderForm.value.user = {
+        id: this.currentUser.id
+      };
+      this.isCheckinAndCheckOutValidate(this.orderForm.value.checkIn, this.orderForm.value.checkOut);
+      const timeCheckin: Date = new Date(this.orderForm.value.checkIn);
+      const timeCheckout: Date = new Date(this.orderForm.value.checkOut);
+      if (timeCheckout.getTime() > timeCheckin.getTime()) {
+        if (this.ischeckOrder) {
+          this.orderService.createOrder(this.orderForm.value).subscribe(() => {
+            $(function() {
+              $('#create-order').modal('hide');
+              $('body').removeClass('modal-open');
+              $('.modal-backdrop').remove();
+            });
+            this.router.navigateByUrl('/orderDetail');
+            this.notificationService.showMessage('success', 'Book!', 'Đã gửi yêu cầu đặt homstay thành công, vui lòng chờ admin xác nhận');
+          }, error => this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi'));
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Book!!!',
+            text: 'Đặt lỗi do thời gian này đã có khách đặt! Từ: ngày ' + new Date(this.orderExists.checkIn).getUTCDate() + '/' + new Date(this.orderExists.checkIn).getUTCMonth()
+              + '/' + new Date(this.orderExists.checkIn).getFullYear() + 'đến ngày ' + new Date(this.orderExists.checkOut).getUTCDate()
+              + '/' + new Date(this.orderExists.checkOut).getUTCMonth() + '/' + new Date(this.orderExists.checkOut).getFullYear(),
+          });
+          this.ischeckOrder = true;
+          this.orderExists = {};
+        }
+      } else {
+        this.notificationService.showMessage('error', 'Book!', 'Đặt lỗi do thời gian đặt homestay chưa hợp lệ');
+      }
+    } else {
+      $(function() {
+        $('#create-order').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+      });
+      Swal.fire('Vui lòng đăng nhập trước khi đặt nhà!');
+      this.router.navigateByUrl('/login');
+    }
   }
 
 
@@ -295,7 +313,7 @@ export class ViewHouseComponent implements OnInit {
       formData.append('img', files[0]);
     }
     this.houseService.editImgHouse(formData).subscribe(() => {
-      $(function () {
+      $(function() {
         $('#edit-img').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
@@ -314,7 +332,7 @@ export class ViewHouseComponent implements OnInit {
     }
     console.log(imageForm);
     this.imageService.createImage(this.house_current_id, imageForm).subscribe(() => {
-        $(function () {
+        $(function() {
           $('#create-image').modal('hide');
           $('body').removeClass('modal-open');
           $('.modal-backdrop').remove();
@@ -325,8 +343,9 @@ export class ViewHouseComponent implements OnInit {
     );
   }
 
+
   submitCreateComment() {
-    if(this.currentUser != null) {
+    if (this.currentUser != null) {
       this.commentForm.value.user = {
         id: this.currentUser.id
       };
@@ -343,8 +362,8 @@ export class ViewHouseComponent implements OnInit {
         this.commentForm.reset();
       });
     } else {
-      Swal.fire('Vui lòng đăng nhập trước khi bình luận!')
-      this.router.navigateByUrl('/login')
+      Swal.fire('Vui lòng đăng nhập trước khi bình luận!');
+      this.router.navigateByUrl('/login');
     }
   }
 
@@ -361,7 +380,7 @@ export class ViewHouseComponent implements OnInit {
   }
 
   createRate(i: number) {
-    if (this.currentUser != null){
+    if (this.currentUser != null) {
       this.rate.house = this.houseFE;
       this.rate.user = this.currentUser.id;
       this.rate.star = i;
@@ -369,13 +388,13 @@ export class ViewHouseComponent implements OnInit {
           this.rateService.getRatesByHouseId(this.houseFE.id).subscribe(rateBE => {
             Swal.fire('Cảm ơn bạn đã đánh giá!');
             this.rates = rateBE.data;
-            this._rateChecked = this.rateService.checkRates(this.rates);
+            // this._rateChecked = this.rateService.checkRates(this.rates);
           });
         }
       );
     } else {
-      Swal.fire('Vui lòng đăng nhập để đánh giá!')
-      this.router.navigateByUrl('/login')
+      Swal.fire('Vui lòng đăng nhập để đánh giá!');
+      this.router.navigateByUrl('/login');
     }
   }
 
@@ -383,8 +402,38 @@ export class ViewHouseComponent implements OnInit {
     this.isShowListImagesForm = !this.isShowListImagesForm;
   }
 
-  getTotalRateByHouseId(houseId){
+  getTotalRateByHouseId(houseId) {
     houseId = this.houseFE.id;
     return this.rateService.getTotalRateByHouseId(houseId);
   }
+
+  isShowFormReply(index, idComment) {
+    $('#rep-form-' + index).toggle();
+    this.idComment = idComment;
+  }
+
+  submitCreateReply(id) {
+    this.replyForm.value.comment = {
+      id: id
+    };
+    this.replyForm.value.user = {
+      id: this.currentUser.id
+    };
+    this.replyForm.value.profile = {
+      id: this.profile.id
+    };
+
+    this.commentService.createReply(this.replyForm.value).subscribe(() => {
+      // alert('thành công');
+    }, error => {
+      // alert('thất bại');
+    });
+  }
+
+//   getAllReply() {
+//     this.commentService.getAllReplyByIdComment(this.idComment).subscribe(listReplyBE => {
+//       // this.replies = listReplyBE;
+//     })
+// >>>>>>> 0a65d9f48c38ab6337e1638d50617653b0a37253
+
 }
