@@ -16,12 +16,23 @@ declare var Swal: any;
 export class OrderDetailComponent implements OnInit {
   orders: any = [];
   currentUser: any = {};
-  currentTime: any= new Date().getTime()
+  currentTime: any = new Date();
 
   constructor(private orderService: OrderService,
               private notificationService: NotificationService,
               private router: Router) {
   }
+
+  checkTimeShowButtonCheckin(checkin, checkout, statusOrder) {
+    const checkInTime: Date = new Date(checkin);
+    const checkOutTime: Date = new Date(checkout);
+    if (this.currentTime.getTime() > checkInTime.getTime() && this.currentTime.getTime() < checkOutTime.getTime() && statusOrder == 2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
   getCurrentUser() {
     this.currentUser = localStorage.getItem('currentUser');
@@ -29,9 +40,6 @@ export class OrderDetailComponent implements OnInit {
     this.get5OrderByOrderIdRent();
   }
 
-  // getCurrentTime(){
-  // this.currentTime =
-  // }
 
   getCheckTimeCaceledOr(id, checkIn) {
     Swal.fire({
@@ -72,6 +80,7 @@ export class OrderDetailComponent implements OnInit {
 
   changeCheckinOrder(id) {
     this.orderService.changeCheckinOrder(id).subscribe(ordersBE => {
+      this.get5OrderByOrderIdRent();
     });
   }
 }

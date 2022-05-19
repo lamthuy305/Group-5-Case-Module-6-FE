@@ -72,7 +72,7 @@
   <div class="top-nav">
     <div class="container">
       <div class="row">
-        <div class="col-lg-7">
+        <div class="col-lg-10">
           <nav class="main-menu">
             <ul>
               <li>
@@ -82,24 +82,20 @@
                 </div>
               </li>
               <li class="active"><a routerLink="/home">Trang chủ</a></li>
-              <li class="active"><a routerLink="/houses">Homestay</a></li>
-              <li class="active"><a routerLink="/admin">Quản lý</a></li>
-              <li class="active"><a routerLink="/orderDetail">Lịch sử</a></li>
-
+              <li class="nav-item"><a routerLink="/houses">Homestay</a></li>
+              <li class="nav-item"><a routerLink="/admin">Quản lý</a></li>
+              <li class="nav-item"><a routerLink="/orderDetail">Lịch sử</a></li>
+              <li class="nav-item dropdown float-right">
+                <a routerLink="#" (click)="deleteAllNotificationDetailByIdUser()">
+                            <span class="badge badge-warning navbar-badge"
+                                  *ngIf="listNotificationDetail != 0"><i class="far fa-bell"></i>{{listNotificationDetail.length}}</span>
+                  <i class="far fa-bell"></i>
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
-        <div class="col-lg-1">
-          <li class="nav-item dropdown">
-            <a routerLink="#" (click)="deleteAllNotificationDetailByIdUser()">
-                            <span class="badge badge-warning navbar-badge"
-                                  *ngIf="listNotificationDetail != 0">{{listNotificationDetail.length}}</span>
-              <i class="far fa-bell" style="margin-left: 250px"></i>
-            </a>
-          </li>
-        </div>
-
-        <div class="col-lg-4">
+        <div class="col-lg-2">
           <div class="top-right">
             <div class="language-option" *ngIf="!currentUser">>
               <span>Tài khoản</span>

@@ -388,7 +388,6 @@ export class ViewHouseComponent implements OnInit {
           this.rateService.getRatesByHouseId(this.houseFE.id).subscribe(rateBE => {
             Swal.fire('Cảm ơn bạn đã đánh giá!');
             this.rates = rateBE.data;
-            // this._rateChecked = this.rateService.checkRates(this.rates);
           });
         }
       );
@@ -402,10 +401,6 @@ export class ViewHouseComponent implements OnInit {
     this.isShowListImagesForm = !this.isShowListImagesForm;
   }
 
-  getTotalRateByHouseId(houseId) {
-    houseId = this.houseFE.id;
-    return this.rateService.getTotalRateByHouseId(houseId);
-  }
 
   isShowFormReply(index, idComment) {
     $('#rep-form-' + index).toggle();
