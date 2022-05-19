@@ -29,6 +29,16 @@ export class UserManagementComponent implements OnInit {
   getAllUser() {
     this.userService.getAllUser().subscribe((listUserFromBE) => {
       this.users = listUserFromBE;
+      $(function() {
+        $('#user-list-table').DataTable({
+          'paging': true,
+          'lengthChange': false,
+          'searching': true,
+          'ordering': true,
+          'info': true,
+          'autoWidth': false,
+        });
+      });
     });
   }
 

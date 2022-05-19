@@ -103,6 +103,7 @@ export class HomeUserComponent implements OnInit {
   viewHouseById(id) {
     this.router.navigateByUrl('/view/' + id);
   }
+
   getRandom9House() {
     this.getAllTypes();
     this.houseService.getRandom9House().subscribe((housesRandomBE) => {
@@ -136,4 +137,5 @@ export class HomeUserComponent implements OnInit {
       this.showFormSearchDone = true;
     },);
   }
+
 }
